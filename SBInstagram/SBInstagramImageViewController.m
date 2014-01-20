@@ -35,13 +35,13 @@
 {
     [super viewDidLoad];
     
-    CGPoint center = self.imageView.center;
-    
     CGRect frame = self.imageView.frame;
     frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
     [self.imageView setFrame:frame];
     
-    [self.imageView setCenter:center];
+    [self.imageView setCenter:self.containerView.center];
+    
+    
     
     self.title = @"";
     
@@ -58,6 +58,10 @@
     }];
     
     self.captionLabel.text = self.entity.caption;
+    frame = self.captionLabel.frame;
+    frame.size.width = CGRectGetWidth([[UIScreen mainScreen] applicationFrame]);
+//    frame.origin.y = CGRectGetMaxY(self.imageView.frame);
+    self.captionLabel.frame = frame;
     
 }
 
