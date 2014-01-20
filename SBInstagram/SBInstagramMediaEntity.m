@@ -15,7 +15,7 @@
     
     SBInstagramMediaEntity *entity = [[SBInstagramMediaEntity alloc] init];
     entity.type = [dictionary[@"type"] isEqualToString:@"image"]? SBInstagramMediaTypeImage : SBInstagramMediaTypeVideo;
-    entity.caption = (dictionary[@"caption"])[@"text"];
+    entity.caption = (![dictionary[@"caption"] isKindOfClass:[NSNull class]])?(dictionary[@"caption"])[@"text"]:@"";
     entity.images = [SBInstagramMediaEntity imagesWithDictionary:dictionary[@"images"]];
     
     return entity;

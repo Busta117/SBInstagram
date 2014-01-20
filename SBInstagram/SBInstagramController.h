@@ -13,15 +13,15 @@
 
 static NSString *const INSTAGRAM_API_VERSION = @"1";
 //client information (from www.instagram.com/developer)
-static NSString *const INSTAGRAM_REDIRECT_URI = @"http://www.sushimarket.com.co";
-static NSString *const INSTAGRAM_CLIENT_SECRET = @"bce0d3a2c01c41aeb7ce4484b0e75a80";
-static NSString *const INSTAGRAM_CLIENT_ID  = @"16e009e361a64e5d8752d98c3fee8708";
+static NSString *const INSTAGRAM_REDIRECT_URI = @"http://www.santiago.bustamante.info";
+static NSString *const INSTAGRAM_CLIENT_SECRET = @"dd9f687e1ffb4ff48ebc77188a14d283";
+static NSString *const INSTAGRAM_CLIENT_ID  = @"436eb0b4692245c899091391eaa5cdf1";
 
 //if this value is empty or this token is expired or not valid, automatically request a new one. (if you set nil the app crash)
 //static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"";
-static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"295956532.16e009e.654a9915051c4ae89d8247bdd66b8f73";
+static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
 
-static NSString *const INSTAGRAM_USER_ID  = @"295956532"; //user id to requests
+static NSString *const INSTAGRAM_USER_ID  = @"6874212"; //user id to requests
 
 @interface SBInstagramController : NSObject
 

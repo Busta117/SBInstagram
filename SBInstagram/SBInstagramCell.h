@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PSTCollectionView.h"
 #import "SBInstagramMediaEntity.h"
 
-@interface SBInstagramCell : PSUICollectionViewCell
+@interface SBInstagramCell : UICollectionViewCell
 
 @property (assign, nonatomic) UILabel* label;
 @property (assign, nonatomic) UIButton *imageButton;

@@ -9,6 +9,8 @@
 #import "SBInstagramWebViewController.h"
 #import "SBInstagramController.h"
 
+#define SB_SYSTEM_VERSION_GREATER_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
+
 @interface SBInstagramWebViewController ()
 
 @end
@@ -46,6 +48,13 @@
             [((UIScrollView *)obj) setBounces:NO];
         }
     }];
+    
+    if ([UIApplication sharedApplication].statusBarStyle == UIStatusBarStyleDefault && ![UIApplication sharedApplication].statusBarHidden && SB_SYSTEM_VERSION_GREATER_THAN(@"6.9")) {
+        CGRect frame = self.webView.frame;
+        frame.origin.y += 20;
+        self.webView.frame = frame;
+    }
+    
     
 }
 

@@ -39,19 +39,6 @@
 		5216678C183B053700AE2CAF /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166781183B053700AE2CAF /* AFURLConnectionOperation.m */; };
 		5216678D183B053700AE2CAF /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166783183B053700AE2CAF /* AFXMLRequestOperation.m */; };
 		5216678E183B053700AE2CAF /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166785183B053700AE2CAF /* UIImageView+AFNetworking.m */; };
-		521667AC183B055700AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166791183B055600AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.m */; };
-		521667AD183B055700AE2CAF /* PSTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166793183B055600AE2CAF /* PSTCollectionView.m */; };
-		521667AE183B055700AE2CAF /* PSTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166795183B055600AE2CAF /* PSTCollectionViewCell.m */; };
-		521667AF183B055700AE2CAF /* PSTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52166798183B055600AE2CAF /* PSTCollectionViewController.m */; };
-		521667B0183B055700AE2CAF /* PSTCollectionViewData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5216679A183B055700AE2CAF /* PSTCollectionViewData.m */; };
-		521667B1183B055700AE2CAF /* PSTCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5216679C183B055700AE2CAF /* PSTCollectionViewFlowLayout.m */; };
-		521667B2183B055700AE2CAF /* PSTCollectionViewItemKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 5216679E183B055700AE2CAF /* PSTCollectionViewItemKey.m */; };
-		521667B3183B055700AE2CAF /* PSTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667A1183B055700AE2CAF /* PSTCollectionViewLayout.m */; };
-		521667B4183B055700AE2CAF /* PSTCollectionViewUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667A3183B055700AE2CAF /* PSTCollectionViewUpdateItem.m */; };
-		521667B5183B055700AE2CAF /* PSTGridLayoutInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667A5183B055700AE2CAF /* PSTGridLayoutInfo.m */; };
-		521667B6183B055700AE2CAF /* PSTGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667A7183B055700AE2CAF /* PSTGridLayoutItem.m */; };
-		521667B7183B055700AE2CAF /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667A9183B055700AE2CAF /* PSTGridLayoutRow.m */; };
-		521667B8183B055700AE2CAF /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 521667AB183B055700AE2CAF /* PSTGridLayoutSection.m */; };
 		521667BA183B05AD00AE2CAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */; };
 		521667BC183B05B400AE2CAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667BB183B05B400AE2CAF /* MobileCoreServices.framework */; };
 		521667BE183B086F00AE2CAF /* InstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 521667BD183B086F00AE2CAF /* InstagramLoading.png */; };
@@ -123,34 +110,6 @@
 		52166783183B053700AE2CAF /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		52166784183B053700AE2CAF /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		52166785183B053700AE2CAF /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		52166790183B055600AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+PSTCollectionViewAdditions.h"; sourceTree = "<group>"; };
-		52166791183B055600AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+PSTCollectionViewAdditions.m"; sourceTree = "<group>"; };
-		52166792183B055600AE2CAF /* PSTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionView.h; sourceTree = "<group>"; };
-		52166793183B055600AE2CAF /* PSTCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionView.m; sourceTree = "<group>"; };
-		52166794183B055600AE2CAF /* PSTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCell.h; sourceTree = "<group>"; };
-		52166795183B055600AE2CAF /* PSTCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewCell.m; sourceTree = "<group>"; };
-		52166796183B055600AE2CAF /* PSTCollectionViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCommon.h; sourceTree = "<group>"; };
-		52166797183B055600AE2CAF /* PSTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewController.h; sourceTree = "<group>"; };
-		52166798183B055600AE2CAF /* PSTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewController.m; sourceTree = "<group>"; };
-		52166799183B055700AE2CAF /* PSTCollectionViewData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewData.h; sourceTree = "<group>"; };
-		5216679A183B055700AE2CAF /* PSTCollectionViewData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewData.m; sourceTree = "<group>"; };
-		5216679B183B055700AE2CAF /* PSTCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		5216679C183B055700AE2CAF /* PSTCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		5216679D183B055700AE2CAF /* PSTCollectionViewItemKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewItemKey.h; sourceTree = "<group>"; };
-		5216679E183B055700AE2CAF /* PSTCollectionViewItemKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewItemKey.m; sourceTree = "<group>"; };
-		5216679F183B055700AE2CAF /* PSTCollectionViewLayout+Internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSTCollectionViewLayout+Internals.h"; sourceTree = "<group>"; };
-		521667A0183B055700AE2CAF /* PSTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewLayout.h; sourceTree = "<group>"; };
-		521667A1183B055700AE2CAF /* PSTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewLayout.m; sourceTree = "<group>"; };
-		521667A2183B055700AE2CAF /* PSTCollectionViewUpdateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewUpdateItem.h; sourceTree = "<group>"; };
-		521667A3183B055700AE2CAF /* PSTCollectionViewUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewUpdateItem.m; sourceTree = "<group>"; };
-		521667A4183B055700AE2CAF /* PSTGridLayoutInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutInfo.h; sourceTree = "<group>"; };
-		521667A5183B055700AE2CAF /* PSTGridLayoutInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutInfo.m; sourceTree = "<group>"; };
-		521667A6183B055700AE2CAF /* PSTGridLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutItem.h; sourceTree = "<group>"; };
-		521667A7183B055700AE2CAF /* PSTGridLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutItem.m; sourceTree = "<group>"; };
-		521667A8183B055700AE2CAF /* PSTGridLayoutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutRow.h; sourceTree = "<group>"; };
-		521667A9183B055700AE2CAF /* PSTGridLayoutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutRow.m; sourceTree = "<group>"; };
-		521667AA183B055700AE2CAF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
-		521667AB183B055700AE2CAF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		521667BB183B05B400AE2CAF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		521667BD183B086F00AE2CAF /* InstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstagramLoading.png; sourceTree = "<group>"; };
@@ -185,7 +144,6 @@
 		52166711183B045700AE2CAF = {
 			isa = PBXGroup;
 			children = (
-				5216678F183B055600AE2CAF /* PSTCollectionView */,
 				52166772183B053700AE2CAF /* AFNetworking */,
 				52166755183B048A00AE2CAF /* SBInstagram */,
 				52166723183B045700AE2CAF /* SBInstagramExample */,
@@ -313,42 +271,6 @@
 			path = ../AFNetworking;
 			sourceTree = "<group>";
 		};
-		5216678F183B055600AE2CAF /* PSTCollectionView */ = {
-			isa = PBXGroup;
-			children = (
-				52166790183B055600AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.h */,
-				52166791183B055600AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.m */,
-				52166792183B055600AE2CAF /* PSTCollectionView.h */,
-				52166793183B055600AE2CAF /* PSTCollectionView.m */,
-				52166794183B055600AE2CAF /* PSTCollectionViewCell.h */,
-				52166795183B055600AE2CAF /* PSTCollectionViewCell.m */,
-				52166796183B055600AE2CAF /* PSTCollectionViewCommon.h */,
-				52166797183B055600AE2CAF /* PSTCollectionViewController.h */,
-				52166798183B055600AE2CAF /* PSTCollectionViewController.m */,
-				52166799183B055700AE2CAF /* PSTCollectionViewData.h */,
-				5216679A183B055700AE2CAF /* PSTCollectionViewData.m */,
-				5216679B183B055700AE2CAF /* PSTCollectionViewFlowLayout.h */,
-				5216679C183B055700AE2CAF /* PSTCollectionViewFlowLayout.m */,
-				5216679D183B055700AE2CAF /* PSTCollectionViewItemKey.h */,
-				5216679E183B055700AE2CAF /* PSTCollectionViewItemKey.m */,
-				5216679F183B055700AE2CAF /* PSTCollectionViewLayout+Internals.h */,
-				521667A0183B055700AE2CAF /* PSTCollectionViewLayout.h */,
-				521667A1183B055700AE2CAF /* PSTCollectionViewLayout.m */,
-				521667A2183B055700AE2CAF /* PSTCollectionViewUpdateItem.h */,
-				521667A3183B055700AE2CAF /* PSTCollectionViewUpdateItem.m */,
-				521667A4183B055700AE2CAF /* PSTGridLayoutInfo.h */,
-				521667A5183B055700AE2CAF /* PSTGridLayoutInfo.m */,
-				521667A6183B055700AE2CAF /* PSTGridLayoutItem.h */,
-				521667A7183B055700AE2CAF /* PSTGridLayoutItem.m */,
-				521667A8183B055700AE2CAF /* PSTGridLayoutRow.h */,
-				521667A9183B055700AE2CAF /* PSTGridLayoutRow.m */,
-				521667AA183B055700AE2CAF /* PSTGridLayoutSection.h */,
-				521667AB183B055700AE2CAF /* PSTGridLayoutSection.m */,
-			);
-			name = PSTCollectionView;
-			path = ../PSTCollectionView;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -449,39 +371,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				521667B7183B055700AE2CAF /* PSTGridLayoutRow.m in Sources */,
 				52166788183B053700AE2CAF /* AFImageRequestOperation.m in Sources */,
 				52166787183B053700AE2CAF /* AFHTTPRequestOperation.m in Sources */,
 				5216676C183B048A00AE2CAF /* SBInstagramImageViewController.m in Sources */,
-				521667B2183B055700AE2CAF /* PSTCollectionViewItemKey.m in Sources */,
-				521667B3183B055700AE2CAF /* PSTCollectionViewLayout.m in Sources */,
-				521667B0183B055700AE2CAF /* PSTCollectionViewData.m in Sources */,
 				5216676B183B048A00AE2CAF /* SBInstagramHTTPClient.m in Sources */,
 				5216678C183B053700AE2CAF /* AFURLConnectionOperation.m in Sources */,
 				5216678A183B053700AE2CAF /* AFNetworkActivityIndicatorManager.m in Sources */,
-				521667B5183B055700AE2CAF /* PSTGridLayoutInfo.m in Sources */,
-				521667AD183B055700AE2CAF /* PSTCollectionView.m in Sources */,
 				5216672A183B045700AE2CAF /* main.m in Sources */,
 				5216676A183B048A00AE2CAF /* SBInstagramController.m in Sources */,
 				5216678B183B053700AE2CAF /* AFPropertyListRequestOperation.m in Sources */,
-				521667AF183B055700AE2CAF /* PSTCollectionViewController.m in Sources */,
-				521667B8183B055700AE2CAF /* PSTGridLayoutSection.m in Sources */,
-				521667B6183B055700AE2CAF /* PSTGridLayoutItem.m in Sources */,
 				5216676E183B048A00AE2CAF /* SBInstagramMediaEntity.m in Sources */,
 				5216678D183B053700AE2CAF /* AFXMLRequestOperation.m in Sources */,
 				5216678E183B053700AE2CAF /* UIImageView+AFNetworking.m in Sources */,
 				52166770183B048A00AE2CAF /* SBInstagramWebViewController.m in Sources */,
 				52166789183B053700AE2CAF /* AFJSONRequestOperation.m in Sources */,
 				52166737183B045700AE2CAF /* SBViewController.m in Sources */,
-				521667B1183B055700AE2CAF /* PSTCollectionViewFlowLayout.m in Sources */,
 				5216672E183B045700AE2CAF /* SBAppDelegate.m in Sources */,
 				52166768183B048A00AE2CAF /* SBInstagramCell.m in Sources */,
-				521667AE183B055700AE2CAF /* PSTCollectionViewCell.m in Sources */,
 				52166769183B048A00AE2CAF /* SBInstagramCollectionViewController.m in Sources */,
-				521667B4183B055700AE2CAF /* PSTCollectionViewUpdateItem.m in Sources */,
 				5216676F183B048A00AE2CAF /* SBInstagramModel.m in Sources */,
 				52166786183B053700AE2CAF /* AFHTTPClient.m in Sources */,
-				521667AC183B055700AE2CAF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,6 +593,7 @@
 				52166751183B045700AE2CAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		52166752183B045700AE2CAF /* Build configuration list for PBXNativeTarget "SBInstagramExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -692,6 +602,7 @@
 				52166754183B045700AE2CAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -19,7 +19,7 @@
     
     
     //here create the instagram view
-    SBInstagramCollectionViewController *instagram = [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout:[PSUICollectionViewFlowLayout new]];
+    SBInstagramCollectionViewController *instagram = [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
    
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];

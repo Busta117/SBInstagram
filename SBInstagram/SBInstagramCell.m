@@ -46,9 +46,7 @@
         viewCon = (UIViewController *)viewCon.nextResponder;
     }
     
-    SBInstagramImageEntity *imgEntity = self.entity.mediaEntity.images[@"standard_resolution"];
-    
-    SBInstagramImageViewController *img = [SBInstagramImageViewController imageViewerWithEntity:imgEntity];
+    SBInstagramImageViewController *img = [SBInstagramImageViewController imageViewerWithEntity:self.entity.mediaEntity];
     
     [((UINavigationController *)viewCon) pushViewController:img animated:YES];
     

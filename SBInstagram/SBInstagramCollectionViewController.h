@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PSTCollectionView.h"
 #import "SBInstagramCell.h"
 
-#define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define SB_IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 
-@interface SBInstagramCollectionViewController : PSUICollectionViewController
+@interface SBInstagramCollectionViewController : UICollectionViewController
 
 @end

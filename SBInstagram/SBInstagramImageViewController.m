@@ -16,7 +16,7 @@
 @implementation SBInstagramImageViewController
 
 
-+ (id) imageViewerWithEntity:(SBInstagramImageEntity *)entity{
++ (id) imageViewerWithEntity:(SBInstagramMediaEntity *)entity{
     SBInstagramImageViewController *instance = [[SBInstagramImageViewController alloc] initWithNibName:@"SBInstagramImageViewController" bundle:nil];
     instance.entity = entity;
     return instance;
@@ -43,16 +43,30 @@
     
     [self.imageView setCenter:center];
     
-    
-    
     self.title = @"";
     
-    [SBInstagramModel downloadImageWithUrl:self.entity.url andBlock:^(UIImage *image, NSError *error) {
+    SBInstagramImageEntity *picEntity = self.entity.images[@"standard_resolution"];
+    
+    [SBInstagramModel downloadImageWithUrl:picEntity.url andBlock:^(UIImage *image, NSError *error) {
+        [self.activityIndicator stopAnimating];
         if (image && !error) {
             [self.imageView setImage:image];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something is wrong" message:@"Please check your Internet connection and try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
         }
     }];
+    
+    self.captionLabel.text = self.entity.caption;
+    
 }
+
+
+#pragma mark - alert view delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

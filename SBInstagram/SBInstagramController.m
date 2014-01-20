@@ -51,6 +51,7 @@
         NSString *urlString = [NSString stringWithFormat:@"https://instagram.com/oauth/authorize/?client_id=%@&redirect_uri=%@&response_type=token",INSTAGRAM_CLIENT_ID,INSTAGRAM_REDIRECT_URI];
         
         SBInstagramWebViewController *viewCon = [SBInstagramWebViewController webViewWithUrl:urlString andSuccessBlock:^(NSString *token, UIViewController *viewController) {
+            NSLog(@"your new access token is: %@",token);
              NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
              [def setObject:token forKey:@"instagram_access_token"];
              [def synchronize];
