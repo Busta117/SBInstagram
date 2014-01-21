@@ -36,10 +36,15 @@
     [super viewDidLoad];
     
     CGRect frame = self.imageView.frame;
+    frame.origin = CGPointZero;
     frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
     [self.imageView setFrame:frame];
     
-    [self.imageView setCenter:self.containerView.center];
+    frame = self.containerView.frame;
+    frame.size.height = CGRectGetHeight(self.imageView.frame) + CGRectGetHeight(self.captionLabel.frame);
+    self.containerView.frame = frame;
+    self.containerView.center = self.view.center;
+//    [self.imageView setCenter:self.containerView.center];
     
     
     
@@ -60,8 +65,10 @@
     self.captionLabel.text = self.entity.caption;
     frame = self.captionLabel.frame;
     frame.size.width = CGRectGetWidth([[UIScreen mainScreen] applicationFrame]);
-//    frame.origin.y = CGRectGetMaxY(self.imageView.frame);
+    frame.origin.y = CGRectGetMaxY(self.imageView.frame);
     self.captionLabel.frame = frame;
+    
+    self.activityIndicator.center = self.imageView.center;
     
 }
 
