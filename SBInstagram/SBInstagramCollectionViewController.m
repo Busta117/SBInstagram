@@ -40,10 +40,9 @@
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     
 
-    
-    
-    
     self.instagramController = [SBInstagramController instagramControllerWithMainViewController:self];
+    self.instagramController.isSearchByTag = self.isSearchByTag;
+    self.instagramController.searchTag = self.searchTag;
     [self downloadNext];
     
 }
@@ -57,12 +56,18 @@
     self.downloading = YES;
     if ([self.mediaArray count] == 0) {
         [self.instagramController mediaUserWithUserId:INSTAGRAM_USER_ID andBlock:^(NSArray *mediaArray, NSError *error) {
-            [self.mediaArray addObjectsFromArray:mediaArray];
-            [self.collectionView reloadData];
+            if (error || mediaArray.count == 0) {
+                SB_showAlert(@"Instagram", @"No results found", @"OK");
+                [self.activityIndicator stopAnimating];
+            }else{
+                [self.mediaArray addObjectsFromArray:mediaArray];
+                [self.collectionView reloadData];
+            }
             self.downloading = NO;
+            
         }];
     }else{
-        [self.instagramController mediaUserWithPagingWntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
+        [self.instagramController mediaUserWithPagingEntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
             
             NSUInteger a = [self.mediaArray count];
             [self.mediaArray addObjectsFromArray:mediaArray];

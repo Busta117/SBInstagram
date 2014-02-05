@@ -8,6 +8,7 @@
 
 #import "SBAppDelegate.h"
 #import "SBInstagramCollectionViewController.h"
+#import "SBInstagramController.h"
 
 @implementation SBAppDelegate
 
@@ -17,13 +18,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     
-    
     //here create the instagram view
-    SBInstagramCollectionViewController *instagram = [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
-   
+    SBInstagramCollectionViewController *instagram = [SBInstagramController instagramViewController];
+    
+    //both are optional, but if you need search by tag you need set both
+    instagram.isSearchByTag = YES; //if you want serach by tag
+    instagram.searchTag = @"colombia"; //search by tag query
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
-    
     
     
     self.window.rootViewController = navCon;

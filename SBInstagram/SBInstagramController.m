@@ -9,8 +9,15 @@
 #import "SBInstagramController.h"
 #import "SBInstagramModel.h"
 #import "SBInstagramWebViewController.h"
+#import "SBInstagramCollectionViewController.h"
 
 @implementation SBInstagramController
+
++ (SBInstagramCollectionViewController *) instagramViewController{
+    SBInstagramCollectionViewController *instagram = [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout:[UICollectionViewFlowLayout new]];
+    return instagram;
+}
+
 
 + (id) instagramControllerWithMainViewController:(UIViewController *) viewController {
     SBInstagramController *instance = [[SBInstagramController alloc] init];
@@ -19,6 +26,15 @@
 }
 
 
+- (void) setIsSearchByTag:(BOOL)isSearchByTag{
+    _isSearchByTag = isSearchByTag;
+    SBInstagramModel.isSearchByTag = isSearchByTag;
+}
+
+- (void) setSearchTag:(NSString *)searchTag{
+    _searchTag = searchTag;
+    SBInstagramModel.searchTag = searchTag;
+}
 
 - (NSString *) AccessToken{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -78,11 +94,11 @@
     
 }
 
-- (void) mediaUserWithPagingWntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
+- (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
     
     [self validateTokenWithBlock:^(NSError *error) {
         if (!error) {
-            [SBInstagramModel mediaUserWithPagingWntity:entity andBlock:block];
+            [SBInstagramModel mediaUserWithPagingEntity:entity andBlock:block];
         }
     }];
     
