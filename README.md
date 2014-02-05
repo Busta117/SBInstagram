@@ -47,6 +47,6 @@ Change Log
 
 
 **v1.0**
-- firts version
+- first version
 
 
