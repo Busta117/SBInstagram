@@ -13,7 +13,7 @@
 
 static NSString *const INSTAGRAM_API_VERSION = @"1";
 //client information (from www.instagram.com/developer)
-static NSString *const INSTAGRAM_REDIRECT_URI = @"http://www.santiago.bustamante.info";
+static NSString *const INSTAGRAM_REDIRECT_URI = @"http://www.santiagobustamante.info";
 static NSString *const INSTAGRAM_CLIENT_SECRET = @"dd9f687e1ffb4ff48ebc77188a14d283";
 static NSString *const INSTAGRAM_CLIENT_ID  = @"436eb0b4692245c899091391eaa5cdf1";
 
