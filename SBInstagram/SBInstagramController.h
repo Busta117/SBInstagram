@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class SBInstagramMediaPagingEntity;
+@class SBInstagramCollectionViewController;
 
 #warning setup your application information here
 
@@ -23,14 +24,19 @@ static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"6874212.436eb0b.9768f
 
 static NSString *const INSTAGRAM_USER_ID  = @"6874212"; //user id to requests
 
+
+
 @interface SBInstagramController : NSObject
 
 @property (nonatomic, assign) UIViewController *viewController;
+@property (nonatomic, assign) BOOL isSearchByTag;
+@property (nonatomic, strong) NSString *searchTag;
 
-- (NSString *) AccessToken;
++ (SBInstagramCollectionViewController *) instagramViewController;
 + (id) instagramControllerWithMainViewController:(UIViewController *) viewController;
+- (NSString *) AccessToken;
 - (void) mediaUserWithUserId:(NSString *)userId andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
-- (void) mediaUserWithPagingWntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
+- (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 
 
 @end

@@ -13,6 +13,28 @@
 @implementation SBInstagramModel
 
 
++ (void) setIsSearchByTag:(BOOL) isSearchByTag{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setBool:isSearchByTag forKey:@"instagram_isSearchByTag"];
+    [def synchronize];
+}
+
++ (BOOL) isSearchByTag{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def boolForKey:@"instagram_isSearchByTag"];
+}
+
++ (void) setSearchTag:(NSString *)searchTag{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:searchTag forKey:@"instagram_searchTag"];
+    [def synchronize];
+}
+
++ (NSString *)searchTag{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_searchTag"];
+}
+
 + (void) checkInstagramAccesTokenWithBlock:(void (^)(NSError * error))block{
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -27,7 +49,7 @@
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
     
-    [[SBInstagramHTTPClient sharedClient] getPath:[NSString stringWithFormat:@"users/%@",INSTAGRAM_USER_ID] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SBInstagramHTTPClient sharedClient] getPath:[NSString stringWithFormat:@"users/%@",INSTAGRAM_USER_ID?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block){
             block(nil);
         }
@@ -49,7 +71,11 @@
     [params setObject:token forKey:@"access_token"];
     [params setObject:@"33" forKey:@"count"];
     
-    NSString *path = [NSString stringWithFormat:@"users/%@/media/recent",userId];
+    NSString *path = [NSString stringWithFormat:@"users/%@/media/recent",userId?:@""];
+    
+    if (SBInstagramModel.isSearchByTag && [SBInstagramModel searchTag].length > 0) {
+        path = [NSString stringWithFormat:@"tags/%@/media/recent",[SBInstagramModel searchTag]];
+    }
     
     
     [[SBInstagramHTTPClient sharedClient] getPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -76,7 +102,7 @@
 
 }
 
-+ (void) mediaUserWithPagingWntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
++ (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
 
     
     NSString *path = [entity.nextUrl stringByReplacingOccurrencesOfString:[[SBInstagramHTTPClient sharedClient].baseURL absoluteString] withString:@""];
