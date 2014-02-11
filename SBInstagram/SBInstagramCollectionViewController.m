@@ -22,6 +22,10 @@
 
 @implementation SBInstagramCollectionViewController
 
+-(NSString *)version{
+    return @"1.3";
+}
+
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
     if ((self = [super initWithCollectionViewLayout:layout])) {
         self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -46,6 +50,7 @@
     [self downloadNext];
     
 }
+
 
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
@@ -98,6 +103,18 @@
 }
 
 
+- (void) setShowOnePicturePerRow:(BOOL)showOnePicturePerRow{
+    BOOL reload = NO;
+    if (_showOnePicturePerRow != showOnePicturePerRow) {
+        reload = YES;
+    }
+    _showOnePicturePerRow = showOnePicturePerRow;
+    if (reload) {
+        [self.collectionView reloadData];
+    }
+    
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - UICollectionViewDataSource
 
@@ -116,7 +133,9 @@
     if ([self.mediaArray count]>0) {
         SBInstagramMediaPagingEntity *entity = [self.mediaArray objectAtIndex:indexPath.row];
         cell.indexPath = indexPath;
+        cell.showOnePicturePerRow = self.showOnePicturePerRow;
         [cell setEntity:entity andIndexPath:indexPath];
+
     }
 
     if (indexPath.row == [self.mediaArray count]-1 && !self.downloading) {
@@ -158,18 +177,31 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (SB_IS_IPAD) {
-        return CGSizeMake(200, 200);
+    
+    if (self.showOnePicturePerRow) {
+        if (SB_IS_IPAD) {
+            return CGSizeMake(600, 680);
+        }
+        return CGSizeMake(320, 400);
+    }else{
+        if (SB_IS_IPAD) {
+            return CGSizeMake(200, 200);
+        }
+        return CGSizeMake(100, 100);
     }
-    return CGSizeMake(100, 100);
-
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    if (self.showOnePicturePerRow) {
+        return 0;
+    }
     return 10* (SB_IS_IPAD?2:1);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    if (self.showOnePicturePerRow) {
+        return 0;
+    }
     return 10 * (SB_IS_IPAD?2:1);
 }
 

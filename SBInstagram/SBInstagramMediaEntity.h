@@ -18,6 +18,8 @@ enum SBInstagramMediaType {
 @property (nonatomic, assign) enum SBInstagramMediaType type;
 @property (nonatomic, strong) NSMutableDictionary *images;
 @property (nonatomic, strong) NSString *caption;
+@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *profilePicture;
 
 + (id) entityWithDictionary:(NSDictionary *)dictionary;
 

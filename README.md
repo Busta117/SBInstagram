@@ -1,4 +1,4 @@
-SBInstagram v1.2
+SBInstagram v1.3
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -16,10 +16,14 @@ to initialize add the following code.
 
 	//init view controller
 	SBInstagramCollectionViewController *instagram = [SBInstagramController instagramViewController];
+	
+	NSLog(@"framework version: %@",instagram.version);
     
     //both are optional, but if you need search by tag you need set both
     instagram.isSearchByTag = YES; //if you want serach by tag
     instagram.searchTag = @"colombia"; //search by tag query
+    
+    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
 	//push instagram view controller into navigation
 	[self.navigationController pushViewController:instagram animated:YES];
@@ -34,6 +38,8 @@ this is a Xcode 5 project
 
 Change Log
 ===========
+**v1.3**
+- add new way to show the feed, one picture per row
 
 **v1.2**
 - add support for search by tag

@@ -17,9 +17,12 @@
 
 @interface SBInstagramCollectionViewController : UICollectionViewController
 
+@property (nonatomic, readonly) NSString *version;
 
 @property (nonatomic, assign) BOOL isSearchByTag;
 @property (nonatomic, strong) NSString *searchTag;
+
+@property (nonatomic, assign) BOOL showOnePicturePerRow;
 
 
 

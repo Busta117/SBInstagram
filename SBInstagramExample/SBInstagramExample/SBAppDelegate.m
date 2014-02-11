@@ -21,12 +21,16 @@
     //here create the instagram view
     SBInstagramCollectionViewController *instagram = [SBInstagramController instagramViewController];
     
+    NSLog(@"framework version: %@",instagram.version);
+    
     //both are optional, but if you need search by tag you need set both
     instagram.isSearchByTag = YES; //if you want serach by tag
     instagram.searchTag = @"colombia"; //search by tag query
     
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
+    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
+    
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
     
     self.window.rootViewController = navCon;
     

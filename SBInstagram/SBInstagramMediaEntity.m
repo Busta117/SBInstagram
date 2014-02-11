@@ -17,6 +17,9 @@
     entity.type = [dictionary[@"type"] isEqualToString:@"image"]? SBInstagramMediaTypeImage : SBInstagramMediaTypeVideo;
     entity.caption = (![dictionary[@"caption"] isKindOfClass:[NSNull class]])?(dictionary[@"caption"])[@"text"]:@"";
     entity.images = [SBInstagramMediaEntity imagesWithDictionary:dictionary[@"images"]];
+    entity.userName = dictionary[@"user"][@"username"];
+    entity.profilePicture = dictionary[@"user"][@"profile_picture"];
+
     
     return entity;
 }
@@ -29,6 +32,7 @@
     [retVal setObject:[SBInstagramImageEntity entityWithDictionary:dictionary[@"thumbnail"]] forKey:@"thumbnail"];
     return retVal;
 }
+
 
 @end
 
