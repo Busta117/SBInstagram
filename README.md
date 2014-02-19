@@ -41,9 +41,9 @@ this is a Xcode 5 project
 
 Change Log
 ===========
-**v1.3**
-- upgrade AFNetworking, now use **AFNetworking v2.x**
-- username and user picture in the picture detail
+**v1.4**
+- upgrade AFNetworking framework, now use **AFNetworking v2.x**
+- username and user picture in the image detail view
 
 **v1.3**
 - add new way to show the feed, one picture per row
