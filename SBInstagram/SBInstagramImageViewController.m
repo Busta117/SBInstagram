@@ -70,6 +70,30 @@
     
     self.activityIndicator.center = self.imageView.center;
     
+    
+    self.userLabel = [[UILabel alloc] init];
+    self.userLabel.frame = CGRectMake(CGRectGetMinX(self.imageView.frame) + 55, CGRectGetMinY(self.imageView.frame) - 45, CGRectGetWidth(self.imageView.frame) - 65, 35);
+    self.userLabel.textColor = [UIColor blackColor];
+    self.userLabel.font = [self.userLabel.font fontWithSize:12];
+    
+    self.userImage = [[UIImageView alloc] init];
+    self.userImage.frame = CGRectMake(CGRectGetMinX(self.imageView.frame) + 10, CGRectGetMinY(self.imageView.frame) - 45, 35, 35);
+    self.userImage.contentMode = UIViewContentModeScaleAspectFit;
+    self.userImage.layer.masksToBounds = YES;
+    self.userImage.layer.cornerRadius = 17.5;
+    
+    self.userLabel.text = self.entity.userName;
+    [self.imageView.superview addSubview:self.userLabel];
+    
+    [self.userImage setImage:[UIImage imageNamed:@"InstagramLoading.png"]];
+    [self.imageView.superview addSubview:self.userImage];
+    
+    [SBInstagramModel downloadImageWithUrl:self.entity.profilePicture andBlock:^(UIImage *image2, NSError *error) {
+        if (image2 && !error) {
+            [self.userImage setImage:image2];
+        }
+    }];
+    
 }
 
 

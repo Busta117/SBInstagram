@@ -14,8 +14,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (assign, nonatomic) SBInstagramMediaEntity* entity;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+
+@property (assign, nonatomic) SBInstagramMediaEntity* entity;
+@property (strong, nonatomic) UILabel *userLabel;
+@property (strong, nonatomic) UIImageView *userImage;
 
 + (id) imageViewerWithEntity:(SBInstagramMediaEntity *)entity;
 

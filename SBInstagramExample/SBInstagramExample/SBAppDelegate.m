@@ -27,7 +27,7 @@
     instagram.isSearchByTag = YES; //if you want serach by tag
     instagram.searchTag = @"colombia"; //search by tag query
     
-    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
+//    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];

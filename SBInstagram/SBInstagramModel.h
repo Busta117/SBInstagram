@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SBInstagramHTTPClient.h"
+#import "SBInstagramHTTPRequestOperationManager.h"
 #import "SBInstagramMediaEntity.h"
 
 #define InstagramAccessTokenErrorCode -1011

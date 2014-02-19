@@ -1,7 +1,10 @@
-SBInstagram v1.3
+SBInstagram v1.4
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
+
+if you need this working with AFNetworking v1.x use [version 1.3](https://github.com/Busta117/SBInstagram/releases/tag/v1.3)
+
 
 **if you don't setup an access token or the existing one expire, this framework request a new one with the login view.**
 
@@ -31,13 +34,17 @@ to initialize add the following code.
 
 
 ===========  
-this framework needs the **AFNetworking v1.x** to support iOS 6  
+this framework needs the **AFNetworking v2.x**
 this framework support **iOS 6 and above**   
 this is a Xcode 5 project
 
 
 Change Log
 ===========
+**v1.3**
+- upgrade AFNetworking, now use **AFNetworking v2.x**
+- username and user picture in the picture detail
+
 **v1.3**
 - add new way to show the feed, one picture per row
 

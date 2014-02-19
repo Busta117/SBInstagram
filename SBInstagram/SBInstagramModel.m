@@ -49,11 +49,10 @@
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
     
-    [[SBInstagramHTTPClient sharedClient] getPath:[NSString stringWithFormat:@"users/%@",INSTAGRAM_USER_ID?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@",INSTAGRAM_USER_ID?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block){
             block(nil);
         }
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block){
             block(error);
@@ -77,9 +76,7 @@
         path = [NSString stringWithFormat:@"tags/%@/media/recent",[SBInstagramModel searchTag]];
     }
     
-    
-    [[SBInstagramHTTPClient sharedClient] getPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *mediaArr = responseObject[@"data"];
         NSDictionary *paging = responseObject[@"pagination"];
         
@@ -92,23 +89,20 @@
         if (block) {
             block(mediaArrEntities,nil);
         }
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (block){
             block(nil, error);
         }
     }];
-
 }
 
 + (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
 
     
-    NSString *path = [entity.nextUrl stringByReplacingOccurrencesOfString:[[SBInstagramHTTPClient sharedClient].baseURL absoluteString] withString:@""];
+    NSString *path = [entity.nextUrl stringByReplacingOccurrencesOfString:[[SBInstagramHTTPRequestOperationManager sharedManager].baseURL absoluteString] withString:@""];
     
     
-    [[SBInstagramHTTPClient sharedClient] getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSArray *mediaArr = responseObject[@"data"];
         NSDictionary *paging = responseObject[@"pagination"];
@@ -135,18 +129,33 @@
 
 
 + (void) downloadImageWithUrl:(NSString *)url andBlock:(void (^)(UIImage *image, NSError * error))block{
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
-    [[AFImageRequestOperation imageRequestOperationWithRequest:request imageProcessingBlock:^UIImage *(UIImage *image) {
-        return image;
-    } success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        block(image,nil);
+        NSError *error = nil;
+        if (responseObject) {
+            if (block) {
+                block(responseObject, error);
+            }
+        }
         
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-        block(nil,error);
-    }] start];
-
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil, error);
+        }
+    }];
+    
+    [operation start];
+    
+    
+    
+    
+    
+    
+    
 }
 
 
