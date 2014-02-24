@@ -101,6 +101,10 @@
     
     NSString *path = [entity.nextUrl stringByReplacingOccurrencesOfString:[[SBInstagramHTTPRequestOperationManager sharedManager].baseURL absoluteString] withString:@""];
     
+    if (!path) {
+        block(@[],nil);
+        return;
+    }
     
     [[SBInstagramHTTPRequestOperationManager sharedManager] GET:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
