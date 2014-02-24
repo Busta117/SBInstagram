@@ -25,7 +25,10 @@
     
     //both are optional, but if you need search by tag you need set both
     instagram.isSearchByTag = YES; //if you want serach by tag
-    instagram.searchTag = @"colombia"; //search by tag query
+    instagram.searchTag = @"pool"; //search by tag query
+    
+    instagram.showSwitchModeView = YES; //show a segment controller with view option
+    
     
 //    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     

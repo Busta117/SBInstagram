@@ -33,6 +33,11 @@
 		521667BA183B05AD00AE2CAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */; };
 		521667BC183B05B400AE2CAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667BB183B05B400AE2CAF /* MobileCoreServices.framework */; };
 		521667BE183B086F00AE2CAF /* InstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 521667BD183B086F00AE2CAF /* InstagramLoading.png */; };
+		DE0B863618BBA9BF009B96B8 /* SBInstagramRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */; };
+		DE0B864218BBB3DD009B96B8 /* sb-grid.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0B863A18BBB3DD009B96B8 /* sb-grid.png */; };
+		DE0B864318BBB3DD009B96B8 /* sb-grid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0B863B18BBB3DD009B96B8 /* sb-grid@2x.png */; };
+		DE0B864618BBB3DD009B96B8 /* sb-table.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0B863E18BBB3DD009B96B8 /* sb-table.png */; };
+		DE0B864718BBB3DD009B96B8 /* sb-table@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0B863F18BBB3DD009B96B8 /* sb-table@2x.png */; };
 		DE65629E18B54B9E0015F0A7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65628C18B54B9E0015F0A7 /* AFHTTPRequestOperation.m */; };
 		DE65629F18B54B9E0015F0A7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65628E18B54B9E0015F0A7 /* AFHTTPRequestOperationManager.m */; };
 		DE6562A018B54B9E0015F0A7 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65629018B54B9E0015F0A7 /* AFHTTPSessionManager.m */; };
@@ -94,6 +99,12 @@
 		521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		521667BB183B05B400AE2CAF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		521667BD183B086F00AE2CAF /* InstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstagramLoading.png; sourceTree = "<group>"; };
+		DE0B863418BBA9BF009B96B8 /* SBInstagramRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBInstagramRefreshControl.h; sourceTree = "<group>"; };
+		DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBInstagramRefreshControl.m; sourceTree = "<group>"; };
+		DE0B863A18BBB3DD009B96B8 /* sb-grid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-grid.png"; sourceTree = "<group>"; };
+		DE0B863B18BBB3DD009B96B8 /* sb-grid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-grid@2x.png"; sourceTree = "<group>"; };
+		DE0B863E18BBB3DD009B96B8 /* sb-table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-table.png"; sourceTree = "<group>"; };
+		DE0B863F18BBB3DD009B96B8 /* sb-table@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-table@2x.png"; sourceTree = "<group>"; };
 		DE65628B18B54B9E0015F0A7 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		DE65628C18B54B9E0015F0A7 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		DE65628D18B54B9E0015F0A7 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -220,6 +231,8 @@
 		52166755183B048A00AE2CAF /* SBInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				DE0B863418BBA9BF009B96B8 /* SBInstagramRefreshControl.h */,
+				DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */,
 				52166756183B048A00AE2CAF /* SBInstagramCell.h */,
 				52166757183B048A00AE2CAF /* SBInstagramCell.m */,
 				52166758183B048A00AE2CAF /* SBInstagramCollectionViewController.h */,
@@ -239,9 +252,21 @@
 				52166766183B048A00AE2CAF /* SBInstagramWebViewController.m */,
 				52166767183B048A00AE2CAF /* SBInstagramWebViewController.xib */,
 				521667BD183B086F00AE2CAF /* InstagramLoading.png */,
+				DE0B863718BBB3DD009B96B8 /* resources */,
 			);
 			name = SBInstagram;
 			path = ../SBInstagram;
+			sourceTree = "<group>";
+		};
+		DE0B863718BBB3DD009B96B8 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				DE0B863A18BBB3DD009B96B8 /* sb-grid.png */,
+				DE0B863B18BBB3DD009B96B8 /* sb-grid@2x.png */,
+				DE0B863E18BBB3DD009B96B8 /* sb-table.png */,
+				DE0B863F18BBB3DD009B96B8 /* sb-table@2x.png */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 		DE65628A18B54B9E0015F0A7 /* AFNetworking */ = {
@@ -352,7 +377,11 @@
 				521667BE183B086F00AE2CAF /* InstagramLoading.png in Resources */,
 				52166739183B045700AE2CAF /* Images.xcassets in Resources */,
 				5216676D183B048A00AE2CAF /* SBInstagramImageViewController.xib in Resources */,
+				DE0B864618BBB3DD009B96B8 /* sb-table.png in Resources */,
 				52166728183B045700AE2CAF /* InfoPlist.strings in Resources */,
+				DE0B864318BBB3DD009B96B8 /* sb-grid@2x.png in Resources */,
+				DE0B864718BBB3DD009B96B8 /* sb-table@2x.png in Resources */,
+				DE0B864218BBB3DD009B96B8 /* sb-grid.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +418,7 @@
 				5216672E183B045700AE2CAF /* SBAppDelegate.m in Sources */,
 				DE6562A218B54B9E0015F0A7 /* AFSecurityPolicy.m in Sources */,
 				52166768183B048A00AE2CAF /* SBInstagramCell.m in Sources */,
+				DE0B863618BBA9BF009B96B8 /* SBInstagramRefreshControl.m in Sources */,
 				52166769183B048A00AE2CAF /* SBInstagramCollectionViewController.m in Sources */,
 				5216676F183B048A00AE2CAF /* SBInstagramModel.m in Sources */,
 			);

@@ -42,25 +42,55 @@
     [self.collectionView registerClass:[SBInstagramCell class] forCellWithReuseIdentifier:@"SBInstagramCell"];
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     [self.collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-    
 
+    [self.navigationController.navigationBar setTranslucent:NO];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
     self.instagramController = [SBInstagramController instagramControllerWithMainViewController:self];
     self.instagramController.isSearchByTag = self.isSearchByTag;
     self.instagramController.searchTag = self.searchTag;
     [self downloadNext];
     
+    self.collectionView.alwaysBounceVertical = YES;
+    refreshControl_ = [[SBInstagramRefreshControl alloc] initInScrollView:self.collectionView];
+    [refreshControl_ addTarget:self action:@selector(refreshCollection:) forControlEvents:UIControlEventValueChanged];
+
+    loaded_ = YES;
+    
+    [self showSwitch];
+    
 }
+
 
 
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
+    
+}
+
+-(void) segmentChanged:(id)sender{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    
+    if (self.showOnePicturePerRow != segmentedControl.selectedSegmentIndex) {
+        self.showOnePicturePerRow = segmentedControl.selectedSegmentIndex;
+    }
+}
+
+
+- (void) refreshCollection:(id) sender{
+    [self.mediaArray removeAllObjects];
+    [self downloadNext];
+    
 }
 
 - (void) downloadNext{
     self.downloading = YES;
     if ([self.mediaArray count] == 0) {
         [self.instagramController mediaUserWithUserId:INSTAGRAM_USER_ID andBlock:^(NSArray *mediaArray, NSError *error) {
+            if ([refreshControl_ isRefreshing]) {
+                [refreshControl_ endRefreshing];
+            }
             if (error || mediaArray.count == 0) {
                 SB_showAlert(@"Instagram", @"No results found", @"OK");
                 [self.activityIndicator stopAnimating];
@@ -114,6 +144,49 @@
     }
     
 }
+
+- (void) setShowSwitchModeView:(BOOL)showSwitchModeView{
+    _showSwitchModeView = showSwitchModeView;
+    if (loaded_) {
+        [self showSwitch];
+    }
+
+}
+
+- (void) showSwitch{
+    if (self.showSwitchModeView) {
+        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid-selected.png"],[UIImage imageNamed:@"sb-table-selected.png"]]];
+        [self.view addSubview:segmentedControl_];
+        
+        segmentedControl_.segmentedControlStyle = UISegmentedControlStylePlain;
+        CGRect frame = segmentedControl_.frame;
+        frame.origin.y = 5;
+        frame.size.width  = 200;
+        frame.origin.x = self.view.center.x - 100;
+        segmentedControl_.frame = frame;
+        segmentedControl_.selectedSegmentIndex = 0;
+        [segmentedControl_ addTarget:self
+                              action:@selector(segmentChanged:)
+                    forControlEvents:UIControlEventValueChanged];
+        
+        frame = self.collectionView.frame;
+        frame.origin.y = CGRectGetMaxY(segmentedControl_.frame) + 5;
+        frame.size.height = CGRectGetHeight([[UIScreen mainScreen] applicationFrame]) - CGRectGetMinY(frame);
+        self.collectionView.frame = frame;
+        
+    }else{
+        if (segmentedControl_) {
+            [segmentedControl_ removeFromSuperview];
+            segmentedControl_ = nil;
+        }
+        
+        CGRect frame = self.collectionView.frame;
+        frame.origin.y = 0;
+        frame.size.height = CGRectGetHeight([[UIScreen mainScreen] applicationFrame]);
+        self.collectionView.frame = frame;
+    }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - UICollectionViewDataSource
@@ -174,6 +247,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - UICollectionViewDelegateFlowLayout
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     

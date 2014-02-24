@@ -36,15 +36,11 @@
     [super viewDidLoad];
     
     CGRect frame = self.imageView.frame;
-    frame.origin = CGPointZero;
+//    frame.origin = CGPointZero;
     frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
     [self.imageView setFrame:frame];
     
-    frame = self.containerView.frame;
-    frame.size.height = CGRectGetHeight(self.imageView.frame) + CGRectGetHeight(self.captionLabel.frame);
-    self.containerView.frame = frame;
     self.containerView.center = self.view.center;
-//    [self.imageView setCenter:self.containerView.center];
     
     
     
@@ -74,6 +70,7 @@
     self.userLabel = [[UILabel alloc] init];
     self.userLabel.frame = CGRectMake(CGRectGetMinX(self.imageView.frame) + 55, CGRectGetMinY(self.imageView.frame) - 45, CGRectGetWidth(self.imageView.frame) - 65, 35);
     self.userLabel.textColor = [UIColor blackColor];
+    self.userLabel.backgroundColor = [UIColor clearColor];
     self.userLabel.font = [self.userLabel.font fontWithSize:12];
     
     self.userImage = [[UIImageView alloc] init];
@@ -93,6 +90,8 @@
             [self.userImage setImage:image2];
         }
     }];
+    
+
     
 }
 
