@@ -34,14 +34,10 @@
     return self;
 }
 
-- (void)switchOther {
-    self.showOnePicturePerRow = !self.showOnePicturePerRow;
-}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.title = @"Instagram";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"switchOther" style:UIBarButtonItemStyleBordered target:self action:@selector(switchOther)];
     self.downloading = YES;
     self.mediaArray = [NSMutableArray arrayWithCapacity:0];
     [self.collectionView registerClass:[SBInstagramCell class] forCellWithReuseIdentifier:@"SBInstagramCell"];
@@ -144,7 +140,7 @@
         reload = YES;
     }
     _showOnePicturePerRow = showOnePicturePerRow;
-    if (reload) {
+    if (reload && loaded_) {
         [self.collectionView reloadData];
     }
     
@@ -169,7 +165,7 @@
         frame.size.width  = 200;
         frame.origin.x = self.view.center.x - 100;
         segmentedControl_.frame = frame;
-        segmentedControl_.selectedSegmentIndex = 0;
+        segmentedControl_.selectedSegmentIndex = _showOnePicturePerRow;
         [segmentedControl_ addTarget:self
                               action:@selector(segmentChanged:)
                     forControlEvents:UIControlEventValueChanged];

@@ -27,10 +27,9 @@
     instagram.isSearchByTag = YES; //if you want serach by tag
     instagram.searchTag = @"pool"; //search by tag query
     
-    instagram.showSwitchModeView = YES; //show a segment controller with view option
-    
-    
 //    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
+    
+    instagram.showSwitchModeView = YES; //show a segment controller with view option
     
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
