@@ -34,9 +34,14 @@
     return self;
 }
 
+- (void)switchOther {
+    self.showOnePicturePerRow = !self.showOnePicturePerRow;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.title = @"Instagram";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"switchOther" style:UIBarButtonItemStyleBordered target:self action:@selector(switchOther)];
     self.downloading = YES;
     self.mediaArray = [NSMutableArray arrayWithCapacity:0];
     [self.collectionView registerClass:[SBInstagramCell class] forCellWithReuseIdentifier:@"SBInstagramCell"];
