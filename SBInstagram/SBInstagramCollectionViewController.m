@@ -160,7 +160,7 @@
 
 - (void) showSwitch{
     if (self.showSwitchModeView) {
-        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid.png"],[UIImage imageNamed:@"sb-table.png"]]];
+        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid-selected.png"],[UIImage imageNamed:@"sb-table-selected.png"]]];
         [self.view addSubview:segmentedControl_];
         
         segmentedControl_.segmentedControlStyle = UISegmentedControlStylePlain;

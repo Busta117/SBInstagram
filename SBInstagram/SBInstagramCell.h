@@ -16,7 +16,7 @@
 @property (strong, nonatomic) UILabel *captionLabel;
 @property (strong, nonatomic) UIButton *imageButton;
 @property (assign, nonatomic) SBInstagramMediaPagingEntity *entity;
-@property (nonatomic, assign) NSIndexPath *indexPath;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, assign) BOOL showOnePicturePerRow;
 
 -(void)setEntity:(SBInstagramMediaPagingEntity *)entity andIndexPath:(NSIndexPath *)index;
