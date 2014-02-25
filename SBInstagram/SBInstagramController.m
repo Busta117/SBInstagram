@@ -60,7 +60,7 @@
 }
 
 - (void) renewAccessTokenWithBlock:(void (^)(NSError *error))block{
-    
+    __weak typeof(self) weakSelf = self;
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
@@ -79,7 +79,7 @@
         [viewCon setModalPresentationStyle:UIModalPresentationPageSheet];
         [viewCon setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         
-        [self.viewController presentViewController:viewCon animated:YES completion:nil];
+        [weakSelf.viewController presentViewController:viewCon animated:YES completion:nil];
         
     });
 }
