@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    __weak typeof(self) weakSelf = self;
     CGRect frame = self.imageView.frame;
 //    frame.origin = CGPointZero;
     frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
@@ -49,9 +49,9 @@
     SBInstagramImageEntity *picEntity = self.entity.images[@"standard_resolution"];
     
     [SBInstagramModel downloadImageWithUrl:picEntity.url andBlock:^(UIImage *image, NSError *error) {
-        [self.activityIndicator stopAnimating];
+        [weakSelf.activityIndicator stopAnimating];
         if (image && !error) {
-            [self.imageView setImage:image];
+            [weakSelf.imageView setImage:image];
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something is wrong" message:@"Please check your Internet connection and try again later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -87,7 +87,7 @@
     
     [SBInstagramModel downloadImageWithUrl:self.entity.profilePicture andBlock:^(UIImage *image2, NSError *error) {
         if (image2 && !error) {
-            [self.userImage setImage:image2];
+            [weakSelf.userImage setImage:image2];
         }
     }];
     

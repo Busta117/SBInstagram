@@ -82,11 +82,15 @@
 - (void) refreshCollection:(id) sender{
     [self.mediaArray removeAllObjects];
     [self downloadNext];
-    
+    if (self.activityIndicator.isAnimating)
+        [self.activityIndicator stopAnimating];
 }
 
 - (void) downloadNext{
+    __weak typeof(self) weakSelf = self;
     self.downloading = YES;
+    if (!self.activityIndicator.isAnimating)
+        [self.activityIndicator startAnimating];
     if ([self.mediaArray count] == 0) {
         [self.instagramController mediaUserWithUserId:INSTAGRAM_USER_ID andBlock:^(NSArray *mediaArray, NSError *error) {
             if ([refreshControl_ isRefreshing]) {
@@ -94,19 +98,19 @@
             }
             if (error || mediaArray.count == 0) {
                 SB_showAlert(@"Instagram", @"No results found", @"OK");
-                [self.activityIndicator stopAnimating];
+                [weakSelf.activityIndicator stopAnimating];
             }else{
-                [self.mediaArray addObjectsFromArray:mediaArray];
-                [self.collectionView reloadData];
+                [weakSelf.mediaArray addObjectsFromArray:mediaArray];
+                [weakSelf.collectionView reloadData];
             }
-            self.downloading = NO;
+            weakSelf.downloading = NO;
             
         }];
     }else{
         [self.instagramController mediaUserWithPagingEntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
             
             NSUInteger a = [self.mediaArray count];
-            [self.mediaArray addObjectsFromArray:mediaArray];
+            [weakSelf.mediaArray addObjectsFromArray:mediaArray];
             
             NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
             [mediaArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -115,17 +119,17 @@
                 [arr addObject:path];
             }];
             
-            [self.collectionView performBatchUpdates:^{
-                [self.collectionView insertItemsAtIndexPaths:arr];
+            [weakSelf.collectionView performBatchUpdates:^{
+                [weakSelf.collectionView insertItemsAtIndexPaths:arr];
             } completion:nil];
             
-            self.downloading = NO;
+            weakSelf.downloading = NO;
             
             if (mediaArray.count == 0) {
-                [self.activityIndicator stopAnimating];
-                self.activityIndicator.hidden = YES;
-                self.hideFooter = YES;
-                [self.collectionView reloadData];
+                [weakSelf.activityIndicator stopAnimating];
+                weakSelf.activityIndicator.hidden = YES;
+                weakSelf.hideFooter = YES;
+                [weakSelf.collectionView reloadData];
             }
             
         }];
@@ -156,7 +160,7 @@
 
 - (void) showSwitch{
     if (self.showSwitchModeView) {
-        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid-selected.png"],[UIImage imageNamed:@"sb-table-selected.png"]]];
+        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid.png"],[UIImage imageNamed:@"sb-table.png"]]];
         [self.view addSubview:segmentedControl_];
         
         segmentedControl_.segmentedControlStyle = UISegmentedControlStylePlain;
