@@ -23,7 +23,7 @@
 @implementation SBInstagramCollectionViewController
 
 -(NSString *)version{
-    return @"1.4";
+    return @"1.4.1";
 }
 
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
@@ -78,6 +78,9 @@
     }
 }
 
+- (void) refreshCollection{
+    [self refreshCollection:nil];
+}
 
 - (void) refreshCollection:(id) sender{
     [self.mediaArray removeAllObjects];

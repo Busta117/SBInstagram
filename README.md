@@ -1,4 +1,4 @@
-SBInstagram v1.4
+SBInstagram v1.4.1
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -28,6 +28,8 @@ to initialize add the following code.
     
     instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
+	[instagram refreshCollection]; //refresh instagram feed
+	
 	//push instagram view controller into navigation
 	[self.navigationController pushViewController:instagram animated:YES];
 	
@@ -41,6 +43,9 @@ this is a Xcode 5 project
 
 Change Log
 ===========
+**v1.4.1**
+- create a method to refresh the instragram feed
+
 **v1.4**
 - upgrade AFNetworking framework, now use **AFNetworking v2.x**
 - username and user picture in the image detail view

@@ -30,6 +30,6 @@
 @property (nonatomic, assign) BOOL showOnePicturePerRow;
 @property (nonatomic, assign) BOOL showSwitchModeView;
 
-
+- (void) refreshCollection;
 
 @end

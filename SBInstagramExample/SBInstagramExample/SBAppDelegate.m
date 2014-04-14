@@ -31,6 +31,8 @@
     
     instagram.showSwitchModeView = YES; //show a segment controller with view option
     
+//    [instagram refreshCollection]; //refresh instagram feed
+    
     
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
     
