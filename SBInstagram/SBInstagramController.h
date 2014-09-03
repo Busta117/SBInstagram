@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SBInstagramCollectionViewController.h"
 @class SBInstagramMediaPagingEntity;
-@class SBInstagramCollectionViewController;
 
 #warning setup your application information here
 
