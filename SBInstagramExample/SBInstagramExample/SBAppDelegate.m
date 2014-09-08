@@ -20,19 +20,18 @@
     //here create the instagram view
     SBInstagramController *instagram = [SBInstagramController instagram];
     
-    //setting up, data got from instagram app setting (www.instagram.com/developer)
+    //setting up, data were taken from instagram app setting (www.instagram.com/developer)
     instagram.instagramRedirectUri = @"http://www.santiagobustamante.info";
     instagram.instagramClientSecret = @"dd9f687e1ffb4ff48ebc77188a14d283";
     instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
     instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
     instagram.instagramUserId = @"6874212";
-    instagram.instagramUserId = @"195321624";
     
     //both are optional, but if you need search by tag you need set both
-//    instagram.isSearchByTag = YES; //if you want serach by tag
-//    instagram.searchTag = @"colombia"; //search by tag query
+    instagram.isSearchByTag = YES; //if you want serach by tag
+    instagram.searchTag = @"colombia"; //search by tag query
     
-//    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
+    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
     instagram.showSwitchModeView = YES; //show a segment controller with view option
     
@@ -42,7 +41,7 @@
     instagram.playStandardResolution = YES; //if you want play a regular resuluton, low resolution per default
     
     
-//    [instagram refreshCollection]; //refresh instagram feed
+    [instagram refreshCollection]; //refresh instagram feed
     
     NSLog(@"framework version: %@",instagram.version);
     

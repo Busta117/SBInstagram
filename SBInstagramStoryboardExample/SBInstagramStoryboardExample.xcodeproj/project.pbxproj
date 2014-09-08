@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB9E87519BE4DE800A51079 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB9E87419BE4DE800A51079 /* AVFoundation.framework */; };
+		1AB9E87819BE4E1100A51079 /* SBInsta_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E87619BE4E1100A51079 /* SBInsta_pause@2x.png */; };
+		1AB9E87919BE4E1100A51079 /* SBInsta_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E87719BE4E1100A51079 /* SBInsta_play@2x.png */; };
+		1AB9E87B19BE4E1C00A51079 /* SBInstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E87A19BE4E1C00A51079 /* SBInstagramLoading.png */; };
 		52E05DEB19B6A4020094004D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E05DEA19B6A4020094004D /* Foundation.framework */; };
 		52E05DED19B6A4020094004D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E05DEC19B6A4020094004D /* CoreGraphics.framework */; };
 		52E05DEF19B6A4020094004D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52E05DEE19B6A4020094004D /* UIKit.framework */; };
@@ -29,7 +33,6 @@
 		52E05E5C19B6A4270094004D /* buffer-photo-flat-retry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3519B6A4270094004D /* buffer-photo-flat-retry@2x.png */; };
 		52E05E5D19B6A4270094004D /* camera-handle-video.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3619B6A4270094004D /* camera-handle-video.png */; };
 		52E05E5E19B6A4270094004D /* camera-handle-video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3719B6A4270094004D /* camera-handle-video@2x.png */; };
-		52E05E5F19B6A4270094004D /* InstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3819B6A4270094004D /* InstagramLoading.png */; };
 		52E05E6019B6A4270094004D /* sb-grid-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3A19B6A4270094004D /* sb-grid-selected.png */; };
 		52E05E6119B6A4270094004D /* sb-grid-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3B19B6A4270094004D /* sb-grid-selected@2x.png */; };
 		52E05E6219B6A4270094004D /* sb-table-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 52E05E3C19B6A4270094004D /* sb-table-selected.png */; };
@@ -48,6 +51,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1AB9E87419BE4DE800A51079 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1AB9E87619BE4E1100A51079 /* SBInsta_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SBInsta_pause@2x.png"; path = "resources/SBInsta_pause@2x.png"; sourceTree = "<group>"; };
+		1AB9E87719BE4E1100A51079 /* SBInsta_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SBInsta_play@2x.png"; path = "resources/SBInsta_play@2x.png"; sourceTree = "<group>"; };
+		1AB9E87A19BE4E1C00A51079 /* SBInstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SBInstagramLoading.png; sourceTree = "<group>"; };
 		52E05DE719B6A4020094004D /* SBInstagramStoryboardExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBInstagramStoryboardExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52E05DEA19B6A4020094004D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		52E05DEC19B6A4020094004D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,7 +96,6 @@
 		52E05E3519B6A4270094004D /* buffer-photo-flat-retry@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buffer-photo-flat-retry@2x.png"; sourceTree = "<group>"; };
 		52E05E3619B6A4270094004D /* camera-handle-video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-handle-video.png"; sourceTree = "<group>"; };
 		52E05E3719B6A4270094004D /* camera-handle-video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-handle-video@2x.png"; sourceTree = "<group>"; };
-		52E05E3819B6A4270094004D /* InstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstagramLoading.png; sourceTree = "<group>"; };
 		52E05E3A19B6A4270094004D /* sb-grid-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-grid-selected.png"; sourceTree = "<group>"; };
 		52E05E3B19B6A4270094004D /* sb-grid-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-grid-selected@2x.png"; sourceTree = "<group>"; };
 		52E05E3C19B6A4270094004D /* sb-table-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sb-table-selected.png"; sourceTree = "<group>"; };
@@ -121,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB9E87519BE4DE800A51079 /* AVFoundation.framework in Frameworks */,
 				52E05DED19B6A4020094004D /* CoreGraphics.framework in Frameworks */,
 				52E05DEF19B6A4020094004D /* UIKit.framework in Frameworks */,
 				52E05DEB19B6A4020094004D /* Foundation.framework in Frameworks */,
@@ -151,6 +158,7 @@
 		52E05DE919B6A4020094004D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1AB9E87419BE4DE800A51079 /* AVFoundation.framework */,
 				52E05DEA19B6A4020094004D /* Foundation.framework */,
 				52E05DEC19B6A4020094004D /* CoreGraphics.framework */,
 				52E05DEE19B6A4020094004D /* UIKit.framework */,
@@ -238,7 +246,9 @@
 				52E05E3519B6A4270094004D /* buffer-photo-flat-retry@2x.png */,
 				52E05E3619B6A4270094004D /* camera-handle-video.png */,
 				52E05E3719B6A4270094004D /* camera-handle-video@2x.png */,
-				52E05E3819B6A4270094004D /* InstagramLoading.png */,
+				1AB9E87A19BE4E1C00A51079 /* SBInstagramLoading.png */,
+				1AB9E87619BE4E1100A51079 /* SBInsta_pause@2x.png */,
+				1AB9E87719BE4E1100A51079 /* SBInsta_play@2x.png */,
 				52E05E3919B6A4270094004D /* resources */,
 				52E05E3E19B6A4270094004D /* SBInstagramCell.h */,
 				52E05E3F19B6A4270094004D /* SBInstagramCell.m */,
@@ -305,6 +315,11 @@
 				CLASSPREFIX = SB;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Busta;
+				TargetAttributes = {
+					52E05DE619B6A4020094004D = {
+						DevelopmentTeam = HM84EBLB68;
+					};
+				};
 			};
 			buildConfigurationList = 52E05DE219B6A4020094004D /* Build configuration list for PBXProject "SBInstagramStoryboardExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -335,13 +350,15 @@
 				52E05E0319B6A4030094004D /* Images.xcassets in Resources */,
 				52E05E6119B6A4270094004D /* sb-grid-selected@2x.png in Resources */,
 				52E05DF519B6A4020094004D /* InfoPlist.strings in Resources */,
-				52E05E5F19B6A4270094004D /* InstagramLoading.png in Resources */,
 				52E05E5B19B6A4270094004D /* buffer-photo-flat-retry.png in Resources */,
 				52E05E6919B6A4270094004D /* SBInstagramImageViewController.xib in Resources */,
+				1AB9E87919BE4E1100A51079 /* SBInsta_play@2x.png in Resources */,
 				52E05E6019B6A4270094004D /* sb-grid-selected.png in Resources */,
 				52E05E5D19B6A4270094004D /* camera-handle-video.png in Resources */,
 				52E05E5E19B6A4270094004D /* camera-handle-video@2x.png in Resources */,
 				52E05DFE19B6A4020094004D /* Main.storyboard in Resources */,
+				1AB9E87B19BE4E1C00A51079 /* SBInstagramLoading.png in Resources */,
+				1AB9E87819BE4E1100A51079 /* SBInsta_pause@2x.png in Resources */,
 				52E05E6219B6A4270094004D /* sb-table-selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,6 +499,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBInstagramStoryboardExample/SBInstagramStoryboardExample-Prefix.pch";
 				INFOPLIST_FILE = "SBInstagramStoryboardExample/SBInstagramStoryboardExample-Info.plist";
@@ -495,6 +513,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SBInstagramStoryboardExample/SBInstagramStoryboardExample-Prefix.pch";
 				INFOPLIST_FILE = "SBInstagramStoryboardExample/SBInstagramStoryboardExample-Info.plist";
@@ -522,6 +541,7 @@
 				52E05E1B19B6A4030094004D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

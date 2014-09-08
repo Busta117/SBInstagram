@@ -24,7 +24,7 @@
 @implementation SBInstagramCollectionViewController
 
 -(NSString *)version{
-    return @"1.4.1";
+    return @"2.0.0";
 }
 
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
