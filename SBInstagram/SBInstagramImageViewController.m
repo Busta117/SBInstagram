@@ -82,7 +82,7 @@
     self.userLabel.text = self.entity.userName;
     [self.imageView.superview addSubview:self.userLabel];
     
-    [self.userImage setImage:[UIImage imageNamed:@"InstagramLoading.png"]];
+    [self.userImage setImage:[UIImage imageNamed:[SBInstagramModel model].loadingImageName]];
     [self.imageView.superview addSubview:self.userImage];
     
     [SBInstagramModel downloadImageWithUrl:self.entity.profilePicture andBlock:^(UIImage *image2, NSError *error) {
@@ -91,8 +91,64 @@
         }
     }];
     
+    //video
+    if (self.entity.type == SBInstagramMediaTypeVideo) {
+        
+        if (!_videoPlayImage) {
+            _videoPlayImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        }
+        [_videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+        [self.imageView.superview addSubview:_videoPlayImage];
+        
+        self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) - 34, CGRectGetMinY(self.imageView.frame) + 4, 30, 30);
+        
+        
+        NSString *url = ((SBInstagramVideoEntity *) self.entity.videos[@"low_resolution"]).url;
+        if ([SBInstagramModel model].playStandardResolution) {
+            url = ((SBInstagramVideoEntity *) self.entity.videos[@"standard_resolution"]).url;
+        }
+        AVAsset* avAsset = [AVAsset assetWithURL:[NSURL URLWithString:url]];
+        AVPlayerItem *avPlayerItem =[[AVPlayerItem alloc]initWithAsset:avAsset];
+        
+        if (!self.avPlayer) {
+            self.avPlayer = [[AVPlayer alloc]initWithPlayerItem:avPlayerItem];
+        }else{
+            [self.avPlayer replaceCurrentItemWithPlayerItem:avPlayerItem];
+        }
+        
+        if (!self.avPlayerLayer) {
+            self.avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
+        }
+        
+        [self.avPlayerLayer setFrame:self.imageView.frame];
+        [self.imageView.superview.layer insertSublayer:self.avPlayerLayer above:self.imageView.layer];
+        [self.avPlayer seekToTime:kCMTimeZero];
+        [self.avPlayer play];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+        
+        
+        self.controlButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.controlButton.frame = self.imageView.frame;
+        [self.controlButton addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.imageView.superview addSubview:self.controlButton];
+        
+        
+    }
 
-    
+
+}
+
+- (void) controlAction:(id)sender{
+    if (self.avPlayer.rate == 0) {
+        if (CMTimeCompare(self.avPlayer.currentItem.currentTime, self.avPlayer.currentItem.duration) == 0) {
+            [self.avPlayer seekToTime:kCMTimeZero];
+        }
+        [self.avPlayer play];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+    }else{
+        [self.avPlayer pause];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    }
 }
 
 

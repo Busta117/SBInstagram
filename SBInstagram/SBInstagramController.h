@@ -12,15 +12,6 @@
 
 static NSString *const INSTAGRAM_API_VERSION = @"1";
 
-
-//static NSString *const INSTAGRAM_REDIRECT_URI = @"http://www.santiagobustamante.info";
-//static NSString *const INSTAGRAM_CLIENT_SECRET = @"dd9f687e1ffb4ff48ebc77188a14d283";
-//static NSString *const INSTAGRAM_CLIENT_ID  = @"436eb0b4692245c899091391eaa5cdf1";
-//
-//static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
-//static NSString *const INSTAGRAM_USER_ID  = @"6874212";
-
-
 //client information (from www.instagram.com/developer)
 static NSString *const INSTAGRAM_REDIRECT_URI = @"";
 static NSString *const INSTAGRAM_CLIENT_SECRET = @"";
@@ -29,7 +20,6 @@ static NSString *const INSTAGRAM_CLIENT_ID  = @"";
 //if this value is empty or expired or not valid, automatically request a new one. (if you set nil the app crash)
 static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"";
 static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
-
 
 
 @interface SBInstagramController : NSObject
@@ -52,7 +42,10 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 @property (nonatomic, strong) NSString *instagramClientId;
 @property (nonatomic, strong) NSString *instagramDefaultAccessToken;
 @property (nonatomic, strong) NSString *instagramUserId;
-
+@property (nonatomic, strong) NSString *loadingImageName; //if you need set your oun loading image
+@property (nonatomic, strong) NSString *videoPlayImageName; //if you need set your oun play video image
+@property (nonatomic, strong) NSString *videoPauseImageName; //if you need set your oun pause video image
+@property (nonatomic, assign) BOOL playStandardResolution; //if you want play a regular resuluton, low resolution per default
 
 
 + (SBInstagramCollectionViewController *) instagramViewController;

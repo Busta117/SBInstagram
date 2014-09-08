@@ -178,6 +178,19 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 - (void) setInstagramUserId:(NSString *)instagramUserId{
     [SBInstagramModel model].instagramUserId = instagramUserId;
 }
+-(void) setLoadingImageName:(NSString *)loadingImageName{
+    [SBInstagramModel model].loadingImageName = loadingImageName;
+}
+-(void) setVideoPlayImageName:(NSString *)videoPlayImageName{
+    [SBInstagramModel model].videoPlayImageName = videoPlayImageName;
+}
+-(void) setVideoPauseImageName:(NSString *)videoPauseImageName{
+    [SBInstagramModel model].videoPauseImageName = videoPauseImageName;
+}
+-(void) setplayStandardResolution:(BOOL)playStandardResolution{
+    [SBInstagramModel model].playStandardResolution = playStandardResolution;
+}
+
 
 - (NSString *) instagramRedirectUri{
     return [SBInstagramModel model].instagramRedirectUri;
@@ -194,10 +207,17 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 - (NSString *) instagramUserId{
     return [SBInstagramModel model].instagramUserId;
 }
-
-
-
-
-
+- (NSString *) loadingImageName{
+    return [SBInstagramModel model].loadingImageName;
+}
+- (NSString *) videoPlayImageName{
+    return [SBInstagramModel model].videoPlayImageName;
+}
+- (NSString *) videoPauseImageName{
+    return [SBInstagramModel model].videoPauseImageName;
+}
+- (BOOL) playStandardResolution{
+    return [SBInstagramModel model].playStandardResolution;
+}
 
 @end

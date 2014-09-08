@@ -21,7 +21,10 @@
 @property (nonatomic, strong) NSString *instagramClientId;
 @property (nonatomic, strong) NSString *instagramDefaultAccessToken;
 @property (nonatomic, strong) NSString *instagramUserId;
-
+@property (nonatomic, strong) NSString *loadingImageName; //if you need set your oun loading image
+@property (nonatomic, strong) NSString *videoPlayImageName; //if you need set your oun play video image
+@property (nonatomic, strong) NSString *videoPauseImageName; //if you need set your oun pause video image
+@property (nonatomic, assign) BOOL playStandardResolution;
 
 + (void) setIsSearchByTag:(BOOL) isSearchByTag;
 + (BOOL) isSearchByTag;

@@ -193,6 +193,28 @@
     [def setObject:instagramUserId forKey:@"instagram_instagramUserId"];
     [def synchronize];
 }
+-(void) setLoadingImageName:(NSString *)loadingImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:loadingImageName forKey:@"instagram_loadingImageName"];
+    [def synchronize];
+}
+-(void) setVideoPlayImageName:(NSString *)videoPlayImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:videoPlayImageName forKey:@"instagram_videoPlayImageName"];
+    [def synchronize];
+}
+-(void) setVideoPauseImageName:(NSString *)videoPauseImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:videoPauseImageName forKey:@"instagram_videoPauseImageName"];
+    [def synchronize];
+}
+-(void) setplayStandardResolution:(BOOL)playStandardResolution{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setBool:playStandardResolution forKey:@"instagram_playStandardResolution"];
+    [def synchronize];
+}
+
+
 
 //getters
 - (NSString *) instagramRedirectUri{
@@ -214,6 +236,25 @@
 - (NSString *) instagramUserId{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     return [def objectForKey:@"instagram_instagramUserId"];
+}
+-(NSString *) loadingImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *name = [def objectForKey:@"instagram_loadingImageName"];
+    return name ?: @"SBInstagramLoading";
+}
+-(NSString *) videoPlayImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *name = [def objectForKey:@"instagram_videoPlayImageName"];
+    return name ?: @"SBInsta_play";
+}
+-(NSString *) videoPauseImageName{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *name = [def objectForKey:@"instagram_videoPauseImageName"];
+    return name ?: @"SBInsta_pause";
+}
+- (BOOL) playStandardResolution{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def boolForKey:@"instagram_playStandardResolution"];
 }
 
 

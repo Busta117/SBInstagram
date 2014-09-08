@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1AB9E87019BE1B7A00A51079 /* SBInsta_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E86E19BE1B7A00A51079 /* SBInsta_pause@2x.png */; };
+		1AB9E87119BE1B7A00A51079 /* SBInsta_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E86F19BE1B7A00A51079 /* SBInsta_play@2x.png */; };
+		1AB9E87319BE395300A51079 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB9E87219BE395300A51079 /* AVFoundation.framework */; };
 		5216671E183B045700AE2CAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5216671D183B045700AE2CAF /* Foundation.framework */; };
 		52166720183B045700AE2CAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5216671F183B045700AE2CAF /* CoreGraphics.framework */; };
 		52166722183B045700AE2CAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52166721183B045700AE2CAF /* UIKit.framework */; };
@@ -32,7 +35,7 @@
 		52166771183B048A00AE2CAF /* SBInstagramWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52166767183B048A00AE2CAF /* SBInstagramWebViewController.xib */; };
 		521667BA183B05AD00AE2CAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */; };
 		521667BC183B05B400AE2CAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521667BB183B05B400AE2CAF /* MobileCoreServices.framework */; };
-		521667BE183B086F00AE2CAF /* InstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 521667BD183B086F00AE2CAF /* InstagramLoading.png */; };
+		521667BE183B086F00AE2CAF /* SBInstagramLoading.png in Resources */ = {isa = PBXBuildFile; fileRef = 521667BD183B086F00AE2CAF /* SBInstagramLoading.png */; };
 		DE0B863618BBA9BF009B96B8 /* SBInstagramRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */; };
 		DE65629E18B54B9E0015F0A7 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65628C18B54B9E0015F0A7 /* AFHTTPRequestOperation.m */; };
 		DE65629F18B54B9E0015F0A7 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65628E18B54B9E0015F0A7 /* AFHTTPRequestOperationManager.m */; };
@@ -60,6 +63,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1AB9E86E19BE1B7A00A51079 /* SBInsta_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SBInsta_pause@2x.png"; sourceTree = "<group>"; };
+		1AB9E86F19BE1B7A00A51079 /* SBInsta_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SBInsta_play@2x.png"; sourceTree = "<group>"; };
+		1AB9E87219BE395300A51079 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5216671A183B045700AE2CAF /* SBInstagramExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SBInstagramExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5216671D183B045700AE2CAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5216671F183B045700AE2CAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,7 +104,7 @@
 		52166767183B048A00AE2CAF /* SBInstagramWebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SBInstagramWebViewController.xib; sourceTree = "<group>"; };
 		521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		521667BB183B05B400AE2CAF /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		521667BD183B086F00AE2CAF /* InstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InstagramLoading.png; sourceTree = "<group>"; };
+		521667BD183B086F00AE2CAF /* SBInstagramLoading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SBInstagramLoading.png; sourceTree = "<group>"; };
 		DE0B863418BBA9BF009B96B8 /* SBInstagramRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBInstagramRefreshControl.h; sourceTree = "<group>"; };
 		DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBInstagramRefreshControl.m; sourceTree = "<group>"; };
 		DE65628B18B54B9E0015F0A7 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AB9E87319BE395300A51079 /* AVFoundation.framework in Frameworks */,
 				521667BC183B05B400AE2CAF /* MobileCoreServices.framework in Frameworks */,
 				521667BA183B05AD00AE2CAF /* SystemConfiguration.framework in Frameworks */,
 				52166720183B045700AE2CAF /* CoreGraphics.framework in Frameworks */,
@@ -176,6 +183,7 @@
 		5216671C183B045700AE2CAF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1AB9E87219BE395300A51079 /* AVFoundation.framework */,
 				521667BB183B05B400AE2CAF /* MobileCoreServices.framework */,
 				521667B9183B05AD00AE2CAF /* SystemConfiguration.framework */,
 				5216671D183B045700AE2CAF /* Foundation.framework */,
@@ -251,7 +259,7 @@
 				52166765183B048A00AE2CAF /* SBInstagramWebViewController.h */,
 				52166766183B048A00AE2CAF /* SBInstagramWebViewController.m */,
 				52166767183B048A00AE2CAF /* SBInstagramWebViewController.xib */,
-				521667BD183B086F00AE2CAF /* InstagramLoading.png */,
+				521667BD183B086F00AE2CAF /* SBInstagramLoading.png */,
 				DE0B863718BBB3DD009B96B8 /* resources */,
 			);
 			name = SBInstagram;
@@ -261,6 +269,8 @@
 		DE0B863718BBB3DD009B96B8 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				1AB9E86E19BE1B7A00A51079 /* SBInsta_pause@2x.png */,
+				1AB9E86F19BE1B7A00A51079 /* SBInsta_play@2x.png */,
 				DE8634F018BD349F00C94234 /* sb-grid-selected.png */,
 				DE8634F118BD349F00C94234 /* sb-grid-selected@2x.png */,
 				DE8634F218BD349F00C94234 /* sb-table-selected.png */,
@@ -377,13 +387,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				52166771183B048A00AE2CAF /* SBInstagramWebViewController.xib in Resources */,
-				521667BE183B086F00AE2CAF /* InstagramLoading.png in Resources */,
+				1AB9E87119BE1B7A00A51079 /* SBInsta_play@2x.png in Resources */,
+				521667BE183B086F00AE2CAF /* SBInstagramLoading.png in Resources */,
 				52166739183B045700AE2CAF /* Images.xcassets in Resources */,
 				DE8634F518BD349F00C94234 /* sb-grid-selected@2x.png in Resources */,
 				5216676D183B048A00AE2CAF /* SBInstagramImageViewController.xib in Resources */,
 				52166728183B045700AE2CAF /* InfoPlist.strings in Resources */,
 				DE8634F718BD349F00C94234 /* sb-table-selected@2x.png in Resources */,
 				DE8634F618BD349F00C94234 /* sb-table-selected.png in Resources */,
+				1AB9E87019BE1B7A00A51079 /* SBInsta_pause@2x.png in Resources */,
 				DE8634F418BD349F00C94234 /* sb-grid-selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 #import "SBInstagramMediaEntity.h"
 #import "SBInstagramModel.h"
+#import "SBInstagramCollectionViewController.h"
 
 @implementation SBInstagramMediaEntity
 
@@ -15,11 +16,15 @@
     
     SBInstagramMediaEntity *entity = [[SBInstagramMediaEntity alloc] init];
     entity.type = [dictionary[@"type"] isEqualToString:@"image"]? SBInstagramMediaTypeImage : SBInstagramMediaTypeVideo;
+        entity.images = [SBInstagramMediaEntity imagesWithDictionary:dictionary[@"images"]];
     entity.caption = (![dictionary[@"caption"] isKindOfClass:[NSNull class]])?(dictionary[@"caption"])[@"text"]:@"";
-    entity.images = [SBInstagramMediaEntity imagesWithDictionary:dictionary[@"images"]];
+    
     entity.userName = dictionary[@"user"][@"username"];
     entity.profilePicture = dictionary[@"user"][@"profile_picture"];
 
+    if (entity.type == SBInstagramMediaTypeVideo) {
+        entity.videos = [SBInstagramMediaEntity videosWithDictionary:dictionary[@"videos"]];
+    }
     
     return entity;
 }
@@ -33,6 +38,12 @@
     return retVal;
 }
 
++ (NSMutableDictionary *)videosWithDictionary: (NSMutableDictionary *)dictionary{
+    NSMutableDictionary *retVal = [NSMutableDictionary dictionaryWithCapacity:0];
+    [retVal setObject:[SBInstagramVideoEntity entityWithDictionary:dictionary[@"low_resolution"]] forKey:@"low_resolution"];
+    [retVal setObject:[SBInstagramVideoEntity entityWithDictionary:dictionary[@"standard_resolution"]] forKey:@"standard_resolution"];
+    return retVal;
+}
 
 @end
 
@@ -66,6 +77,23 @@
 
 @end
 
+
+@implementation SBInstagramVideoEntity
+
++ (id) entityWithDictionary:(NSDictionary *)dictionary{
+    
+    SBInstagramVideoEntity *entity = [SBInstagramVideoEntity new];
+    
+    entity.height = [dictionary[@"height"] intValue];
+    entity.width = [dictionary[@"width"] intValue];
+    entity.url = dictionary[@"url"];
+    
+    return entity;
+}
+
+@end
+
+
 @implementation SBInstagramMediaPagingEntity
 
 + (id) entityWithDataDictionary:(NSDictionary *)dataDictionary andPagingDictionary:(NSDictionary *)pagingDictionary{
@@ -77,5 +105,7 @@
 }
 
 @end
+
+
 
 

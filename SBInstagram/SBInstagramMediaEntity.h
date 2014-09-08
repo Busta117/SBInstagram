@@ -8,15 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-enum SBInstagramMediaType {
-    SBInstagramMediaTypeImage = 0,
+
+typedef NS_ENUM(NSUInteger, SBInstagramMediaType) {
+    SBInstagramMediaTypeImage,
     SBInstagramMediaTypeVideo
-    };
+};
+
 
 @interface SBInstagramMediaEntity : NSObject
 
 @property (nonatomic, assign) enum SBInstagramMediaType type;
 @property (nonatomic, strong) NSMutableDictionary *images;
+@property (nonatomic, strong) NSMutableDictionary *videos;
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *profilePicture;
@@ -36,6 +39,15 @@ enum SBInstagramMediaType {
 + (id) entityWithDictionary:(NSDictionary *)dictionary;
 - (void) downloadImageWithBlock:(void (^)(UIImage *image, NSError * error))block;
 
+@end
+
+@interface SBInstagramVideoEntity : NSObject
+
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, assign) int height;
+@property (nonatomic, assign) int width;
+
++ (id) entityWithDictionary:(NSDictionary *)dictionary;
 @end
 
 

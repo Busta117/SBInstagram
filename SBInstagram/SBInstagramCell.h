@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SBInstagramMediaEntity.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SBInstagramCell : UICollectionViewCell
 
@@ -18,6 +19,10 @@
 @property (assign, nonatomic) SBInstagramMediaPagingEntity *entity;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, assign) BOOL showOnePicturePerRow;
+@property (nonatomic, strong) UIImageView *videoPlayImage;
+
+@property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
+@property (nonatomic, strong) AVPlayer *avPlayer;
 
 -(void)setEntity:(SBInstagramMediaPagingEntity *)entity andIndexPath:(NSIndexPath *)index;
 

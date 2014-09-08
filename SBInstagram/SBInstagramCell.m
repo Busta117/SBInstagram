@@ -24,7 +24,7 @@
     
     [self setupCell];
     
-    [self.imageButton setBackgroundImage:[UIImage imageNamed:@"InstagramLoading.png"] forState:UIControlStateNormal];
+    [self.imageButton setBackgroundImage:[UIImage imageNamed:[SBInstagramModel model].loadingImageName] forState:UIControlStateNormal];
     _entity = entity;
     
     SBInstagramImageEntity *imgEntity = entity.mediaEntity.images[@"thumbnail"];
@@ -44,6 +44,7 @@
     
     self.imageButton.userInteractionEnabled = !self.showOnePicturePerRow;
     self.imageButton.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
+
     
     if (self.showOnePicturePerRow) {
         
@@ -53,7 +54,7 @@
         self.captionLabel.text = self.entity.mediaEntity.caption;
         [self.contentView addSubview:self.captionLabel];
         
-        [self.userImage setImage:[UIImage imageNamed:@"InstagramLoading.png"]];
+        [self.userImage setImage:[UIImage imageNamed:[SBInstagramModel model].loadingImageName]];
         [self.contentView addSubview:self.userImage];
         
         [SBInstagramModel downloadImageWithUrl:self.entity.mediaEntity.profilePicture andBlock:^(UIImage *image2, NSError *error) {
@@ -61,18 +62,74 @@
                 [self.userImage setImage:image2];
             }
         }];
-
+        
+        self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(self.imageButton.frame) - 34, CGRectGetMinY(self.imageButton.frame) + 4, 30, 30);
+        
     }else{
         [self.userLabel removeFromSuperview];
         [self.userImage removeFromSuperview];
         [self.captionLabel removeFromSuperview];
+        
+        self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(self.imageButton.frame) - 22, CGRectGetMinY(self.imageButton.frame) + 2, 20, 20);
+        
     }
     
+    self.videoPlayImage.hidden = YES;
+    if (entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
+        self.videoPlayImage.hidden = NO;
+        
+        if (self.showOnePicturePerRow) {
+            NSString *url = ((SBInstagramVideoEntity *) entity.mediaEntity.videos[@"low_resolution"]).url;
+            if ([SBInstagramModel model].playStandardResolution) {
+                url = ((SBInstagramVideoEntity *) entity.mediaEntity.videos[@"standard_resolution"]).url;
+            }
+            AVAsset* avAsset = [AVAsset assetWithURL:[NSURL URLWithString:url]];
+            AVPlayerItem *avPlayerItem =[[AVPlayerItem alloc]initWithAsset:avAsset];
+            
+            if (!self.avPlayer) {
+                self.avPlayer = [[AVPlayer alloc]initWithPlayerItem:avPlayerItem];
+            }else{
+                [self.avPlayer replaceCurrentItemWithPlayerItem:avPlayerItem];
+            }
+            
+            if (!self.avPlayerLayer) {
+                self.avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
+            }
+            
+            [self.avPlayerLayer setFrame:self.imageButton.frame];
+            [self.imageButton.superview.layer insertSublayer:self.avPlayerLayer above:self.imageButton.layer];
+            [self.avPlayer seekToTime:kCMTimeZero];
+            [self.avPlayer play];
+            [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+            self.imageButton.userInteractionEnabled = YES;
+        }else{
+            if (self.avPlayerLayer) {
+                [self.avPlayerLayer removeFromSuperlayer];
+            }
+        }
+        
+    }
     
     
 }
 
 -(void) selectedImage:(id)selector{
+    
+    if (self.entity.mediaEntity.type == SBInstagramMediaTypeVideo && self.showOnePicturePerRow) {
+        
+        if (self.avPlayer.rate == 0) {
+            if (CMTimeCompare(self.avPlayer.currentItem.currentTime, self.avPlayer.currentItem.duration) == 0) {
+                [self.avPlayer seekToTime:kCMTimeZero];
+            }
+            [self.avPlayer play];
+            [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+        }else{
+            [self.avPlayer pause];
+            [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+        }
+        
+        return;
+    }
     
     UIViewController *viewCon = (UIViewController *)self.nextResponder;
     
@@ -93,7 +150,7 @@
     }
     [_imageButton setFrame:CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.width)];
     [_imageButton addTarget:self action:@selector(selectedImage:) forControlEvents:UIControlEventTouchUpInside];
-    [_imageButton setBackgroundImage:[UIImage imageNamed:@"InstagramLoading.png"] forState:UIControlStateNormal];
+    [_imageButton setBackgroundImage:[UIImage imageNamed:[SBInstagramModel model].loadingImageName] forState:UIControlStateNormal];
     self.imageButton.contentMode = UIViewContentModeScaleAspectFit;
     [self.contentView addSubview:_imageButton];
     
@@ -120,6 +177,14 @@
     _userImage.contentMode = UIViewContentModeScaleAspectFit;
     _userImage.layer.masksToBounds = YES;
     _userImage.layer.cornerRadius = 17.5;
+    
+    
+    if (!_videoPlayImage) {
+        _videoPlayImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+    }
+    [_videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    [self.contentView addSubview:_videoPlayImage];
+    
 }
 
 

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SBInstagramModel.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface SBInstagramImageViewController : UIViewController <UIAlertViewDelegate>
 
@@ -19,6 +20,14 @@
 @property (assign, nonatomic) SBInstagramMediaEntity* entity;
 @property (strong, nonatomic) UILabel *userLabel;
 @property (strong, nonatomic) UIImageView *userImage;
+
+
+//video player
+@property (strong, nonatomic) UIButton *controlButton;
+@property (strong, nonatomic) UIImageView *videoPlayImage;
+@property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
+@property (nonatomic, strong) AVPlayer *avPlayer;
+
 
 + (id) imageViewerWithEntity:(SBInstagramMediaEntity *)entity;
 
