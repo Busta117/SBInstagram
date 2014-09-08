@@ -8,6 +8,7 @@
 
 #import "SBInstagramWebViewController.h"
 #import "SBInstagramController.h"
+#import "SBInstagramModel.h"
 
 #define SB_SYSTEM_VERSION_GREATER_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
 
@@ -64,7 +65,9 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    if ([request.URL.absoluteString hasPrefix:INSTAGRAM_REDIRECT_URI]) {
+    NSString *redirectUrl = [SBInstagramModel model].instagramRedirectUri ?: INSTAGRAM_REDIRECT_URI;
+    
+    if ([request.URL.absoluteString hasPrefix:redirectUrl]) {
         NSString *token = [[request URL] fragment];
         NSArray *arr = [token componentsSeparatedByString:@"="];
         token = [arr objectAtIndex:1];

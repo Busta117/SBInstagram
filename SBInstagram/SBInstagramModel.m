@@ -41,7 +41,7 @@
     NSString *token = [def objectForKey:@"instagram_access_token"];
     
     if (!token) {
-        token = INSTAGRAM_DEFAULT_ACCESS_TOKEN;
+        token = [SBInstagramModel model].instagramDefaultAccessToken ?: INSTAGRAM_DEFAULT_ACCESS_TOKEN;
         [def setObject:token forKey:@"instagram_access_token"];
         [def synchronize];
     }
@@ -49,7 +49,9 @@
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
     
-    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@",INSTAGRAM_USER_ID?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
+    
+    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@",uId?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block){
             block(nil);
         }
@@ -154,15 +156,65 @@
     
     [operation start];
     
-    
-    
-    
-    
-    
-    
 }
 
 
+
+#pragma mark - v2
+
++ (SBInstagramModel *) model{
+    return [self new];
+}
+
+//setters
+- (void) setInstagramRedirectUri:(NSString *)instagramRedirectUri{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramRedirectUri forKey:@"instagram_instagramRedirectUri"];
+    [def synchronize];
+}
+
+- (void) setInstagramClientSecret:(NSString *)instagramClientSecret{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramClientSecret forKey:@"instagram_instagramClientSecret"];
+    [def synchronize];
+}
+- (void) setInstagramClientId:(NSString *)instagramClientId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramClientId forKey:@"instagram_instagramClientId"];
+    [def synchronize];
+}
+- (void) setInstagramDefaultAccessToken:(NSString *)instagramDefaultAccessToken{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramDefaultAccessToken forKey:@"instagram_instagramDefaultAccessToken"];
+    [def synchronize];
+}
+- (void) setInstagramUserId:(NSString *)instagramUserId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramUserId forKey:@"instagram_instagramUserId"];
+    [def synchronize];
+}
+
+//getters
+- (NSString *) instagramRedirectUri{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramRedirectUri"];
+}
+- (NSString *) instagramClientSecret{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramClientSecret"];
+}
+- (NSString *) instagramClientId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramClientId"];
+}
+- (NSString *) instagramDefaultAccessToken{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramDefaultAccessToken"];
+}
+- (NSString *) instagramUserId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramUserId"];
+}
 
 
 @end

@@ -9,6 +9,7 @@
 #import "SBInstagramCollectionViewController.h"
 #import "SBInstagramController.h"
 #import "SBInstagramMediaEntity.h"
+#import "SBInstagramModel.h"
 
 @interface SBInstagramCollectionViewController()
 
@@ -95,7 +96,8 @@
     if (!self.activityIndicator.isAnimating)
         [self.activityIndicator startAnimating];
     if ([self.mediaArray count] == 0) {
-        [self.instagramController mediaUserWithUserId:INSTAGRAM_USER_ID andBlock:^(NSArray *mediaArray, NSError *error) {
+        NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
+        [self.instagramController mediaUserWithUserId:uId andBlock:^(NSArray *mediaArray, NSError *error) {
             if ([refreshControl_ isRefreshing]) {
                 [refreshControl_ endRefreshing];
             }

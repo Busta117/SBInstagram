@@ -14,6 +14,15 @@
 
 @interface SBInstagramModel : NSObject
 
+
+//v2 setup
+@property (nonatomic, strong) NSString *instagramRedirectUri;
+@property (nonatomic, strong) NSString *instagramClientSecret;
+@property (nonatomic, strong) NSString *instagramClientId;
+@property (nonatomic, strong) NSString *instagramDefaultAccessToken;
+@property (nonatomic, strong) NSString *instagramUserId;
+
+
 + (void) setIsSearchByTag:(BOOL) isSearchByTag;
 + (BOOL) isSearchByTag;
 + (void) setSearchTag:(NSString *)searchTag;
@@ -23,5 +32,6 @@
 + (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 + (void) downloadImageWithUrl:(NSString *)url andBlock:(void (^)(UIImage *image, NSError * error))block;
 
++ (SBInstagramModel *) model;
 
 @end

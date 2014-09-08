@@ -7,7 +7,6 @@
 //
 
 #import "SBAppDelegate.h"
-#import "SBInstagramCollectionViewController.h"
 #import "SBInstagramController.h"
 
 @implementation SBAppDelegate
@@ -19,9 +18,14 @@
     
     
     //here create the instagram view
-    SBInstagramCollectionViewController *instagram = [SBInstagramController instagramViewController];
+    SBInstagramController *instagram = [SBInstagramController instagram];
     
-    NSLog(@"framework version: %@",instagram.version);
+    //setting up, data got from instagram app setting (www.instagram.com/developer)
+    instagram.instagramRedirectUri = @"http://www.santiagobustamante.info";
+    instagram.instagramClientSecret = @"dd9f687e1ffb4ff48ebc77188a14d283";
+    instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
+    instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
+    instagram.instagramUserId = @"6874212";
     
     //both are optional, but if you need search by tag you need set both
     instagram.isSearchByTag = YES; //if you want serach by tag
@@ -33,8 +37,9 @@
     
 //    [instagram refreshCollection]; //refresh instagram feed
     
+    NSLog(@"framework version: %@",instagram.version);
     
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:instagram.feed];
     
     self.window.rootViewController = navCon;
     
