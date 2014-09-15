@@ -24,6 +24,12 @@
 @property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
 @property (nonatomic, strong) AVPlayer *avPlayer;
 
--(void)setEntity:(SBInstagramMediaPagingEntity *)entity andIndexPath:(NSIndexPath *)index;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL loadComplete;
 
+@property (nonatomic, copy) void (^videoControlBlock)(AVPlayer *avPlayer,BOOL tap,UIImageView *playImage);
+
+-(void)setEntity:(SBInstagramMediaPagingEntity *)entity andIndexPath:(NSIndexPath *)index;
+-(void) playVideo:(NSString *)url;
+-(void) removeNoti;
 @end

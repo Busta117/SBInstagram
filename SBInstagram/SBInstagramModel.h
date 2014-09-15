@@ -37,4 +37,6 @@
 
 + (SBInstagramModel *) model;
 
++ (void) downloadVideoWithUrl:(NSString *)url complete:(void (^)(NSString *localUrl, NSError * error))block;
+
 @end

@@ -158,6 +158,29 @@
     
 }
 
++ (void) downloadVideoWithUrl:(NSString *)url complete:(void (^)(NSString *localUrl, NSError * error))block{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"SBInstagramVideo.mp4"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    AFHTTPRequestOperation *op = [manager GET:url
+                                   parameters:nil
+                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                          NSLog(@"successful download to %@", path);
+                                          if (block) {
+                                              block(path,nil);
+                                          }
+                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                          NSLog(@"Error: %@", error);
+                                          if (block) {
+                                              block(nil,error);
+                                          }
+                                      }];
+    
+    op.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    
+}
+
 
 
 #pragma mark - v2

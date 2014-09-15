@@ -18,6 +18,7 @@
 @property (nonatomic, assign) BOOL downloading;
 @property (nonatomic, assign) BOOL hideFooter;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) NSMutableArray *videoPlayerArr;
 
 @end
 
@@ -58,6 +59,8 @@
     [refreshControl_ addTarget:self action:@selector(refreshCollection:) forControlEvents:UIControlEventValueChanged];
 
     loaded_ = YES;
+    
+    self.videoPlayerArr = [NSMutableArray array];
     
     [self showSwitch];
     
@@ -197,6 +200,40 @@
     }
 }
 
+- (void) playVideo{
+    
+    if (self.videoPlayerArr.count == 0) {
+        return;
+    }
+    
+    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
+        if (cell.avPlayer) {
+            [cell.avPlayer pause];
+        }
+    }];
+
+    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
+        if (cell.entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
+            NSString *url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"low_resolution"]).url;
+            if ([SBInstagramModel model].playStandardResolution) {
+                url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"standard_resolution"]).url;
+            }
+            
+            [cell playVideo:url];
+            
+        }
+        *stop = YES;
+
+    }];
+    
+}
+
+- (void) pauseAllVideos:(AVPlayer *)avPlayer{
+    [self.videoPlayerArr enumerateObjectsUsingBlock:^(AVPlayer *obj, NSUInteger idx, BOOL *stop) {
+        [obj pause];
+    }];
+    [avPlayer play];
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - UICollectionViewDataSource
@@ -217,7 +254,19 @@
         SBInstagramMediaPagingEntity *entity = [self.mediaArray objectAtIndex:indexPath.row];
         cell.indexPath = indexPath;
         cell.showOnePicturePerRow = self.showOnePicturePerRow;
+        [cell setVideoControlBlock:^(AVPlayer *avPlayer, BOOL tap, UIImageView *videoPlayImage) {
+            if (!tap) {
+                [self.videoPlayerArr addObject:avPlayer];
+//                [self playVideo];
+            }else{
+                [self pauseAllVideos:avPlayer];
+            }
+            
+        }];
         [cell setEntity:entity andIndexPath:indexPath];
+//        [self.videoPlayerArr addObject:cell];
+//        [self playVideo];
+        
 
     }
 
@@ -227,6 +276,22 @@
     
     return cell;
 }
+
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell1 forItemAtIndexPath:(NSIndexPath *)indexPath
+
+{
+    if ([collectionView.indexPathsForVisibleItems indexOfObject:indexPath] == NSNotFound)
+    {
+        [self.videoPlayerArr removeObject:cell1];
+//        [self playVideo];
+        SBInstagramCell *cell = (SBInstagramCell *)cell1;
+        [cell.avPlayer pause];
+        [cell removeNoti];
+        [self.videoPlayerArr removeObject:cell.avPlayer];
+
+    }
+}
+
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
