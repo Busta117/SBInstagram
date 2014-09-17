@@ -19,13 +19,14 @@
 @property (nonatomic, assign) BOOL hideFooter;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSMutableArray *videoPlayerArr;
+@property (nonatomic, strong) NSMutableArray *videoPlayerImagesArr;
 
 @end
 
 @implementation SBInstagramCollectionViewController
 
 -(NSString *)version{
-    return @"2.0.0";
+    return @"2.0.1";
 }
 
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
@@ -61,7 +62,7 @@
     loaded_ = YES;
     
     self.videoPlayerArr = [NSMutableArray array];
-    
+    self.videoPlayerImagesArr = [NSMutableArray array];
     [self showSwitch];
     
 }
@@ -200,37 +201,44 @@
     }
 }
 
-- (void) playVideo{
-    
-    if (self.videoPlayerArr.count == 0) {
-        return;
-    }
-    
-    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
-        if (cell.avPlayer) {
-            [cell.avPlayer pause];
-        }
-    }];
-
-    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
-        if (cell.entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
-            NSString *url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"low_resolution"]).url;
-            if ([SBInstagramModel model].playStandardResolution) {
-                url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"standard_resolution"]).url;
-            }
-            
-            [cell playVideo:url];
-            
-        }
-        *stop = YES;
-
-    }];
-    
-}
+//- (void) playVideo{
+//    
+//    if (self.videoPlayerArr.count == 0) {
+//        return;
+//    }
+//    
+//    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
+//        if (cell.avPlayer) {
+//            [cell.avPlayer pause];
+//        }
+//    }];
+//
+//    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
+//        if (cell.entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
+//            NSString *url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"low_resolution"]).url;
+//            if ([SBInstagramModel model].playStandardResolution) {
+//                url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"standard_resolution"]).url;
+//            }
+//            
+//            [cell playVideo:url];
+//            
+//        }
+//        *stop = YES;
+//
+//    }];
+//    
+//}
 
 - (void) pauseAllVideos:(AVPlayer *)avPlayer{
     [self.videoPlayerArr enumerateObjectsUsingBlock:^(AVPlayer *obj, NSUInteger idx, BOOL *stop) {
-        [obj pause];
+        if (avPlayer != obj) {
+            [obj pause];
+            UIImageView *img = self.videoPlayerImagesArr[idx];
+            img.image = [UIImage imageNamed:[SBInstagramModel model].videoPlayImageName];
+        }else{
+            UIImageView *img = self.videoPlayerImagesArr[idx];
+            img.image = [UIImage imageNamed:[SBInstagramModel model].videoPauseImageName];
+        }
     }];
     [avPlayer play];
 }
@@ -257,6 +265,7 @@
         [cell setVideoControlBlock:^(AVPlayer *avPlayer, BOOL tap, UIImageView *videoPlayImage) {
             if (!tap) {
                 [self.videoPlayerArr addObject:avPlayer];
+                [self.videoPlayerImagesArr addObject:videoPlayImage];
 //                [self playVideo];
             }else{
                 [self pauseAllVideos:avPlayer];
@@ -282,12 +291,12 @@
 {
     if ([collectionView.indexPathsForVisibleItems indexOfObject:indexPath] == NSNotFound)
     {
-        [self.videoPlayerArr removeObject:cell1];
-//        [self playVideo];
+
         SBInstagramCell *cell = (SBInstagramCell *)cell1;
         [cell.avPlayer pause];
         [cell removeNoti];
         [self.videoPlayerArr removeObject:cell.avPlayer];
+        [self.videoPlayerImagesArr removeObject:cell.videoPlayImage];
 
     }
 }

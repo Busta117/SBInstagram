@@ -105,7 +105,7 @@
             self.imageButton.userInteractionEnabled = YES;
             
             if (self.videoControlBlock) {
-                self.videoControlBlock(self.avPlayer,NO,nil);
+                self.videoControlBlock(self.avPlayer,NO,self.videoPlayImage);
             }
             
             self.loadComplete = NO;
@@ -128,10 +128,18 @@
 }
 
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
-    [self.avPlayer seekToTime:kCMTimeZero];
-    [self.avPlayer replaceCurrentItemWithPlayerItem:nil];
-    [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
-    
+
+    if ([self.avPlayer currentItem] == [notification object]) {
+        [self.avPlayer seekToTime:kCMTimeZero];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    }
+}
+
+
+-(void) playerItemPlay:(NSNotification *)notification {
+    if ([self.avPlayer currentItem] == [notification object]) {
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -145,7 +153,7 @@
             switch(item.status)
             {
                 case AVPlayerItemStatusFailed:
-                    NSLog(@"player item status failed");
+//                    NSLog(@"player item status failed");
                     if (_timer) {
                         [_timer invalidate];
                     }
@@ -156,10 +164,10 @@
                     }
                     self.loadComplete = YES;
                     self.videoPlayImage.hidden = NO;
-                    NSLog(@"player item status is ready to play");
+//                    NSLog(@"player item status is ready to play");
                     break;
                 case AVPlayerItemStatusUnknown:
-                    NSLog(@"player item status is unknown");
+//                    NSLog(@"player item status is unknown");
                     break;
             }
         }
@@ -214,15 +222,15 @@
                 _timer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(loadingVideo) userInfo:nil repeats:YES];
             }
 
+            if (self.videoControlBlock) {
+                self.videoControlBlock(self.avPlayer,YES,self.videoPlayImage);
+            }
             
         }else{
             [self.avPlayer pause];
             [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
         }
         
-        if (self.videoControlBlock) {
-            self.videoControlBlock(self.avPlayer,YES,nil);
-        }
         
         
         return;
