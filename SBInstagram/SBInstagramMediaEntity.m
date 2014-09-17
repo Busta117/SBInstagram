@@ -26,6 +26,8 @@
         entity.videos = [SBInstagramMediaEntity videosWithDictionary:dictionary[@"videos"]];
     }
     
+    entity.createdTime = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"created_time"] longLongValue]];
+    
     return entity;
 }
 

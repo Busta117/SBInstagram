@@ -75,6 +75,9 @@
     }
     
     self.videoPlayImage.hidden = YES;
+    if (self.avPlayerLayer) {
+        [self.avPlayerLayer removeFromSuperlayer];
+    }
     if (entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
         self.videoPlayImage.hidden = NO;
         

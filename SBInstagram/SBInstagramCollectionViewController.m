@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *videoPlayerArr;
 @property (nonatomic, strong) NSMutableArray *videoPlayerImagesArr;
 
+@property (nonatomic, strong) NSMutableArray *multipleLastEntities;
+
 @end
 
 @implementation SBInstagramCollectionViewController
@@ -49,6 +51,8 @@
 
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    self.multipleLastEntities = [NSMutableArray array];
     
     self.instagramController = [SBInstagramController instagramControllerWithMainViewController:self];
     self.instagramController.isSearchByTag = self.isSearchByTag;
@@ -100,21 +104,39 @@
     if (!self.activityIndicator.isAnimating)
         [self.activityIndicator startAnimating];
     if ([self.mediaArray count] == 0) {
-        NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
-        [self.instagramController mediaUserWithUserId:uId andBlock:^(NSArray *mediaArray, NSError *error) {
-            if ([refreshControl_ isRefreshing]) {
-                [refreshControl_ endRefreshing];
-            }
-            if (error || mediaArray.count == 0) {
-                SB_showAlert(@"Instagram", @"No results found", @"OK");
-                [weakSelf.activityIndicator stopAnimating];
-            }else{
-                [weakSelf.mediaArray addObjectsFromArray:mediaArray];
-                [weakSelf.collectionView reloadData];
-            }
-            weakSelf.downloading = NO;
-            
-        }];
+        
+        if ([SBInstagramModel model].instagramMultipleUsersId) {
+            [self.instagramController mediaMultipleUserWithArr:[SBInstagramModel model].instagramMultipleUsersId complete:^(NSArray *mediaArray,NSArray *lastMedias, NSError *error) {
+                if ([refreshControl_ isRefreshing]) {
+                    [refreshControl_ endRefreshing];
+                }
+                if (error || mediaArray.count == 0) {
+                    SB_showAlert(@"Instagram", @"No results found", @"OK");
+                    [weakSelf.activityIndicator stopAnimating];
+                }else{
+                    [weakSelf.mediaArray addObjectsFromArray:mediaArray];
+                    [weakSelf.collectionView reloadData];
+                    weakSelf.multipleLastEntities = [lastMedias mutableCopy];
+                }
+                weakSelf.downloading = NO;
+            }];
+        }else{
+            NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
+            [self.instagramController mediaUserWithUserId:uId andBlock:^(NSArray *mediaArray, NSError *error) {
+                if ([refreshControl_ isRefreshing]) {
+                    [refreshControl_ endRefreshing];
+                }
+                if (error || mediaArray.count == 0) {
+                    SB_showAlert(@"Instagram", @"No results found", @"OK");
+                    [weakSelf.activityIndicator stopAnimating];
+                }else{
+                    [weakSelf.mediaArray addObjectsFromArray:mediaArray];
+                    [weakSelf.collectionView reloadData];
+                }
+                weakSelf.downloading = NO;
+                
+            }];
+        }
     }else{
         [self.instagramController mediaUserWithPagingEntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
             

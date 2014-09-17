@@ -25,6 +25,8 @@
 @property (nonatomic, strong) NSString *videoPlayImageName; //if you need set your oun play video image
 @property (nonatomic, strong) NSString *videoPauseImageName; //if you need set your oun pause video image
 @property (nonatomic, assign) BOOL playStandardResolution;
+@property (nonatomic, strong) NSArray *instagramMultipleUsersId;
+@property (nonatomic, strong) NSArray *instagramMultipleTags;
 
 + (void) setIsSearchByTag:(BOOL) isSearchByTag;
 + (BOOL) isSearchByTag;
@@ -32,6 +34,7 @@
 + (NSString *)searchTag;
 + (void) checkInstagramAccesTokenWithBlock:(void (^)(NSError * error))block;
 + (void) mediaUserWithUserId:(NSString *)userId andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
++ (void) mediaMultipleUsersWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *multipleMedia, NSError * error))block;
 + (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 + (void) downloadImageWithUrl:(NSString *)url andBlock:(void (^)(UIImage *image, NSError * error))block;
 

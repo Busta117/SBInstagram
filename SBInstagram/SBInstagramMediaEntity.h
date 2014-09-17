@@ -23,6 +23,7 @@ typedef NS_ENUM(NSUInteger, SBInstagramMediaType) {
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *profilePicture;
+@property (nonatomic, strong) NSDate *createdTime;
 
 + (id) entityWithDictionary:(NSDictionary *)dictionary;
 

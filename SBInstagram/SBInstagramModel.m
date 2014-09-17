@@ -98,6 +98,45 @@
     }];
 }
 
+
++ (void) mediaMultipleUsersWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *multipleMedia, NSError * error))block{
+    
+    NSMutableArray *entitiesArr = [NSMutableArray array];
+    NSMutableArray *lastEntitiesArr = [NSMutableArray array];
+    
+    __block int count = 0;
+    __block NSError *error1 = nil;;
+    
+    [usersId enumerateObjectsUsingBlock:^(NSString *userId, NSUInteger idx, BOOL *stop) {
+        [SBInstagramModel mediaUserWithUserId:userId andBlock:^(NSArray *mediaArray, NSError *error) {
+            if (!error) {
+                if (mediaArray.count > 0) {
+                    [entitiesArr addObjectsFromArray:mediaArray];
+                    [lastEntitiesArr addObject:mediaArray[mediaArray.count-1]];
+                }
+            }else{
+                error1 = error;
+            }
+            
+            count++;
+            if (count == usersId.count) {
+                
+                [entitiesArr sortUsingComparator:^NSComparisonResult(SBInstagramMediaPagingEntity *obj1, SBInstagramMediaPagingEntity *obj2) {
+                    return [obj2.mediaEntity.createdTime  compare:obj1.mediaEntity.createdTime];
+                }];
+                
+                block(entitiesArr,lastEntitiesArr,error1);
+            }
+            
+        }];
+        
+    }];
+    
+}
+
+
+
+
 + (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
 
     
@@ -131,6 +170,8 @@
     }];
 
 }
+
+
 
 
 
@@ -236,6 +277,11 @@
     [def setBool:playStandardResolution forKey:@"instagram_playStandardResolution"];
     [def synchronize];
 }
+- (void) setInstagramMultipleUsersId:(NSArray *)instagramMultipleUsersId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:instagramMultipleUsersId forKey:@"instagram_instagramMultipleUsersId"];
+    [def synchronize];
+}
 
 
 
@@ -278,6 +324,10 @@
 - (BOOL) playStandardResolution{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     return [def boolForKey:@"instagram_playStandardResolution"];
+}
+- (NSArray *) instagramMultipleUsersId{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return [def objectForKey:@"instagram_instagramMultipleUsersId"];
 }
 
 

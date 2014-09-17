@@ -100,6 +100,17 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     
 }
 
+- (void) mediaMultipleUserWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block{
+    
+    [self validateTokenWithBlock:^(NSError *error) {
+        if (!error) {
+            [SBInstagramModel mediaMultipleUsersWithArr:usersId complete:block];
+        }
+    }];
+    
+}
+
+
 - (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
     
     [self validateTokenWithBlock:^(NSError *error) {
@@ -190,6 +201,9 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 -(void) setplayStandardResolution:(BOOL)playStandardResolution{
     [SBInstagramModel model].playStandardResolution = playStandardResolution;
 }
+-(void) setInstagramMultipleUsersId:(NSArray *)instagramMultipleUsersId{
+    [SBInstagramModel model].instagramMultipleUsersId = instagramMultipleUsersId;
+}
 
 
 - (NSString *) instagramRedirectUri{
@@ -202,7 +216,7 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     return [SBInstagramModel model].instagramClientId;
 }
 - (NSString *) instagramDefaultAccessToken{
-    return [SBInstagramModel model].instagramUserId;
+    return [SBInstagramModel model].instagramDefaultAccessToken;
 }
 - (NSString *) instagramUserId{
     return [SBInstagramModel model].instagramUserId;
@@ -218,6 +232,9 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 }
 - (BOOL) playStandardResolution{
     return [SBInstagramModel model].playStandardResolution;
+}
+- (NSArray *) instagramMultipleUsersId{
+    return [SBInstagramModel model].instagramMultipleUsersId;
 }
 
 @end
