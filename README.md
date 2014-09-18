@@ -1,4 +1,4 @@
-SBInstagram v2.0.0
+SBInstagram v2.0.2
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -31,6 +31,10 @@ instagram.instagramUserId = @"6874212"; //if you want request the feed of one us
 //both are optional, but if you need search by tag you need set both
 instagram.isSearchByTag = YES; //if you want serach by tag
 instagram.searchTag = @"colombia"; //search by tag query
+
+//multiple users id or multiple tags (not both)
+instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
+instagram.instagramMultipleTags = @[@"sea",@"ground",@"fire"]; //if you set this you don't need set isSearchByTag in true
     
 instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
@@ -58,6 +62,10 @@ instagram.playStandardResolution = YES; //if you want play a standard resuluton,
 
 Change Log
 ===========
+**v2.0.2**
+- bugs fixed in video player
+- multiple users feed
+- multiple hast tags search
 
 **v2.0.0**
 - Play videos inline in the feed and in the pic detail
@@ -88,4 +96,9 @@ Change Log
 **v1.0**
 - first version
 
+####feedback?
+
+* twitter: [@busta117](http://www.twitter.com/busta117)
+* mail: <busta117@gmail.com>
+* <http://www.santiagobustamante.info>
 
