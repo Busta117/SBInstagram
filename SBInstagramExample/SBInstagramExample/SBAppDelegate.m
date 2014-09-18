@@ -26,14 +26,14 @@
     instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
     instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
 //    instagram.instagramUserId = @"6874212";
-//    instagram.instagramUserId = @"386407356";
-    instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
+//    instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
+    instagram.instagramMultipleTags = @[@"sea",@"ground",@"fire"];
     
     //both are optional, but if you need search by tag you need set both
 //    instagram.isSearchByTag = YES; //if you want serach by tag
 //    instagram.searchTag = @"colombia"; //search by tag query
     
-    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
+//    instagram.showOnePicturePerRow = YES; //to change way to show the feed, one picture per row(default = NO)
     
 //    instagram.showSwitchModeView = YES; //show a segment controller with view option
     

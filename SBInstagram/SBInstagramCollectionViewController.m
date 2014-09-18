@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *videoPlayerArr;
 @property (nonatomic, strong) NSMutableArray *videoPlayerImagesArr;
 
-@property (nonatomic, strong) NSMutableArray *multipleLastEntities;
+@property (nonatomic, strong) NSArray *multipleLastEntities;
 
 @end
 
@@ -52,7 +52,7 @@
     [self.navigationController.navigationBar setTranslucent:NO];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.multipleLastEntities = [NSMutableArray array];
+    self.multipleLastEntities = [NSArray array];
     
     self.instagramController = [SBInstagramController instagramControllerWithMainViewController:self];
     self.instagramController.isSearchByTag = self.isSearchByTag;
@@ -68,6 +68,8 @@
     self.videoPlayerArr = [NSMutableArray array];
     self.videoPlayerImagesArr = [NSMutableArray array];
     [self showSwitch];
+    
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
     
 }
 
@@ -105,23 +107,30 @@
         [self.activityIndicator startAnimating];
     if ([self.mediaArray count] == 0) {
         
+        //multiple users id
         if ([SBInstagramModel model].instagramMultipleUsersId) {
             [self.instagramController mediaMultipleUserWithArr:[SBInstagramModel model].instagramMultipleUsersId complete:^(NSArray *mediaArray,NSArray *lastMedias, NSError *error) {
                 if ([refreshControl_ isRefreshing]) {
                     [refreshControl_ endRefreshing];
                 }
-                if (error || mediaArray.count == 0) {
+                if (mediaArray.count == 0 && error) {
                     SB_showAlert(@"Instagram", @"No results found", @"OK");
                     [weakSelf.activityIndicator stopAnimating];
                 }else{
                     [weakSelf.mediaArray addObjectsFromArray:mediaArray];
                     [weakSelf.collectionView reloadData];
-                    weakSelf.multipleLastEntities = [lastMedias mutableCopy];
+                    weakSelf.multipleLastEntities = lastMedias;
                 }
                 weakSelf.downloading = NO;
             }];
-        }else{
+        }
+        //only one user configured
+        else{
             NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
+            if (SBInstagramModel.isSearchByTag && [SBInstagramModel searchTag].length > 0) {
+                uId = [SBInstagramModel searchTag];
+            }
+            
             [self.instagramController mediaUserWithUserId:uId andBlock:^(NSArray *mediaArray, NSError *error) {
                 if ([refreshControl_ isRefreshing]) {
                     [refreshControl_ endRefreshing];
@@ -137,34 +146,71 @@
                 
             }];
         }
-    }else{
-        [self.instagramController mediaUserWithPagingEntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
-            
-            NSUInteger a = [self.mediaArray count];
-            [weakSelf.mediaArray addObjectsFromArray:mediaArray];
-            
-            NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
-            [mediaArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                NSUInteger b = a+idx;
-                NSIndexPath *path = [NSIndexPath indexPathForItem:b inSection:0];
-                [arr addObject:path];
+    }
+    //download nexts
+    else{
+        
+        //multiple users id
+        if ([SBInstagramModel model].instagramMultipleUsersId) {
+
+            [self.instagramController mediaMultiplePagingWithArr:self.multipleLastEntities complete:^(NSArray *mediaArray, NSArray *lastMedia, NSError *error) {
+                
+                weakSelf.multipleLastEntities = lastMedia;
+                
+                NSUInteger a = [self.mediaArray count];
+                [weakSelf.mediaArray addObjectsFromArray:mediaArray];
+                
+                NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
+                [mediaArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSUInteger b = a+idx;
+                    NSIndexPath *path = [NSIndexPath indexPathForItem:b inSection:0];
+                    [arr addObject:path];
+                }];
+                
+                [weakSelf.collectionView performBatchUpdates:^{
+                    [weakSelf.collectionView insertItemsAtIndexPaths:arr];
+                } completion:nil];
+                
+                weakSelf.downloading = NO;
+                
+                if (mediaArray.count == 0) {
+                    [weakSelf.activityIndicator stopAnimating];
+                    weakSelf.activityIndicator.hidden = YES;
+                    weakSelf.hideFooter = YES;
+                    [weakSelf.collectionView reloadData];
+                }
             }];
             
-            [weakSelf.collectionView performBatchUpdates:^{
-                [weakSelf.collectionView insertItemsAtIndexPaths:arr];
-            } completion:nil];
+        }else{
             
-            weakSelf.downloading = NO;
-            
-            if (mediaArray.count == 0) {
-                [weakSelf.activityIndicator stopAnimating];
-                weakSelf.activityIndicator.hidden = YES;
-                weakSelf.hideFooter = YES;
-                [weakSelf.collectionView reloadData];
-            }
-            
-        }];
-    }    
+            [self.instagramController mediaUserWithPagingEntity:[self.mediaArray objectAtIndex:(self.mediaArray.count-1)] andBlock:^(NSArray *mediaArray, NSError *error) {
+                
+                NSUInteger a = [self.mediaArray count];
+                [weakSelf.mediaArray addObjectsFromArray:mediaArray];
+                
+                NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
+                [mediaArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    NSUInteger b = a+idx;
+                    NSIndexPath *path = [NSIndexPath indexPathForItem:b inSection:0];
+                    [arr addObject:path];
+                }];
+                
+                [weakSelf.collectionView performBatchUpdates:^{
+                    [weakSelf.collectionView insertItemsAtIndexPaths:arr];
+                } completion:nil];
+                
+                weakSelf.downloading = NO;
+                
+                if (mediaArray.count == 0) {
+                    [weakSelf.activityIndicator stopAnimating];
+                    weakSelf.activityIndicator.hidden = YES;
+                    weakSelf.hideFooter = YES;
+                    [weakSelf.collectionView reloadData];
+                }
+                
+            }];
+        }
+    }
     
 }
 

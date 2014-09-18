@@ -47,7 +47,7 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 @property (nonatomic, strong) NSString *videoPauseImageName; //if you need set your oun pause video image
 @property (nonatomic, assign) BOOL playStandardResolution; //if you want play a regular resuluton, low resolution per default
 @property (nonatomic, strong) NSArray *instagramMultipleUsersId;
-//@property (nonatomic, strong) NSArray *instagramMultipleTags;
+@property (nonatomic, strong) NSArray *instagramMultipleTags;
 
 
 + (SBInstagramCollectionViewController *) instagramViewController;
@@ -56,6 +56,7 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 - (void) mediaUserWithUserId:(NSString *)userId andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 - (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 - (void) mediaMultipleUserWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+- (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 //mapped
 -(void) refreshCollection;
 

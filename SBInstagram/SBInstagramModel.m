@@ -74,8 +74,8 @@
     
     NSString *path = [NSString stringWithFormat:@"users/%@/media/recent",userId?:@""];
     
-    if (SBInstagramModel.isSearchByTag && [SBInstagramModel searchTag].length > 0) {
-        path = [NSString stringWithFormat:@"tags/%@/media/recent",[SBInstagramModel searchTag]];
+    if (SBInstagramModel.isSearchByTag) {
+        path = [NSString stringWithFormat:@"tags/%@/media/recent",userId];
     }
     
     [[SBInstagramHTTPRequestOperationManager sharedManager] GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -170,6 +170,45 @@
     }];
 
 }
+
+
++(void) mediaMultiplePagingWithArr:(NSArray *)entities complete:(void (^)(NSArray *mediaArray,NSArray *multipleMedia, NSError * error))block{
+    
+    NSMutableArray *entitiesArr = [NSMutableArray array];
+    NSMutableArray *lastEntitiesArr = [NSMutableArray array];
+    
+    __block int count = 0;
+    __block NSError *error1 = nil;;
+    
+    [entities enumerateObjectsUsingBlock:^(SBInstagramMediaPagingEntity *entity, NSUInteger idx, BOOL *stop) {
+        
+        [SBInstagramModel mediaUserWithPagingEntity:entity andBlock:^(NSArray *mediaArray, NSError *error) {
+            if (!error) {
+                if (mediaArray.count > 0) {
+                    [entitiesArr addObjectsFromArray:mediaArray];
+                    [lastEntitiesArr addObject:mediaArray[mediaArray.count-1]];
+                }
+            }else{
+                error1 = error;
+            }
+            
+            count++;
+            if (count == entities.count) {
+                
+                [entitiesArr sortUsingComparator:^NSComparisonResult(SBInstagramMediaPagingEntity *obj1, SBInstagramMediaPagingEntity *obj2) {
+                    return [obj2.mediaEntity.createdTime  compare:obj1.mediaEntity.createdTime];
+                }];
+                
+                block(entitiesArr,lastEntitiesArr,error1);
+            }
+            
+        }];
+        
+        
+    }];
+    
+}
+
 
 
 

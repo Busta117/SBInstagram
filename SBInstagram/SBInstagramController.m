@@ -122,6 +122,17 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 }
 
 
+- (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block{
+    
+    [self validateTokenWithBlock:^(NSError *error) {
+        if (!error) {
+            [SBInstagramModel mediaMultiplePagingWithArr:entites complete:block];
+        }
+    }];
+    
+}
+
+
 #pragma mark - v2
 //mapping variables
 
@@ -204,6 +215,12 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 -(void) setInstagramMultipleUsersId:(NSArray *)instagramMultipleUsersId{
     [SBInstagramModel model].instagramMultipleUsersId = instagramMultipleUsersId;
 }
+-(void) setInstagramMultipleTags:(NSArray *)instagramMultipleTags{
+    if (instagramMultipleTags) {
+        [self setIsSearchByTag:YES];
+    }
+    [SBInstagramModel model].instagramMultipleUsersId = instagramMultipleTags;
+}
 
 
 - (NSString *) instagramRedirectUri{
@@ -234,6 +251,9 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     return [SBInstagramModel model].playStandardResolution;
 }
 - (NSArray *) instagramMultipleUsersId{
+    return [SBInstagramModel model].instagramMultipleUsersId;
+}
+- (NSArray *) instagramMultipleTags{
     return [SBInstagramModel model].instagramMultipleUsersId;
 }
 

@@ -27,6 +27,8 @@
 @property (strong, nonatomic) UIImageView *videoPlayImage;
 @property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
 @property (nonatomic, strong) AVPlayer *avPlayer;
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL loadComplete;
 
 
 + (id) imageViewerWithEntity:(SBInstagramMediaEntity *)entity;

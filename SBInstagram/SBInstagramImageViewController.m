@@ -124,18 +124,68 @@
         [self.imageView.superview.layer insertSublayer:self.avPlayerLayer above:self.imageView.layer];
         [self.avPlayer seekToTime:kCMTimeZero];
         [self.avPlayer play];
-        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+
+        if (!_loadComplete) {
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(loadingVideo) userInfo:nil repeats:YES];
+        }
         
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+        [avPlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
         
         self.controlButton = [UIButton buttonWithType:UIButtonTypeCustom];
         self.controlButton.frame = self.imageView.frame;
         [self.controlButton addTarget:self action:@selector(controlAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.imageView.superview addSubview:self.controlButton];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:nil];
         
     }
 
 
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    
+    if ([self.avPlayer currentItem] == [notification object]) {
+        [self.avPlayer seekToTime:kCMTimeZero];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    }
+}
+
+- (void) loadingVideo{
+    self.videoPlayImage.hidden = !self.videoPlayImage.hidden;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isKindOfClass:[AVPlayerItem class]])
+    {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        //playerItem status value changed?
+        if ([keyPath isEqualToString:@"status"])
+        {   //yes->check it...
+            switch(item.status)
+            {
+                case AVPlayerItemStatusFailed:
+                    if (_timer) {
+                        [_timer invalidate];
+                    }
+                    break;
+                case AVPlayerItemStatusReadyToPlay:
+                    if (_timer) {
+                        [_timer invalidate];
+                    }
+                    self.loadComplete = YES;
+                    self.videoPlayImage.hidden = NO;
+                    break;
+                case AVPlayerItemStatusUnknown:
+                    break;
+            }
+        }
+    }
 }
 
 - (void) controlAction:(id)sender{
@@ -145,6 +195,7 @@
         }
         [self.avPlayer play];
         [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+
     }else{
         [self.avPlayer pause];
         [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
