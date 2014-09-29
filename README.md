@@ -63,8 +63,8 @@ instagram.instagramClientSecret = @"dd9f687e1ffb4ff48ebc77188a14d283";
 instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
 instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
 
-self.instagramController.instagramMultipleUsersId = @[@"6874212"]; //here you can set 1 or more
-self.instagramController.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here you can set 1 or more
+instagram.instagramMultipleUsersId = @[@"6874212"]; //here you can set 1 or more
+instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here you can set 1 or more
 
 
 //to download media you need execute this methods
@@ -83,7 +83,7 @@ self.instagramController.instagramMultipleTags = @[@"colombia", @"england", @"ja
  /lastMedia: array of the last object (SBInstagramMediaPagingEntity), this is for the pagging
  /error: if anything is wrong
 */
-- (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+- (void) mediaMultiplePagingWithArr:(NSArray *)entities complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 
 ```
 
