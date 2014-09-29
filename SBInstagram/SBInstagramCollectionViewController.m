@@ -12,23 +12,34 @@
 #import "SBInstagramModel.h"
 
 @interface SBInstagramCollectionViewController()
-
+{
+    NSString *currentVideoURL_;
+    BOOL isVideoPlaying_;
+    
+}
 @property (nonatomic, strong) NSMutableArray *mediaArray;
 @property (nonatomic, strong) SBInstagramController *instagramController;
 @property (nonatomic, assign) BOOL downloading;
 @property (nonatomic, assign) BOOL hideFooter;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) NSMutableArray *videoPlayerArr;
-@property (nonatomic, strong) NSMutableArray *videoPlayerImagesArr;
 
 @property (nonatomic, strong) NSArray *multipleLastEntities;
+
+
+@property (nonatomic, strong) AVPlayer *avPlayer;
+@property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
+@property (nonatomic, strong) UIView *avPlayerView;
+@property (nonatomic, strong) NSTimer *timerVideo;
+@property (nonatomic, assign) BOOL loadCompleteVideo;
+@property (nonatomic, strong) UIImageView *videoPlayImage;
+
 
 @end
 
 @implementation SBInstagramCollectionViewController
 
 -(NSString *)version{
-    return @"2.0.1";
+    return @"2.0.3";
 }
 
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
@@ -65,8 +76,6 @@
 
     loaded_ = YES;
     
-    self.videoPlayerArr = [NSMutableArray array];
-    self.videoPlayerImagesArr = [NSMutableArray array];
     [self showSwitch];
     
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
@@ -222,6 +231,11 @@
     }
     _showOnePicturePerRow = showOnePicturePerRow;
     if (reload && loaded_) {
+        [self.avPlayer pause];
+        [[self.avPlayer currentItem] removeObserver:self forKeyPath:@"status"];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:nil];
+        [self.avPlayerView removeFromSuperview];
+        isVideoPlaying_ = NO;
         [self.collectionView reloadData];
     }
     
@@ -269,46 +283,129 @@
     }
 }
 
-//- (void) playVideo{
-//    
-//    if (self.videoPlayerArr.count == 0) {
-//        return;
-//    }
-//    
-//    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
-//        if (cell.avPlayer) {
-//            [cell.avPlayer pause];
-//        }
-//    }];
-//
-//    [self.videoPlayerArr enumerateObjectsUsingBlock:^(SBInstagramCell *cell, NSUInteger idx, BOOL *stop) {
-//        if (cell.entity.mediaEntity.type == SBInstagramMediaTypeVideo) {
-//            NSString *url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"low_resolution"]).url;
-//            if ([SBInstagramModel model].playStandardResolution) {
-//                url = ((SBInstagramVideoEntity *) cell.entity.mediaEntity.videos[@"standard_resolution"]).url;
-//            }
-//            
-//            [cell playVideo:url];
-//            
-//        }
-//        *stop = YES;
-//
-//    }];
-//    
-//}
 
-- (void) pauseAllVideos:(AVPlayer *)avPlayer{
-    [self.videoPlayerArr enumerateObjectsUsingBlock:^(AVPlayer *obj, NSUInteger idx, BOOL *stop) {
-        if (avPlayer != obj) {
-            [obj pause];
-            UIImageView *img = self.videoPlayerImagesArr[idx];
-            img.image = [UIImage imageNamed:[SBInstagramModel model].videoPlayImageName];
-        }else{
-            UIImageView *img = self.videoPlayerImagesArr[idx];
-            img.image = [UIImage imageNamed:[SBInstagramModel model].videoPauseImageName];
+
+- (void) videoConfig{
+    
+    if (!currentVideoURL_) {
+        return;
+    }
+    
+    AVAsset* avAsset = [AVAsset assetWithURL:[NSURL URLWithString:currentVideoURL_]];
+    AVPlayerItem *avPlayerItem =[[AVPlayerItem alloc]initWithAsset:avAsset];
+    
+    if (!self.avPlayer) {
+        self.avPlayer = [[AVPlayer alloc]initWithPlayerItem:avPlayerItem];
+        [avPlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+    }else{
+        [[self.avPlayer currentItem] removeObserver:self forKeyPath:@"status"];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:nil];
+        [self.avPlayer replaceCurrentItemWithPlayerItem:avPlayerItem];
+        [avPlayerItem addObserver:self forKeyPath:@"status" options:0 context:nil];
+    }
+    
+    if (!self.avPlayerLayer) {
+        self.avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
+        self.avPlayerView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.avPlayerView.backgroundColor = [UIColor clearColor];
+        [self.avPlayerView.layer addSublayer:self.avPlayerLayer];
+        [self.collectionView addSubview:self.avPlayerView];
+        
+        [self.avPlayerLayer setFrame:CGRectMake(0, 0, 320, 320)];
+        [self.avPlayerView setFrame:CGRectMake(0, 0, 320, 320)];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:nil];
+        
+        UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapVideo:)];
+        [self.avPlayerView addGestureRecognizer:singleFingerTap];
+        
+        if (!_videoPlayImage) {
+            _videoPlayImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         }
-    }];
-    [avPlayer play];
+        [_videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+        [self.avPlayerView addSubview:_videoPlayImage];
+        
+    }
+    
+    [self.avPlayerView removeFromSuperview];
+    [self.collectionView addSubview:self.avPlayerView];
+    
+    
+    
+    [self.avPlayer seekToTime:kCMTimeZero];
+    [self.avPlayer play];
+    isVideoPlaying_ = YES;
+    [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    
+    self.loadCompleteVideo = NO;
+
+}
+
+- (void)tapVideo:(UITapGestureRecognizer *)recognizer {
+
+    if (self.avPlayer.rate == 0) {
+        if (CMTimeCompare(self.avPlayer.currentItem.currentTime, self.avPlayer.currentItem.duration) == 0) {
+            [self.avPlayer seekToTime:kCMTimeZero];
+        }
+        [self.avPlayer play];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+        
+        if (!_loadCompleteVideo) {
+            _timerVideo = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(loadingVideo) userInfo:nil repeats:YES];
+        }
+        
+        
+    }else{
+        [self.avPlayer pause];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    }
+
+    
+}
+
+- (void) loadingVideo{
+    self.videoPlayImage.hidden = !self.videoPlayImage.hidden;
+}
+
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    
+    if ([self.avPlayer currentItem] == [notification object]) {
+        [self.avPlayer seekToTime:kCMTimeZero];
+        [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPlayImageName]];
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isKindOfClass:[AVPlayerItem class]])
+    {
+        AVPlayerItem *item = (AVPlayerItem *)object;
+        //playerItem status value changed?
+        if ([keyPath isEqualToString:@"status"])
+        {   //yes->check it...
+            switch(item.status)
+            {
+                case AVPlayerItemStatusFailed:
+                    if (_timerVideo) {
+                        [_timerVideo invalidate];
+                    }
+                    break;
+                case AVPlayerItemStatusReadyToPlay:
+                    if (_timerVideo) {
+                        [_timerVideo invalidate];
+                    }
+                    self.loadCompleteVideo = YES;
+                    self.videoPlayImage.hidden = NO;
+                    [self.videoPlayImage setImage:[UIImage imageNamed:[SBInstagramModel model].videoPauseImageName]];
+                    break;
+                case AVPlayerItemStatusUnknown:
+                    break;
+            }
+        }
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -330,19 +427,40 @@
         SBInstagramMediaPagingEntity *entity = [self.mediaArray objectAtIndex:indexPath.row];
         cell.indexPath = indexPath;
         cell.showOnePicturePerRow = self.showOnePicturePerRow;
-        [cell setVideoControlBlock:^(AVPlayer *avPlayer, BOOL tap, UIImageView *videoPlayImage) {
-            if (!tap) {
-                [self.videoPlayerArr addObject:avPlayer];
-                [self.videoPlayerImagesArr addObject:videoPlayImage];
-//                [self playVideo];
-            }else{
-                [self pauseAllVideos:avPlayer];
+        
+        __weak SBInstagramCell* weakCell = cell;
+        
+        [cell setVideoControlBlock:^(BOOL tap, NSString *videoUrl) {
+            
+            if (tap) {
+                currentVideoURL_ = videoUrl;
+                [self videoConfig];
+                
+                weakCell.videoPlayImage.hidden = YES;
+                
+                CGPoint point = [weakCell convertPoint:weakCell.imageButton.frame.origin toView:self.collectionView];
+                
+                CGRect frame = weakCell.imageButton.frame;
+                frame.origin = point;
+                self.avPlayerView.frame = frame;
+                
+                self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(weakCell.imageButton.frame) - 34, 4, 30, 30);
+                
+                if (_timerVideo) {
+                    [_timerVideo invalidate];
+                }
+                _timerVideo = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(loadingVideo) userInfo:nil repeats:YES];
             }
             
+            
+            
         }];
-        [cell setEntity:entity andIndexPath:indexPath];
-//        [self.videoPlayerArr addObject:cell];
-//        [self playVideo];
+        
+        if (entity.mediaEntity.type != SBInstagramMediaTypeVideo || !self.showOnePicturePerRow) {
+            currentVideoURL_ = nil;
+        }
+        
+        [cell setEntity:entity indexPath:indexPath playerContent:self.avPlayer];
         
 
     }
@@ -359,12 +477,15 @@
 {
     if ([collectionView.indexPathsForVisibleItems indexOfObject:indexPath] == NSNotFound)
     {
-
-        SBInstagramCell *cell = (SBInstagramCell *)cell1;
-        [cell.avPlayer pause];
-        [cell removeNoti];
-        [self.videoPlayerArr removeObject:cell.avPlayer];
-        [self.videoPlayerImagesArr removeObject:cell.videoPlayImage];
+//        SBInstagramCell *cell = (SBInstagramCell *)cell1;
+        
+        if (isVideoPlaying_) {
+            [self.avPlayer pause];
+            [[self.avPlayer currentItem] removeObserver:self forKeyPath:@"status"];
+            [self.avPlayer replaceCurrentItemWithPlayerItem:nil];
+            [self.avPlayerView removeFromSuperview];
+            isVideoPlaying_ = NO;
+        }
 
     }
 }

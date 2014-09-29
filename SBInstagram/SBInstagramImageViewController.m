@@ -147,6 +147,11 @@
 
 }
 
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [[self.avPlayer currentItem] removeObserver:self forKeyPath:@"status"];
+}
+
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     
     if ([self.avPlayer currentItem] == [notification object]) {

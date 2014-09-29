@@ -21,15 +21,9 @@
 @property (nonatomic, assign) BOOL showOnePicturePerRow;
 @property (nonatomic, strong) UIImageView *videoPlayImage;
 
-@property (nonatomic, strong) AVPlayerLayer *avPlayerLayer;
-@property (nonatomic, strong) AVPlayer *avPlayer;
 
-@property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, assign) BOOL loadComplete;
+@property (nonatomic, copy) void (^videoControlBlock)(BOOL tap, NSString *videoUrl);
 
-@property (nonatomic, copy) void (^videoControlBlock)(AVPlayer *avPlayer,BOOL tap,UIImageView *playImage);
+-(void)setEntity:(SBInstagramMediaPagingEntity *)entity indexPath:(NSIndexPath *)index playerContent:(id)playerItems;
 
--(void)setEntity:(SBInstagramMediaPagingEntity *)entity andIndexPath:(NSIndexPath *)index;
--(void) playVideo:(NSString *)url;
--(void) removeNoti;
 @end
