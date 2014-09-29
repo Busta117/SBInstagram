@@ -38,8 +38,12 @@
 
 @implementation SBInstagramCollectionViewController
 
++(NSString *)appVersion{
+    return @"2.1.0";
+}
+
 -(NSString *)version{
-    return @"2.0.3";
+    return [SBInstagramCollectionViewController appVersion];
 }
 
 - (id) initWithCollectionViewLayout:(UICollectionViewLayout *)layout{

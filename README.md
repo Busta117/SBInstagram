@@ -1,4 +1,4 @@
-SBInstagram v2.0.3
+SBInstagram v2.1.0
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -15,7 +15,7 @@ Setup
 * You need add the ***AVFoundation.framework*** to your project
 
 
-* to initialize and setup add the following code.
+* to initialize and setup the ***default views*** add the following code.
 
 ```objective-c
 //init controller
@@ -51,17 +51,58 @@ instagram.playStandardResolution = YES; //if you want play a standard resuluton,
 [self.navigationController pushViewController:instagram.feed animated:YES];
 ```
 
+* to initialize and setup ***only the data source*** add the following code (you can check the project named ***"SBInstagramDataSourceExample"***):
+
+```objective-c
+
+SBInstagramController *instagram = [SBInstagramController dataSource];
+    
+//setting up, data were taken from instagram app setting (www.instagram.com/developer)
+instagram.instagramRedirectUri = @"http://www.santiagobustamante.info";
+instagram.instagramClientSecret = @"dd9f687e1ffb4ff48ebc77188a14d283";
+instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
+instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
+
+self.instagramController.instagramMultipleUsersId = @[@"6874212"]; //here you can set 1 or more
+self.instagramController.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here you can set 1 or more
+
+
+//to download media you need execute this methods
+
+/* first you need download the initial elements, use this method
+ /mediaArray: array of *SBInstagramMediaPagingEntity* 
+ /lastMedia: array of the last object (SBInstagramMediaPagingEntity), this is for the pagging
+ /error: if anything is wrong
+*/
+- (void) mediaMultiplesWithComplete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+
+
+/* to download the next page you need use this method
+ /entites: this is the lastMedia array you saved in the last call
+ /mediaArray: array of *SBInstagramMediaPagingEntity* 
+ /lastMedia: array of the last object (SBInstagramMediaPagingEntity), this is for the pagging
+ /error: if anything is wrong
+*/
+- (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+
+```
+
+
 
 ===========  
 - this framework needs the **AFNetworking v2.x**
 - this framework support **iOS 6 and above**   
-- this is a Xcode 5 project (Xcode 6 compatibility)
+- this is a Xcode 6 project (Xcode 5 compatibility)
 - iOS8 compatibility
 - examples with and without storyboard
 
 
 Change Log
 ===========
+**v2.1.0**
+- download only data to customezed views
+- data source example with a custom view
+
 **v2.0.3**
 - video player completely redesigned, bugs fixed
 

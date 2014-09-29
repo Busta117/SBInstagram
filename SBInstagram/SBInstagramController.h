@@ -53,14 +53,26 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 + (SBInstagramCollectionViewController *) instagramViewController;
 + (id) instagramControllerWithMainViewController:(UIViewController *) viewController;
 - (NSString *) AccessToken;
+
+//data source
+
+//get media for a single user Id
+//mediaArray: is a array of SBInstagramMediaPagingEntity
 - (void) mediaUserWithUserId:(NSString *)userId andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
-- (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
-- (void) mediaMultipleUserWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+- (void) mediaMultiplesWithComplete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 - (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+
+
+
+- (void) mediaMultipleUserWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+- (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
+
+
 //mapped
 -(void) refreshCollection;
 
 //v2
 + (SBInstagramController *) instagram;
++ (SBInstagramController *) dataSource; //to use it like instagram data source
 
 @end

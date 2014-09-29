@@ -30,6 +30,12 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     return instance;
 }
 
+//to use it like instagram data source
++ (SBInstagramController *) dataSource{
+    SBInstagramController *instance = [SBInstagramController new];
+    return instance;
+}
+
 
 + (id) instagramControllerWithMainViewController:(UIViewController *) viewController {
     SBInstagramController *instance = [[SBInstagramController alloc] init];
@@ -85,7 +91,12 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
         [viewCon setModalPresentationStyle:UIModalPresentationPageSheet];
         [viewCon setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
         
-        [weakSelf.viewController presentViewController:viewCon animated:YES completion:nil];
+        if (weakSelf.viewController) {
+            [weakSelf.viewController presentViewController:viewCon animated:YES completion:nil];
+        }else{
+            UIViewController *rootController =[[[[UIApplication sharedApplication]delegate] window] rootViewController];
+            [rootController presentViewController:viewCon animated:YES completion:nil];
+        }
         
     });
 }
@@ -108,6 +119,10 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
         }
     }];
     
+}
+
+- (void) mediaMultiplesWithComplete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block{
+    [self mediaMultipleUserWithArr:[self instagramMultipleUsersId] complete:block];
 }
 
 
@@ -133,52 +148,93 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 }
 
 
+
 #pragma mark - v2
 //mapping variables
 
 -(NSString *)version{
-    return _instagramCollection.version;
+    return [SBInstagramCollectionViewController appVersion];
 }
 
 -(void) setShowSwitchModeView:(BOOL)showSwitchModeView{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return;
+    }
     _instagramCollection.showSwitchModeView = showSwitchModeView;
 }
 
 -(BOOL) showSwitchModeView{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return NO;
+    }
     return _instagramCollection.showSwitchModeView;
 }
 
 - (void) setIsSearchByTag:(BOOL)isSearchByTag{
     SBInstagramModel.isSearchByTag = isSearchByTag;
-    _instagramCollection.isSearchByTag = isSearchByTag;
+    if (_instagramCollection) {
+        _instagramCollection.isSearchByTag = isSearchByTag;
+    }
+    
+
 }
 
 -(BOOL) isSearchByTag{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return NO;
+    }
     return _instagramCollection.isSearchByTag;
 }
 
 - (void) setSearchTag:(NSString *)searchTag{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return;
+    }
     SBInstagramModel.searchTag = searchTag;
     _instagramCollection.searchTag = searchTag;
 }
 
 - (NSString *) searchTag{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return nil;
+    }
     return _instagramCollection.searchTag;
 }
 
 -(UIViewController *) feed{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return nil;
+    }
     return _instagramCollection;
 }
 
 -(void) refreshCollection{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return;
+    }
     [_instagramCollection refreshCollection];
 }
 
 - (void) setShowOnePicturePerRow:(BOOL)showOnePicturePerRow{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return;
+    }
     _instagramCollection.showOnePicturePerRow = showOnePicturePerRow;
 }
 
 - (BOOL) showOnePicturePerRow{
+    if (!_instagramCollection) {
+        NSLog(@"You are trying to execute something wrong");
+        return NO;
+    }
     return _instagramCollection.showOnePicturePerRow;
 }
 
@@ -213,6 +269,7 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     [SBInstagramModel model].playStandardResolution = playStandardResolution;
 }
 -(void) setInstagramMultipleUsersId:(NSArray *)instagramMultipleUsersId{
+    [self setIsSearchByTag:NO];
     [SBInstagramModel model].instagramMultipleUsersId = instagramMultipleUsersId;
 }
 -(void) setInstagramMultipleTags:(NSArray *)instagramMultipleTags{

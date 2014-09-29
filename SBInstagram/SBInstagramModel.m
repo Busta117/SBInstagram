@@ -51,6 +51,10 @@
     
     NSString *uId = [SBInstagramModel model].instagramUserId ?: INSTAGRAM_USER_ID;
     
+    if (!uId || uId.length <= 0) {
+        uId = @"25025320"; //instagram user
+    }
+    
     [[SBInstagramHTTPRequestOperationManager sharedManager] GET:[NSString stringWithFormat:@"users/%@",uId?:@""] parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (block){
             block(nil);

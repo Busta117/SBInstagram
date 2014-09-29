@@ -31,5 +31,5 @@
 @property (nonatomic, assign) BOOL showSwitchModeView;
 
 - (void) refreshCollection;
-
++(NSString *)appVersion;
 @end

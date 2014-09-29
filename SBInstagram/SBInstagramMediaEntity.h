@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 
 typedef NS_ENUM(NSUInteger, SBInstagramMediaType) {
@@ -14,12 +15,20 @@ typedef NS_ENUM(NSUInteger, SBInstagramMediaType) {
     SBInstagramMediaTypeVideo
 };
 
+#define SBInstagramImageThumbnailKey @"thumbnail"
+#define SBInstagramImageLowResolutionKey @"low_resolution"
+#define SBInstagramImageStandardResolutionKey @"standard_resolution"
+
+#define SBInstagramVideoLowResolutionKey @"low_resolution"
+#define SBInstagramVideoStandardResolutionKey @"standard_resolution"
+
+
 
 @interface SBInstagramMediaEntity : NSObject
 
 @property (nonatomic, assign) enum SBInstagramMediaType type;
-@property (nonatomic, strong) NSMutableDictionary *images;
-@property (nonatomic, strong) NSMutableDictionary *videos;
+@property (nonatomic, strong) NSMutableDictionary *images; //dictionary of SBInstagramImageEntity
+@property (nonatomic, strong) NSMutableDictionary *videos; //dictionary of SBInstagramVideoEntity
 @property (nonatomic, strong) NSString *caption;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *profilePicture;
@@ -35,7 +44,7 @@ typedef NS_ENUM(NSUInteger, SBInstagramMediaType) {
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, assign) int height;
 @property (nonatomic, assign) int width;
-@property (nonatomic, strong) UIImage *image;
+
 
 + (id) entityWithDictionary:(NSDictionary *)dictionary;
 - (void) downloadImageWithBlock:(void (^)(UIImage *image, NSError * error))block;
