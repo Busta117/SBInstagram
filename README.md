@@ -100,8 +100,8 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
 /*
 [instagram mediaMultiplePagingWithArr:self.lastEntities complete:^(NSArray *mediaArray, NSArray *lastMedia, NSError *error) {
         if (!error) {
-            [self.currentEntities addObjectsFromArray:mediaArray]; //add news media entities
-            self.lastEntities = lastMedia; //save the last one to the next page
+            [self.currentEntities addObjectsFromArray:mediaArray]; //add new media entities
+            self.lastEntities = lastMedia; //save it to download next pages
             [self.tableView reloadData]; //reload tableview or whatever you use
         }else{
            NSLog(@"error: %@", error.localizedDescription);
