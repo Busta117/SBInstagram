@@ -137,11 +137,11 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 }
 
 
-- (void) mediaMultiplePagingWithArr:(NSArray *)entites complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block{
+- (void) mediaMultiplePagingWithArr:(NSArray *)entities complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block{
     
     [self validateTokenWithBlock:^(NSError *error) {
         if (!error) {
-            [SBInstagramModel mediaMultiplePagingWithArr:entites complete:block];
+            [SBInstagramModel mediaMultiplePagingWithArr:entities complete:block];
         }
     }];
     

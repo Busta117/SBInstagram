@@ -76,6 +76,18 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
 */
 - (void) mediaMultiplesWithComplete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 
+/*
+[instagram mediaMultiplesWithComplete:^(NSArray *mediaArray, NSArray *lastMedia, NSError *error) {
+        if (!error) {
+            self.currentEntities = [mediaArray mutableCopy]; //your local array
+            self.lastEntities = lastMedia; //another local array (save it to paging)
+            [self.tableView reloadData]; //reload tableview or whatever you use
+        }else{
+            NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+*/
+
 
 /* to download the next page you need use this method
  /entites: this is the lastMedia array you saved in the last call
@@ -84,6 +96,18 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
  /error: if anything is wrong
 */
 - (void) mediaMultiplePagingWithArr:(NSArray *)entities complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
+
+/*
+[instagram mediaMultiplePagingWithArr:self.lastEntities complete:^(NSArray *mediaArray, NSArray *lastMedia, NSError *error) {
+        if (!error) {
+            [self.currentEntities addObjectsFromArray:mediaArray]; //add news media entities
+            self.lastEntities = lastMedia; //save the last one to the next page
+            [self.tableView reloadData]; //reload tableview or whatever you use
+        }else{
+           NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+*/
 
 ```
 

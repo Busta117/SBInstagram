@@ -64,10 +64,13 @@
     //get pages
     [self.instagramController mediaMultiplePagingWithArr:self.lastEntities complete:^(NSArray *mediaArray, NSArray *lastMedia, NSError *error) {
         self.downloading = NO;
-        
-        [self.currentEntities addObjectsFromArray:mediaArray];
-        self.lastEntities = lastMedia;
-        [self.tableView reloadData];
+        if (!error) {
+            [self.currentEntities addObjectsFromArray:mediaArray];
+            self.lastEntities = lastMedia;
+            [self.tableView reloadData];
+        }else{
+           NSLog(@"error: %@", error.localizedDescription);
+        }
     }];
 
 }
