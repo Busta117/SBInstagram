@@ -1,4 +1,4 @@
-SBInstagram v2.0.2
+SBInstagram v2.0.3
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -62,6 +62,9 @@ instagram.playStandardResolution = YES; //if you want play a standard resuluton,
 
 Change Log
 ===========
+**v2.0.3**
+- video player completely redesigned, bugs fixed
+
 **v2.0.2**
 - bugs fixed in video player
 - multiple users feed
