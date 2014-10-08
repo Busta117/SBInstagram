@@ -3,7 +3,7 @@
 //  instagram
 //
 //  Created by Santiago Bustamante on 8/31/13.
-//  Copyright (c) 2013 Pineapple Inc. All rights reserved.
+//  Copyright (c) 2013 Busta117. All rights reserved.
 //
 
 #import "SBInstagramCollectionViewController.h"
@@ -39,7 +39,7 @@
 @implementation SBInstagramCollectionViewController
 
 +(NSString *)appVersion{
-    return @"2.1.0";
+    return @"2.1.1";
 }
 
 -(NSString *)version{
@@ -524,10 +524,13 @@
     
     
     if (self.showOnePicturePerRow) {
+        SBInstagramMediaPagingEntity *entity = [self.mediaArray objectAtIndex:indexPath.row];
         if (SB_IS_IPAD) {
-            return CGSizeMake(600, 680);
+            
+            return CGSizeMake(600, [SBInstagramCell cellHeightForEntity:entity]);
         }
-        return CGSizeMake(320, 400);
+        
+        return CGSizeMake(320, [SBInstagramCell cellHeightForEntity:entity]);
     }else{
         if (SB_IS_IPAD) {
             return CGSizeMake(200, 200);

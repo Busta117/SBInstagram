@@ -3,7 +3,7 @@
 //  MedellinHipHop
 //
 //  Created by Santiago Bustamante on 9/2/13.
-//  Copyright (c) 2013 Pineapple Inc. All rights reserved.
+//  Copyright (c) 2013 Busta117. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

@@ -3,12 +3,13 @@
 //  instagram
 //
 //  Created by Santiago Bustamante on 8/31/13.
-//  Copyright (c) 2013 Pineapple Inc. All rights reserved.
+//  Copyright (c) 2013 Busta117. All rights reserved.
 //
 
 #import "SBInstagramCell.h"
 #import "SBInstagramImageViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SBInstagramCollectionViewController.h"
 
 @implementation SBInstagramCell
 
@@ -44,14 +45,44 @@
     
     self.imageButton.userInteractionEnabled = !self.showOnePicturePerRow;
     self.imageButton.center = CGPointMake(CGRectGetWidth(self.frame)/2, CGRectGetHeight(self.frame)/2);
-
     
     if (self.showOnePicturePerRow) {
         
         self.userLabel.text = self.entity.mediaEntity.userName;
         [self.contentView addSubview:self.userLabel];
         
-        self.captionLabel.text = self.entity.mediaEntity.caption;
+        
+        CGRect frame = self.imageButton.frame;
+        frame.origin.y = CGRectGetMaxY(self.userImage.frame) + 4;
+        self.imageButton.frame = frame;
+        
+        
+        frame = self.likesLabel.frame;
+        frame.origin.y = CGRectGetMaxY(self.imageButton.frame) + 4;
+        self.likesLabel.frame = frame;
+        self.likesLabel.text =  [NSString stringWithFormat:@"%d Likes", self.entity.mediaEntity.likesCount];
+        [self.contentView addSubview:self.likesLabel];
+        
+        NSString *newCaption = [NSString stringWithFormat:@"%@ %@",self.entity.mediaEntity.userName,self.entity.mediaEntity.caption];
+        
+        CGSize constrainedSize = CGSizeMake(CGRectGetWidth(self.captionLabel.frame)  , 9999);
+        NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [UIFont systemFontOfSize:12], NSFontAttributeName,
+                                              nil];
+        
+        NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:newCaption attributes:attributesDictionary];
+        
+        NSRange range=[newCaption rangeOfString:self.entity.mediaEntity.userName];
+        [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1] range:range];
+        
+        CGRect requiredHeight = [string boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+
+        frame = self.captionLabel.frame;
+        frame.origin.y = CGRectGetMaxY(self.likesLabel.frame) + 4;
+        frame.size.height = CGRectGetHeight(requiredHeight);
+        self.captionLabel.frame = frame;
+        
+        [self.captionLabel setAttributedText:string];
         [self.contentView addSubview:self.captionLabel];
         
         [self.userImage setImage:[UIImage imageNamed:[SBInstagramModel model].loadingImageName]];
@@ -69,6 +100,7 @@
         [self.userLabel removeFromSuperview];
         [self.userImage removeFromSuperview];
         [self.captionLabel removeFromSuperview];
+        [self.likesLabel removeFromSuperview];
         
         self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(self.imageButton.frame) - 22, CGRectGetMinY(self.imageButton.frame) + 2, 20, 20);
         
@@ -146,8 +178,8 @@
         _userLabel = [[UILabel alloc] init];
     }
     _userLabel.frame = CGRectMake(40, 0, CGRectGetWidth(self.frame) - 45, 35);
-    _userLabel.textColor = [UIColor blackColor];
-    _userLabel.font = [_userLabel.font fontWithSize:12];
+    _userLabel.textColor = [UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1];
+    _userLabel.font = [UIFont boldSystemFontOfSize:12];
     
     if (!_captionLabel) {
         _captionLabel = [[UILabel alloc] init];
@@ -157,6 +189,15 @@
     _captionLabel.numberOfLines = 0;
     _captionLabel.textColor = [UIColor blackColor];
     _captionLabel.font = [_captionLabel.font fontWithSize:12];
+    
+    
+    if (!_likesLabel) {
+        _likesLabel = [[UILabel alloc] init];
+    }
+    _likesLabel.frame = CGRectMake(5, CGRectGetHeight(self.frame) - 40, CGRectGetWidth(self.frame) - 10, 15);
+    _likesLabel.font = [_likesLabel.font fontWithSize:12];
+    _likesLabel.textColor = [UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1];
+    
     
     if (!_userImage) {
         _userImage = [[UIImageView alloc] init];
@@ -175,5 +216,27 @@
     
 }
 
+
++ (CGFloat) cellHeightForEntity:(SBInstagramMediaPagingEntity *)entityPag{
+    SBInstagramMediaEntity *entity = entityPag.mediaEntity;
+    
+    NSString *newCaption = [NSString stringWithFormat:@"%@ %@",entity.userName,entity.caption];
+    
+    CGSize constrainedSize = CGSizeMake(600 - 10 , 9999);
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [UIFont systemFontOfSize:12], NSFontAttributeName,
+                                          nil];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:newCaption attributes:attributesDictionary];
+    
+    NSRange range=[newCaption rangeOfString:entity.userName];
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1] range:range];
+    
+    CGRect requiredHeight = [string boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    
+    return CGRectGetHeight(requiredHeight) + (SB_IS_IPAD?670:390);
+    
+}
 
 @end
