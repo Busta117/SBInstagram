@@ -1,4 +1,4 @@
-SBInstagram v2.1.0
+SBInstagram v2.1.1
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -123,6 +123,11 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
 
 Change Log
 ===========
+**v2.1.1**
+- new segment view
+- likes count in the feed and detail
+- full description in the feed and detail like oficial instagram app
+
 **v2.1.0**
 - download only data to customezed views
 - data source example with a custom view

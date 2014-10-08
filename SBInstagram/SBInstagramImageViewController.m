@@ -48,16 +48,7 @@
 {
     [super viewDidLoad];
     __weak typeof(self) weakSelf = self;
-//    CGRect frame = self.imageView.frame;
-//    frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
-//    [self.imageView setFrame:frame];
-    
-//    self.containerView.center = self.view.center;
-//    
-//    frame = self.containerView.frame;
-//    frame.origin.y = 0;
-//    self.containerView.frame = frame;
-    
+
     
     self.title = @"";
     
@@ -100,9 +91,6 @@
     
     [self.captionLabel setAttributedText:string];
     CGRect frame = self.captionLabel.frame;
-//    frame.size.width = CGRectGetWidth([[UIScreen mainScreen] applicationFrame]) - 16;
-//    frame.origin.x = 8;
-//    frame.origin.y = CGRectGetMaxY(self.likesLabel.frame);
     frame.size.height = CGRectGetHeight(requiredHeight);
     self.captionLabel.frame = frame;
     
@@ -110,6 +98,7 @@
     CGSize size = self.scrollView.contentSize;
     size.height = CGRectGetMaxY(self.captionLabel.frame) + 5;
     self.scrollView.contentSize = size;
+//    self.scrollView.contentSize = CGSizeMake([UIScreen mainScreen].applicationFrame.size.width, CGRectGetMaxY(self.captionLabel.frame) + 10);
     
     
     self.activityIndicator.center = self.imageView.center;

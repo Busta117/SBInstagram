@@ -222,7 +222,7 @@
     
     NSString *newCaption = [NSString stringWithFormat:@"%@ %@",entity.userName,entity.caption];
     
-    CGSize constrainedSize = CGSizeMake(600 - 10 , 9999);
+    CGSize constrainedSize = CGSizeMake((SB_IS_IPAD?600:320) - 10 , 9999);
     NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                           [UIFont systemFontOfSize:12], NSFontAttributeName,
                                           nil];
