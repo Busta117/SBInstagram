@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A125B6519C78FD500BA217D /* InstaVidLoad1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A125B6319C78FD500BA217D /* InstaVidLoad1@2x.png */; };
 		1A125B6619C78FD500BA217D /* InstaVidLoad2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A125B6419C78FD500BA217D /* InstaVidLoad2@2x.png */; };
+		1A17C4D819E5A208003E50EF /* SBInstagramSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A17C4D719E5A208003E50EF /* SBInstagramSegmentedControl.m */; };
 		1AB9E87019BE1B7A00A51079 /* SBInsta_pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E86E19BE1B7A00A51079 /* SBInsta_pause@2x.png */; };
 		1AB9E87119BE1B7A00A51079 /* SBInsta_play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AB9E86F19BE1B7A00A51079 /* SBInsta_play@2x.png */; };
 		1AB9E87319BE395300A51079 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB9E87219BE395300A51079 /* AVFoundation.framework */; };
@@ -67,6 +68,8 @@
 /* Begin PBXFileReference section */
 		1A125B6319C78FD500BA217D /* InstaVidLoad1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InstaVidLoad1@2x.png"; sourceTree = "<group>"; };
 		1A125B6419C78FD500BA217D /* InstaVidLoad2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "InstaVidLoad2@2x.png"; sourceTree = "<group>"; };
+		1A17C4D619E5A208003E50EF /* SBInstagramSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBInstagramSegmentedControl.h; sourceTree = "<group>"; };
+		1A17C4D719E5A208003E50EF /* SBInstagramSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBInstagramSegmentedControl.m; sourceTree = "<group>"; };
 		1AB9E86E19BE1B7A00A51079 /* SBInsta_pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SBInsta_pause@2x.png"; sourceTree = "<group>"; };
 		1AB9E86F19BE1B7A00A51079 /* SBInsta_play@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SBInsta_play@2x.png"; sourceTree = "<group>"; };
 		1AB9E87219BE395300A51079 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -243,6 +246,8 @@
 		52166755183B048A00AE2CAF /* SBInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				1A17C4D619E5A208003E50EF /* SBInstagramSegmentedControl.h */,
+				1A17C4D719E5A208003E50EF /* SBInstagramSegmentedControl.m */,
 				DE0B863418BBA9BF009B96B8 /* SBInstagramRefreshControl.h */,
 				DE0B863518BBA9BF009B96B8 /* SBInstagramRefreshControl.m */,
 				52166756183B048A00AE2CAF /* SBInstagramCell.h */,
@@ -357,7 +362,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SB;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Busta;
 				TargetAttributes = {
 					52166719183B045700AE2CAF = {
@@ -427,6 +432,7 @@
 				5216676C183B048A00AE2CAF /* SBInstagramImageViewController.m in Sources */,
 				5216676B183B048A00AE2CAF /* SBInstagramHTTPRequestOperationManager.m in Sources */,
 				5216672A183B045700AE2CAF /* main.m in Sources */,
+				1A17C4D819E5A208003E50EF /* SBInstagramSegmentedControl.m in Sources */,
 				5216676A183B048A00AE2CAF /* SBInstagramController.m in Sources */,
 				DE6562A618B54B9E0015F0A7 /* AFURLSessionManager.m in Sources */,
 				DE6562A018B54B9E0015F0A7 /* AFHTTPSessionManager.m in Sources */,
@@ -489,7 +495,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -529,7 +534,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -590,7 +594,6 @@
 		52166753183B045700AE2CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SBInstagramExample.app/SBInstagramExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -613,7 +616,6 @@
 		52166754183B045700AE2CAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SBInstagramExample.app/SBInstagramExample";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

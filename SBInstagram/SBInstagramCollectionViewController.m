@@ -95,7 +95,7 @@
 }
 
 -(void) segmentChanged:(id)sender{
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    SBInstagramSegmentedControl *segmentedControl = (SBInstagramSegmentedControl *)sender;
     
     if (self.showOnePicturePerRow != segmentedControl.selectedSegmentIndex) {
         self.showOnePicturePerRow = segmentedControl.selectedSegmentIndex;
@@ -255,21 +255,15 @@
 
 - (void) showSwitch{
     if (self.showSwitchModeView) {
-        segmentedControl_ = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid-selected.png"],[UIImage imageNamed:@"sb-table-selected.png"]]];
+        segmentedControl_ = [[SBInstagramSegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"sb-grid-selected.png"],[UIImage imageNamed:@"sb-table-selected.png"]]];
         [self.view addSubview:segmentedControl_];
         
-        segmentedControl_.segmentedControlStyle = UISegmentedControlStylePlain;
-        CGRect frame = segmentedControl_.frame;
-        frame.origin.y = 5;
-        frame.size.width  = 200;
-        frame.origin.x = self.view.center.x - 100;
-        segmentedControl_.frame = frame;
         segmentedControl_.selectedSegmentIndex = _showOnePicturePerRow;
         [segmentedControl_ addTarget:self
                               action:@selector(segmentChanged:)
                     forControlEvents:UIControlEventValueChanged];
         
-        frame = self.collectionView.frame;
+        CGRect frame = self.collectionView.frame;
         frame.origin.y = CGRectGetMaxY(segmentedControl_.frame) + 5;
         frame.size.height = CGRectGetHeight([[UIScreen mainScreen] applicationFrame]) - CGRectGetMinY(frame);
         self.collectionView.frame = frame;

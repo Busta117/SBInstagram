@@ -16,6 +16,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *likesLabel;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (assign, nonatomic) SBInstagramMediaEntity* entity;
 @property (strong, nonatomic) UILabel *userLabel;

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SBInstagramCell.h"
 #import "SBInstagramRefreshControl.h"
+#import "SBInstagramSegmentedControl.h"
 
 #define SB_IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 #define SB_showAlert(Title, Message, CancelButton) UIAlertView * alert = [[UIAlertView alloc] initWithTitle:Title message:Message delegate:nil cancelButtonTitle:CancelButton otherButtonTitles:nil, nil]; \
@@ -19,7 +20,7 @@
 @interface SBInstagramCollectionViewController : UICollectionViewController
 {
     SBInstagramRefreshControl *refreshControl_;
-    UISegmentedControl *segmentedControl_;
+    SBInstagramSegmentedControl *segmentedControl_;
     BOOL loaded_;
 }
 @property (nonatomic, readonly) NSString *version;

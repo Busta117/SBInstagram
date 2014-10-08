@@ -8,9 +8,11 @@
 
 #import "SBInstagramImageViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "SBInstagramCollectionViewController.h"
 
 @interface SBInstagramImageViewController ()
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *likesTopConstraint;
 @end
 
 @implementation SBInstagramImageViewController
@@ -31,23 +33,35 @@
     return self;
 }
 
+-(void)viewDidLayoutSubviews{
+    if (self.avPlayerLayer) {
+        CGRect frame = self.imageView.frame;
+        frame.size.width = frame.size.height;
+        [self.avPlayerLayer setFrame:self.imageView.frame];
+        
+        self.videoPlayImage.frame = CGRectMake(self.imageView.center.x + CGRectGetHeight(self.avPlayerLayer.frame)/2 - 34, CGRectGetMinY(self.avPlayerLayer.frame) + 4, 30, 30);
+    }
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     __weak typeof(self) weakSelf = self;
-    CGRect frame = self.imageView.frame;
-//    frame.origin = CGPointZero;
-    frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
-    [self.imageView setFrame:frame];
+//    CGRect frame = self.imageView.frame;
+//    frame.size = CGSizeMake(CGRectGetWidth([[UIScreen mainScreen] applicationFrame]), CGRectGetWidth([[UIScreen mainScreen] applicationFrame]));
+//    [self.imageView setFrame:frame];
     
-    self.containerView.center = self.view.center;
-    
+//    self.containerView.center = self.view.center;
+//    
+//    frame = self.containerView.frame;
+//    frame.origin.y = 0;
+//    self.containerView.frame = frame;
     
     
     self.title = @"";
     
     SBInstagramImageEntity *picEntity = self.entity.images[@"standard_resolution"];
-    
     [SBInstagramModel downloadImageWithUrl:picEntity.url andBlock:^(UIImage *image, NSError *error) {
         [weakSelf.activityIndicator stopAnimating];
         if (image && !error) {
@@ -58,20 +72,54 @@
         }
     }];
     
-    self.captionLabel.text = self.entity.caption;
-    frame = self.captionLabel.frame;
-    frame.size.width = CGRectGetWidth([[UIScreen mainScreen] applicationFrame]);
-    frame.origin.y = CGRectGetMaxY(self.imageView.frame);
+//    frame = self.likesLabel.frame;
+    if (self.entity.likesCount > 0) {
+        self.likesLabel.text = [NSString stringWithFormat:@"%d Likes",self.entity.likesCount];
+//        frame.origin.y = CGRectGetMaxY(self.containerView.frame) + 2;
+    }else{
+        self.likesLabel.hidden = YES;
+        _likesTopConstraint.constant = - CGRectGetHeight(self.likesLabel.frame)-4;
+//        frame.origin.y = CGRectGetMaxY(self.containerView.frame) - CGRectGetHeight(frame);
+    }
+//    self.likesLabel.frame = frame;
+    
+    
+    NSString *newCaption = [NSString stringWithFormat:@"%@ %@",self.entity.userName,self.entity.caption];
+    
+    CGSize constrainedSize = CGSizeMake(self.captionLabel.frame.size.width  , 9999);
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          [self.captionLabel font], NSFontAttributeName,
+                                          nil];
+    
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:newCaption attributes:attributesDictionary];
+    
+    NSRange range=[newCaption rangeOfString:self.entity.userName];
+    [string addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1] range:range];
+    
+    CGRect requiredHeight = [string boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    
+    [self.captionLabel setAttributedText:string];
+    CGRect frame = self.captionLabel.frame;
+//    frame.size.width = CGRectGetWidth([[UIScreen mainScreen] applicationFrame]) - 16;
+//    frame.origin.x = 8;
+//    frame.origin.y = CGRectGetMaxY(self.likesLabel.frame);
+    frame.size.height = CGRectGetHeight(requiredHeight);
     self.captionLabel.frame = frame;
+    
+    
+    CGSize size = self.scrollView.contentSize;
+    size.height = CGRectGetMaxY(self.captionLabel.frame) + 5;
+    self.scrollView.contentSize = size;
+    
     
     self.activityIndicator.center = self.imageView.center;
     
     
     self.userLabel = [[UILabel alloc] init];
     self.userLabel.frame = CGRectMake(CGRectGetMinX(self.imageView.frame) + 55, CGRectGetMinY(self.imageView.frame) - 45, CGRectGetWidth(self.imageView.frame) - 65, 35);
-    self.userLabel.textColor = [UIColor blackColor];
+    self.userLabel.textColor = [UIColor colorWithRed:10.0/255.0 green:83.0/255.0 blue:143.0/255.0 alpha:1];
     self.userLabel.backgroundColor = [UIColor clearColor];
-    self.userLabel.font = [self.userLabel.font fontWithSize:12];
+    self.userLabel.font = [UIFont boldSystemFontOfSize:12];
     
     self.userImage = [[UIImageView alloc] init];
     self.userImage.frame = CGRectMake(CGRectGetMinX(self.imageView.frame) + 10, CGRectGetMinY(self.imageView.frame) - 45, 35, 35);
@@ -90,6 +138,8 @@
             [weakSelf.userImage setImage:image2];
         }
     }];
+    
+    
     
     //video
     if (self.entity.type == SBInstagramMediaTypeVideo) {
@@ -121,6 +171,7 @@
         }
         
         [self.avPlayerLayer setFrame:self.imageView.frame];
+        
         [self.imageView.superview.layer insertSublayer:self.avPlayerLayer above:self.imageView.layer];
         [self.avPlayer seekToTime:kCMTimeZero];
         [self.avPlayer play];
@@ -143,6 +194,7 @@
                                                    object:nil];
         
     }
+    
 
 
 }

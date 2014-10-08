@@ -26,6 +26,8 @@
         entity.videos = [SBInstagramMediaEntity videosWithDictionary:dictionary[@"videos"]];
     }
     
+    entity.likesCount = [dictionary[@"likes"][@"count"] intValue];
+    
     entity.createdTime = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"created_time"] longLongValue]];
     
     return entity;
