@@ -13,6 +13,9 @@
 @interface SBInstagramImageViewController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *likesTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *captionHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageHeightConstraint;
+
 @end
 
 @implementation SBInstagramImageViewController
@@ -49,6 +52,9 @@
     [super viewDidLoad];
     __weak typeof(self) weakSelf = self;
 
+    
+    [self setCustomAutolayout];
+    
     
     self.title = @"";
     
@@ -90,9 +96,10 @@
     CGRect requiredHeight = [string boundingRectWithSize:constrainedSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     
     [self.captionLabel setAttributedText:string];
-    CGRect frame = self.captionLabel.frame;
-    frame.size.height = CGRectGetHeight(requiredHeight);
-    self.captionLabel.frame = frame;
+//    CGRect frame = self.captionLabel.frame;
+    self.captionHeightConstraint.constant = CGRectGetHeight(requiredHeight);
+    [self.view layoutIfNeeded];
+//    self.captionLabel.frame = frame;
     
     
     CGSize size = self.scrollView.contentSize;
@@ -187,6 +194,57 @@
 
 
 }
+
+
+-(void) setCustomAutolayout{
+    
+    [self.containerView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.likesLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.captionLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    [self.scrollView addSubview:self.containerView];
+    [self.scrollView addSubview:self.likesLabel];
+    [self.scrollView addSubview:self.captionLabel];
+    
+    float contentWidth = 320;
+    if (SB_IS_IPAD) {
+        contentWidth = 500;
+        self.imageHeightConstraint.constant = contentWidth;
+    }
+    
+    NSDictionary *viewsDictionary = @{@"cv":self.containerView,@"likes":self.likesLabel,@"caption":self.captionLabel};
+    NSDictionary *metrics = @{@"screenW": @(contentWidth),
+                              @"descriptonW": @(contentWidth-6),
+                              @"screenH": @(contentWidth+50)
+                              };
+    
+    NSArray *constraint_H = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[cv(screenW)]" options:0 metrics:metrics views:viewsDictionary];
+    NSArray *constraint_H_likes = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[likes(descriptonW)]" options:0 metrics:metrics views:viewsDictionary];
+    NSArray *constraint_H_caption = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[caption(descriptonW)]" options:0 metrics:metrics views:viewsDictionary];
+    NSArray *constraint_V = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[cv(screenH)]-10-[likes(13)][caption]" options:0 metrics:metrics views:viewsDictionary];
+    
+    [self.scrollView addConstraints:constraint_H];
+    [self.scrollView addConstraints:constraint_V];
+    [self.scrollView addConstraints:constraint_H_likes];
+    [self.scrollView addConstraints:constraint_H_caption];
+    
+    NSLayoutConstraint *centerConstraint = [NSLayoutConstraint constraintWithItem:self.containerView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+    [self.scrollView addConstraint:centerConstraint];
+    
+    self.captionHeightConstraint = [NSLayoutConstraint constraintWithItem:self.captionLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.likesLabel attribute:NSLayoutAttributeHeight multiplier:1.0 constant:0];
+    [self.scrollView addConstraint:self.captionHeightConstraint];
+    
+    NSLayoutConstraint *centerConstraint_likes = [NSLayoutConstraint constraintWithItem:self.likesLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+    [self.scrollView addConstraint:centerConstraint_likes];
+    
+    NSLayoutConstraint *centerConstraint_caption = [NSLayoutConstraint constraintWithItem:self.captionLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
+    [self.scrollView addConstraint:centerConstraint_caption];
+    
+    [self.scrollView layoutIfNeeded];
+    
+    
+}
+
 
 
 -(void)viewWillDisappear:(BOOL)animated{

@@ -26,8 +26,8 @@
     instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
     instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
 //    instagram.instagramUserId = @"6874212";
-//    instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
-    instagram.instagramMultipleUsersId = @[@"195321624"];
+    instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
+//    instagram.instagramMultipleUsersId = @[@"195321624"];
 //    instagram.instagramMultipleTags = @[@"sea",@"ground",@"fire"];
     
     //both are optional, but if you need search by tag you need set both

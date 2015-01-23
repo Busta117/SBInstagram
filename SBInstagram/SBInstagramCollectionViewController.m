@@ -305,12 +305,10 @@
     if (!self.avPlayerLayer) {
         self.avPlayerLayer =[AVPlayerLayer playerLayerWithPlayer:self.avPlayer];
         self.avPlayerView = [[UIView alloc] initWithFrame:CGRectZero];
-//        self.avPlayerView.backgroundColor = [UIColor clearColor];
+//        self.avPlayerLayer.backgroundColor = [UIColor redColor].CGColor;
+//        self.avPlayerView.backgroundColor = [UIColor greenColor];
         [self.avPlayerView.layer addSublayer:self.avPlayerLayer];
         [self.collectionView addSubview:self.avPlayerView];
-        
-        [self.avPlayerLayer setFrame:CGRectMake(0, 0, 320, 320)];
-        [self.avPlayerView setFrame:CGRectMake(0, 0, 320, 320)];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(playerItemDidReachEnd:)
@@ -440,7 +438,12 @@
                 
                 CGRect frame = weakCell.imageButton.frame;
                 frame.origin = point;
-                self.avPlayerView.frame = frame;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.avPlayerView.frame = frame;
+                    [self.avPlayerLayer setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+                });
+
                 
                 self.videoPlayImage.frame = CGRectMake(CGRectGetMaxX(weakCell.imageButton.frame) - 34, 4, 30, 30);
                 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SBInstagramImageViewController">
@@ -11,9 +10,9 @@
                 <outlet property="activityIndicator" destination="DRu-B0-oPw" id="2B2-zs-jxT"/>
                 <outlet property="captionLabel" destination="Gig-NW-zLL" id="NlH-3a-404"/>
                 <outlet property="containerView" destination="wmo-Mo-efq" id="5pE-i2-zK5"/>
+                <outlet property="imageHeightConstraint" destination="w8I-bp-Ivw" id="5N0-5P-bcC"/>
                 <outlet property="imageView" destination="4" id="5"/>
                 <outlet property="likesLabel" destination="FCw-xA-C0g" id="h4A-oo-dhU"/>
-                <outlet property="likesTopConstraint" destination="gSQ-ne-Ovd" id="vhp-B6-znu"/>
                 <outlet property="scrollView" destination="PRr-0N-qbR" id="GPl-yI-5NG"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -27,63 +26,74 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRr-0N-qbR">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRr-0N-qbR">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                    <subviews>
-                        <view clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wmo-Mo-efq">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
-                            <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                                    <rect key="frame" x="0.0" y="50" width="320" height="320"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </imageView>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="DRu-B0-oPw">
-                                    <rect key="frame" x="142" y="192" width="37" height="37"/>
-                                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                </activityIndicatorView>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </view>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="X likes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCw-xA-C0g">
-                            <rect key="frame" x="8" y="374" width="303" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="0.039215686274509803" green="0.32549019607843138" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="caption" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gig-NW-zLL">
-                            <rect key="frame" x="9" y="399" width="303" height="26"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="bottom" secondItem="Gig-NW-zLL" secondAttribute="bottom" constant="79" id="7by-Ql-4AD"/>
-                        <constraint firstAttribute="centerX" secondItem="wmo-Mo-efq" secondAttribute="centerX" id="HCH-FV-46o"/>
-                        <constraint firstItem="Gig-NW-zLL" firstAttribute="top" secondItem="FCw-xA-C0g" secondAttribute="bottom" constant="4" id="M5E-oU-HGh"/>
-                        <constraint firstItem="Gig-NW-zLL" firstAttribute="trailing" secondItem="PRr-0N-qbR" secondAttribute="trailingMargin" id="Oq5-be-Rlm"/>
-                        <constraint firstItem="Gig-NW-zLL" firstAttribute="top" secondItem="PRr-0N-qbR" secondAttribute="top" constant="399" id="XFG-cq-Jf9"/>
-                        <constraint firstItem="FCw-xA-C0g" firstAttribute="top" secondItem="wmo-Mo-efq" secondAttribute="bottom" constant="4" id="gSQ-ne-Ovd"/>
-                        <constraint firstItem="Gig-NW-zLL" firstAttribute="leading" secondItem="PRr-0N-qbR" secondAttribute="leading" constant="9" id="pnh-vE-hIw"/>
-                        <constraint firstItem="Gig-NW-zLL" firstAttribute="centerX" secondItem="wmo-Mo-efq" secondAttribute="centerX" id="t5R-zw-xoc"/>
-                        <constraint firstItem="wmo-Mo-efq" firstAttribute="top" secondItem="PRr-0N-qbR" secondAttribute="top" id="xV8-Kt-a4y"/>
-                    </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="4em-Mr-ua8" firstAttribute="top" secondItem="1" secondAttribute="top" id="89Y-Xv-GG7"/>
-                <constraint firstAttribute="trailing" secondItem="PRr-0N-qbR" secondAttribute="trailing" id="RHD-UH-GTc"/>
-                <constraint firstAttribute="bottom" secondItem="PRr-0N-qbR" secondAttribute="bottom" id="VkP-R1-xiH"/>
-                <constraint firstAttribute="trailing" secondItem="4em-Mr-ua8" secondAttribute="trailing" id="efG-U5-1Ua"/>
-                <constraint firstItem="4em-Mr-ua8" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="es7-eE-Fuk"/>
-                <constraint firstItem="PRr-0N-qbR" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="hhS-r8-Eoa"/>
-                <constraint firstAttribute="bottom" secondItem="4em-Mr-ua8" secondAttribute="bottom" id="jnl-Zg-N9H"/>
-                <constraint firstItem="PRr-0N-qbR" firstAttribute="top" secondItem="1" secondAttribute="top" id="oew-NU-eSM"/>
+                <constraint firstAttribute="bottom" secondItem="PRr-0N-qbR" secondAttribute="bottom" id="2We-sY-oe1"/>
+                <constraint firstItem="PRr-0N-qbR" firstAttribute="top" secondItem="1" secondAttribute="top" id="5Vx-7h-Jlm"/>
+                <constraint firstItem="PRr-0N-qbR" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="6Q2-zu-Fh5"/>
+                <constraint firstItem="4em-Mr-ua8" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="CHr-R9-5oX"/>
+                <constraint firstAttribute="trailing" secondItem="4em-Mr-ua8" secondAttribute="trailing" id="FbR-MP-HkR"/>
+                <constraint firstAttribute="trailing" secondItem="PRr-0N-qbR" secondAttribute="trailing" id="K2k-zd-RnG"/>
+                <constraint firstAttribute="bottom" secondItem="4em-Mr-ua8" secondAttribute="bottom" id="LnV-Pt-yjy"/>
+                <constraint firstItem="4em-Mr-ua8" firstAttribute="top" secondItem="1" secondAttribute="top" id="TWG-Wy-ijV"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <point key="canvasLocation" x="171" y="130"/>
+        </view>
+        <view contentMode="scaleToFill" id="L4M-oj-HM4">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X likes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCw-xA-C0g">
+                    <rect key="frame" x="9" y="18" width="303" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.039215686274509803" green="0.32549019607843138" blue="0.5607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="caption" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gig-NW-zLL">
+                    <rect key="frame" x="9" y="43" width="303" height="26"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <point key="canvasLocation" x="578" y="130"/>
+        </view>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="wmo-Mo-efq" userLabel="View container image">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="0.0" y="50" width="320" height="320"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="320" id="w8I-bp-Ivw"/>
+                    </constraints>
+                </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="DRu-B0-oPw">
+                    <rect key="frame" x="142" y="266" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="5tY-sG-iql"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="wmo-Mo-efq" secondAttribute="top" constant="50" id="FrF-b5-0gc"/>
+                <constraint firstAttribute="centerY" secondItem="DRu-B0-oPw" secondAttribute="centerY" id="U3w-bn-pM0"/>
+                <constraint firstItem="4" firstAttribute="leading" secondItem="wmo-Mo-efq" secondAttribute="leading" id="Vrz-HB-7Wp"/>
+                <constraint firstAttribute="centerX" secondItem="DRu-B0-oPw" secondAttribute="centerX" id="h3q-wg-z6e"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <point key="canvasLocation" x="350" y="-525"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
