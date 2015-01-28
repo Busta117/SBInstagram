@@ -1,4 +1,4 @@
-SBInstagram v2.1.1
+SBInstagram v2.2
 ===========
 
 Easy Objective-C framework to show an instagram feed, initially only shows the pictures and the videos preview(picture). 
@@ -109,6 +109,24 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
     }];
 */
 
+
+/* to get the list of people who like the media you need use this method
+ /mediaEntity: this is the media entity with we want request the likers
+ /likers: array of *SBInstagramUserEntity* 
+ /error: if anything is wrong
+*/
+- (void) likersFromMediaEntity:(SBInstagramMediaEntity *)mediaEntity complete:(void (^)(NSMutableArray *likers, NSError * error))block;
+
+/*
+[instagram likersFromMediaEntity:mediaEntity complete:^(NSMutableArray *likers, NSError *error) {
+        if (!error) {
+			//here yo have the likers array
+        }else{
+           NSLog(@"error: %@", error.localizedDescription);
+        }
+    }];
+*/
+
 ```
 
 
@@ -123,6 +141,11 @@ instagram.instagramMultipleTags = @[@"colombia", @"england", @"japan"]; //here y
 
 Change Log
 ===========
+**v2.2**
+- new segment controller with new design
+- liker for media selected in the datasource implementation
+- bugs fixes in ipad, video, memory management
+
 **v2.1.1**
 - new segment view
 - likes count in the feed and detail
