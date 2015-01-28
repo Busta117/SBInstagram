@@ -265,7 +265,40 @@
     
 }
 
++ (void) likersFromMediaEntity:(SBInstagramMediaEntity *)mediaEntity complete:(void (^)(NSMutableArray *likers, NSError * error))block{
+    
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *token = [def objectForKey:@"instagram_access_token"];
+    
+    NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
+    [params setObject:token forKey:@"access_token"];
+    
+    NSString *path = [NSString stringWithFormat:@"media/%@/likes",mediaEntity.mediaId];
+    
+    
+    [[SBInstagramHTTPRequestOperationManager sharedManager] GET:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (block) {
+            
+            NSMutableArray *likers = [NSMutableArray array];
+            
+            NSArray *arr = responseObject[@"data"];
+            
+            [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [likers addObject:[SBInstagramUserEntity entityWithDictionary:obj]];
+            }];
+            
+            block(likers,nil);
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (block) {
+            block(nil,error);
+        }
+    }];
 
+    
+}
 
 #pragma mark - v2
 

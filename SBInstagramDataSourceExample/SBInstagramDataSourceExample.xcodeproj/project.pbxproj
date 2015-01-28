@@ -31,6 +31,7 @@
 		1A0436C319D9E72D00BE4C7D /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0436B019D9E72D00BE4C7D /* UIProgressView+AFNetworking.m */; };
 		1A0436C419D9E72D00BE4C7D /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0436B219D9E72D00BE4C7D /* UIRefreshControl+AFNetworking.m */; };
 		1A0436C519D9E72D00BE4C7D /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0436B419D9E72D00BE4C7D /* UIWebView+AFNetworking.m */; };
+		8404FBF81A794D9500CD445B /* LikersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404FBF71A794D9500CD445B /* LikersTableViewController.m */; };
 		84DC0FDA1A72F8FF0038634B /* buffer-photo-flat-retry.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC0FB71A72F8FF0038634B /* buffer-photo-flat-retry.png */; };
 		84DC0FDB1A72F8FF0038634B /* buffer-photo-flat-retry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC0FB81A72F8FF0038634B /* buffer-photo-flat-retry@2x.png */; };
 		84DC0FDC1A72F8FF0038634B /* camera-handle-video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DC0FB91A72F8FF0038634B /* camera-handle-video@2x.png */; };
@@ -117,6 +118,8 @@
 		1A0436B219D9E72D00BE4C7D /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		1A0436B319D9E72D00BE4C7D /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		1A0436B419D9E72D00BE4C7D /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		8404FBF61A794D9500CD445B /* LikersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikersTableViewController.h; sourceTree = "<group>"; };
+		8404FBF71A794D9500CD445B /* LikersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikersTableViewController.m; sourceTree = "<group>"; };
 		84DC0FB71A72F8FF0038634B /* buffer-photo-flat-retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buffer-photo-flat-retry.png"; sourceTree = "<group>"; };
 		84DC0FB81A72F8FF0038634B /* buffer-photo-flat-retry@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buffer-photo-flat-retry@2x.png"; sourceTree = "<group>"; };
 		84DC0FB91A72F8FF0038634B /* camera-handle-video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-handle-video@2x.png"; sourceTree = "<group>"; };
@@ -198,6 +201,8 @@
 				1A04361519D9D2BB00BE4C7D /* AppDelegate.m */,
 				1A04361719D9D2BB00BE4C7D /* FirstViewController.h */,
 				1A04361819D9D2BB00BE4C7D /* FirstViewController.m */,
+				8404FBF61A794D9500CD445B /* LikersTableViewController.h */,
+				8404FBF71A794D9500CD445B /* LikersTableViewController.m */,
 				1A04361D19D9D2BB00BE4C7D /* Main.storyboard */,
 				1A04362019D9D2BB00BE4C7D /* Images.xcassets */,
 				1A04362219D9D2BB00BE4C7D /* LaunchScreen.xib */,
@@ -478,6 +483,7 @@
 				84DC0FEE1A72F8FF0038634B /* SBInstagramRefreshControl.m in Sources */,
 				1A0436B719D9E72D00BE4C7D /* AFHTTPSessionManager.m in Sources */,
 				1A04361319D9D2BB00BE4C7D /* main.m in Sources */,
+				8404FBF81A794D9500CD445B /* LikersTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

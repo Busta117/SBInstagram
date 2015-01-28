@@ -147,6 +147,15 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
     
 }
 
+- (void) likersFromMediaEntity:(SBInstagramMediaEntity *)mediaEntity complete:(void (^)(NSMutableArray *likers, NSError * error))block{
+    
+    [self validateTokenWithBlock:^(NSError *error) {
+        if (!error) {
+            [SBInstagramModel likersFromMediaEntity:mediaEntity complete:block];
+        }
+    }];
+    
+}
 
 
 #pragma mark - v2

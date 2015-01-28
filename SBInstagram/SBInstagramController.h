@@ -63,10 +63,10 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 - (void) mediaMultiplePagingWithArr:(NSArray *)entities complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 
 
-
 - (void) mediaMultipleUserWithArr:(NSArray *)usersId complete:(void (^)(NSArray *mediaArray,NSArray *lastMedia, NSError * error))block;
 - (void) mediaUserWithPagingEntity:(SBInstagramMediaPagingEntity *)entity andBlock:(void (^)(NSArray *mediaArray, NSError * error))block;
 
+- (void) likersFromMediaEntity:(SBInstagramMediaEntity *)mediaEntity complete:(void (^)(NSMutableArray *likers, NSError * error))block;
 
 //mapped
 -(void) refreshCollection;

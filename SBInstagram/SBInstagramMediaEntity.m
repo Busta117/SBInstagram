@@ -15,6 +15,7 @@
 + (id) entityWithDictionary:(NSDictionary *)dictionary{
     
     SBInstagramMediaEntity *entity = [[SBInstagramMediaEntity alloc] init];
+    entity.mediaId = dictionary[@"id"];
     entity.type = [dictionary[@"type"] isEqualToString:@"image"]? SBInstagramMediaTypeImage : SBInstagramMediaTypeVideo;
         entity.images = [SBInstagramMediaEntity imagesWithDictionary:dictionary[@"images"]];
     entity.caption = (![dictionary[@"caption"] isKindOfClass:[NSNull class]])?(dictionary[@"caption"])[@"text"]:@"";
@@ -27,6 +28,13 @@
     }
     
     entity.likesCount = [dictionary[@"likes"][@"count"] intValue];
+    
+    if (entity.likesCount > 0) {
+        entity.likers = [NSMutableArray array];
+        [dictionary[@"likes"][@"data"] enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+            [entity.likers addObject:[SBInstagramUserEntity entityWithDictionary:obj]];
+        }];
+    }
     
     entity.createdTime = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"created_time"] longLongValue]];
     
@@ -111,5 +119,18 @@
 @end
 
 
+@implementation SBInstagramUserEntity
 
++ (id) entityWithDictionary:(NSDictionary *)dictionary{
+    SBInstagramUserEntity *entity = [[SBInstagramUserEntity alloc] init];
+    entity.userId = dictionary[@"id"];
+    entity.bio = [dictionary[@"bio"] isMemberOfClass:[NSNull class]]?nil:dictionary[@"bio"];
+    entity.fullName = dictionary[@"full_name"];
+    entity.profilePictureUrl = dictionary[@"profile_picture"];
+    entity.username = dictionary[@"username"];
+    
+    return entity;
+}
+
+@end
 

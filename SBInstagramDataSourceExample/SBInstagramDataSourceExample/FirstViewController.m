@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "SBInstagramController.h"
 #import "UIImageView+AFNetworking.h"
+#import "LikersTableViewController.h"
 
 @interface FirstViewController ()
 
@@ -21,6 +22,7 @@
 @property NSArray * lastEntities;
 @property NSMutableArray *currentEntities;
 
+@property (nonatomic, strong) NSArray * likers;
 
 @end
 
@@ -103,5 +105,32 @@
     
     return cell;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    SBInstagramMediaEntity *entity = ((SBInstagramMediaPagingEntity *)self.currentEntities[indexPath.row]).mediaEntity;
+    
+    [self.instagramController likersFromMediaEntity:entity complete:^(NSMutableArray *likers, NSError *error) {
+        self.likers = likers;
+        if (!error) {
+            if (likers.count > 0) {
+                [self performSegueWithIdentifier:@"likers" sender:nil];
+            }
+        }
+        
+    }];
+    
+}
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if ([segue.identifier isEqualToString:@"likers"]) {
+        LikersTableViewController *likersVC = segue.destinationViewController;
+        likersVC.likersArray = self.likers;
+    }
+    
+}
+
 
 @end
