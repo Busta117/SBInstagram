@@ -16,15 +16,18 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    
     //here create the instagram view
     SBInstagramController *instagram = [SBInstagramController instagram];
     
     //setting up, data were taken from instagram app setting (www.instagram.com/developer)
     instagram.instagramRedirectUri = @"http://www.santiagobustamante.info";
     instagram.instagramClientSecret = @"dd9f687e1ffb4ff48ebc77188a14d283";
-    instagram.instagramClientId = @"436eb0b4692245c899091391eaa5cdf1";
-    instagram.instagramDefaultAccessToken = @"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db";
+    instagram.instagramClientId = @"039e67cf6d824abe90e3e365706b9ebf";
+    
+    
+    instagram.instagramMultipleDefaultAccessToken = @[@"6874212.436eb0b.9768fd326f9b423eab7dd260972ee6db",@"6874212.039e67c.ac264aaa9ba44f40b7c4fe2729772063"];
+    
+    
 //    instagram.instagramUserId = @"6874212";
     instagram.instagramMultipleUsersId = @[@"386407356",@"6874212"];
 //    instagram.instagramMultipleUsersId = @[@"195321624"];

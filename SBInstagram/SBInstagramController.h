@@ -18,7 +18,6 @@ static NSString *const INSTAGRAM_CLIENT_SECRET = @"";
 static NSString *const INSTAGRAM_CLIENT_ID  = @"";
 
 //if this value is empty or expired or not valid, automatically request a new one. (if you set nil the app crash)
-static NSString *const INSTAGRAM_DEFAULT_ACCESS_TOKEN  = @"";
 static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 
 
@@ -40,7 +39,7 @@ static NSString *const INSTAGRAM_USER_ID  = @""; //user id to requests
 @property (nonatomic, strong) NSString *instagramRedirectUri;
 @property (nonatomic, strong) NSString *instagramClientSecret;
 @property (nonatomic, strong) NSString *instagramClientId;
-@property (nonatomic, strong) NSString *instagramDefaultAccessToken;
+@property (nonatomic, strong) NSArray *instagramMultipleDefaultAccessToken;
 @property (nonatomic, strong) NSString *instagramUserId;
 @property (nonatomic, strong) NSString *loadingImageName; //if you need set your oun loading image
 @property (nonatomic, strong) NSString *videoPlayImageName; //if you need set your oun play video image

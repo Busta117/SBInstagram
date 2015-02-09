@@ -45,13 +45,9 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 
 
 - (NSString *) AccessToken{
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *token = [def objectForKey:@"instagram_access_token"];
-    if (!token) {
-        token = [SBInstagramModel model].instagramDefaultAccessToken ?: INSTAGRAM_DEFAULT_ACCESS_TOKEN;
-        [def setObject:token forKey:@"instagram_access_token"];
-        [def synchronize];
-    }
+    
+    NSString *token = [SBInstagramModel model].instagramMultipleDefaultAccessToken[[SBInstagramModel model].instagramAccessTokenIndex];
+
     return token;
 }
 
@@ -59,11 +55,12 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 -(void) validateTokenWithBlock:(void (^)(NSError *error))block{
     
     [SBInstagramModel checkInstagramAccesTokenWithBlock:^(NSError *error) {
-        if (error.code == InstagramAccessTokenErrorCode) {
-            [self renewAccessTokenWithBlock:block];
-        }else{
-            block(nil);
-        }
+        block(nil);
+//        if (error.code == InstagramAccessTokenErrorCode) {
+//            [self renewAccessTokenWithBlock:block];
+//        }else{
+//            block(nil);
+//        }
     }];
 }
 
@@ -259,8 +256,8 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 - (void) setInstagramClientId:(NSString *)instagramClientId{
     [SBInstagramModel model].instagramClientId = instagramClientId;
 }
-- (void) setInstagramDefaultAccessToken:(NSString *)instagramDefaultAccessToken{
-    [SBInstagramModel model].instagramDefaultAccessToken = instagramDefaultAccessToken;
+- (void) setInstagramMultipleDefaultAccessToken:(NSArray *)instagramMultipleDefaultAccessToken{
+    [SBInstagramModel model].instagramMultipleDefaultAccessToken = instagramMultipleDefaultAccessToken;
 }
 - (void) setInstagramUserId:(NSString *)instagramUserId{
     [SBInstagramModel model].instagramUserId = instagramUserId;
@@ -298,8 +295,8 @@ return [[SBInstagramCollectionViewController alloc] initWithCollectionViewLayout
 - (NSString *) instagramClientId{
     return [SBInstagramModel model].instagramClientId;
 }
-- (NSString *) instagramDefaultAccessToken{
-    return [SBInstagramModel model].instagramDefaultAccessToken;
+- (NSArray *) instagramMultipleDefaultAccessToken{
+    return [SBInstagramModel model].instagramMultipleDefaultAccessToken;
 }
 - (NSString *) instagramUserId{
     return [SBInstagramModel model].instagramUserId;

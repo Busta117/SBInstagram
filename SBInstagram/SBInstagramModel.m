@@ -36,15 +36,10 @@
 }
 
 + (void) checkInstagramAccesTokenWithBlock:(void (^)(NSError * error))block{
+
+    int tokenIndex = [SBInstagramModel model].instagramAccessTokenIndex;
     
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *token = [def objectForKey:@"instagram_access_token"];
-    
-    if (!token) {
-        token = [SBInstagramModel model].instagramDefaultAccessToken ?: INSTAGRAM_DEFAULT_ACCESS_TOKEN;
-        [def setObject:token forKey:@"instagram_access_token"];
-        [def synchronize];
-    }
+    NSString *token = [SBInstagramModel model].instagramMultipleDefaultAccessToken? [SBInstagramModel model].instagramMultipleDefaultAccessToken[tokenIndex]:@"";
     
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
@@ -60,17 +55,30 @@
             block(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (block){
-            block(error);
+        
+        //validate the index of tokens
+        int index = [SBInstagramModel model].instagramAccessTokenIndex;
+        index++;
+        if (index == [SBInstagramModel model].instagramMultipleDefaultAccessToken.count) {
+            index = 0;
         }
+        
+        [SBInstagramModel model].instagramAccessTokenIndex = index;
+        if (index == 0) {
+            if (block){
+                block(error);
+            }
+        }else{
+            [self checkInstagramAccesTokenWithBlock:block];
+        }
+
     }];
 }
 
 
 + (void) mediaUserWithUserId:(NSString *)userId andBlock:(void (^)(NSArray *mediaArray, NSError * error))block{
     
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *token = [def objectForKey:@"instagram_access_token"];
+    NSString *token = [SBInstagramModel model].instagramMultipleDefaultAccessToken[[SBInstagramModel model].instagramAccessTokenIndex];
     
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
@@ -268,8 +276,7 @@
 + (void) likersFromMediaEntity:(SBInstagramMediaEntity *)mediaEntity complete:(void (^)(NSMutableArray *likers, NSError * error))block{
     
     
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *token = [def objectForKey:@"instagram_access_token"];
+    NSString *token = [SBInstagramModel model].instagramMultipleDefaultAccessToken[[SBInstagramModel model].instagramAccessTokenIndex];
     
     NSMutableDictionary * params = [NSMutableDictionary dictionaryWithCapacity:0];
     [params setObject:token forKey:@"access_token"];
@@ -323,9 +330,14 @@
     [def setObject:instagramClientId forKey:@"instagram_instagramClientId"];
     [def synchronize];
 }
-- (void) setInstagramDefaultAccessToken:(NSString *)instagramDefaultAccessToken{
+- (void) setInstagramMultipleDefaultAccessToken:(NSArray *)instagramDefaultAccessTokens{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [def setObject:instagramDefaultAccessToken forKey:@"instagram_instagramDefaultAccessToken"];
+    [def setObject:instagramDefaultAccessTokens forKey:@"instagram_instagramMultipleDefaultAccessToken"];
+    [def synchronize];
+}
+- (void) setInstagramAccessTokenIndex:(int)instagramAccessTokenIndex{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setInteger:instagramAccessTokenIndex forKey:@"instagram_access_token_index"];
     [def synchronize];
 }
 - (void) setInstagramUserId:(NSString *)instagramUserId{
@@ -374,10 +386,15 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     return [def objectForKey:@"instagram_instagramClientId"];
 }
-- (NSString *) instagramDefaultAccessToken{
+- (NSArray *) instagramMultipleDefaultAccessToken{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    return [def objectForKey:@"instagram_instagramDefaultAccessToken"];
+    return [def objectForKey:@"instagram_instagramMultipleDefaultAccessToken"];
 }
+- (int) instagramAccessTokenIndex{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    return (int)[def integerForKey:@"instagram_access_token_index"];
+}
+
 - (NSString *) instagramUserId{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     return [def objectForKey:@"instagram_instagramUserId"];

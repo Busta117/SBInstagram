@@ -19,7 +19,8 @@
 @property (nonatomic, strong) NSString *instagramRedirectUri;
 @property (nonatomic, strong) NSString *instagramClientSecret;
 @property (nonatomic, strong) NSString *instagramClientId;
-@property (nonatomic, strong) NSString *instagramDefaultAccessToken;
+@property (nonatomic, strong) NSArray *instagramMultipleDefaultAccessToken;
+@property (nonatomic, assign) int instagramAccessTokenIndex;
 @property (nonatomic, strong) NSString *instagramUserId;
 @property (nonatomic, strong) NSString *loadingImageName; //if you need set your oun loading image
 @property (nonatomic, strong) NSString *videoPlayImageName; //if you need set your oun play video image
